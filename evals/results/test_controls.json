@@ -1,0 +1,162 @@
+{
+  "transient_retry": {
+    "pass": true,
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "failed",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        2,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "malformed_retry_once": {
+    "pass": true,
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "invalid_twice_quarantined": {
+    "pass": true,
+    "completed": 4,
+    "pending": 2,
+    "quarantined": 2,
+    "reasons": [
+      "invalid_output_after_retry: topic 'not-a-label' not allowed",
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "missing_answer_id_detected": {
+    "pass": true,
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "interrupt_resume": {
+    "pass": true,
+    "completed_before": 4,
+    "completed_after": 7,
+    "resume_calls_resending_completed_ids": [],
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "resume"
+      ],
+      [
+        "succeeded",
+        1,
+        "resume"
+      ]
+    ]
+  },
+  "budget_stop": {
+    "pass": true,
+    "stop_reason": "budget stop: spent $0.0125 + reserved $0.0000 + next $0.0017 would exceed cap $0.00",
+    "pending": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": []
+  }
+}
