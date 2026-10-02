@@ -1,0 +1,20 @@
+{
+  "_note": "Editable projection assumptions. Measured pilot values are never changed by these settings.",
+  "budget_usd": 10.0,
+  "max_workers": 1,
+  "claude_output_token_cap": 4000,
+  "max_fallback_fraction": 0.0,
+  "fallback_note": "No stronger-model fallback is used; invalid outputs are retried once then quarantined.",
+  "full_rows": 660622,
+  "full_nonempty": 660609,
+  "full_empty_quarantine": 13,
+  "full_distinct_nonempty": 484189,
+  "verify_fraction": 0.02,
+  "verify_min": 20,
+  "catalog_reused_in_full_run": true,
+  "scenarios": {
+    "base": {"retry_rate": 0.01, "token_inflation": 0.0, "verify_fraction": 0.02, "memo_attempts": 1, "time_inflation": 0.0},
+    "conservative": {"retry_rate": 0.05, "token_inflation": 0.15, "verify_fraction": 0.04, "memo_attempts": 2, "time_inflation": 0.5}
+  },
+  "local_compute": "Pipeline code runs on a Windows laptop. Electricity and hardware time are not metered: reported as unknown, not zero."
+}

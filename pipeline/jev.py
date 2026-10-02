@@ -66,7 +66,7 @@ class FakeJev:
     def ask(self, state, questions):
         self.calls += 1
         mode = self.fail_plan.get(self.calls)
-        rid = f"fake-{self.calls}"
+        rid = f"fake-{uuid.uuid4()}"
         if mode == "transient":
             return CallResult(False, request_id=rid, status=529, error="fake overload", transient=True)
         answers = {}

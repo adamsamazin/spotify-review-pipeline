@@ -54,6 +54,7 @@ DEFINITIONS = {  # shared_v1 sends this once per request in the state
 }
 
 VARIANTS = ("inline_v1", "shared_v1")
+VERIFY_VARIANT = "verify_v1"  # independent wording for the verifier role
 FIELDS = ("topic", "intent", "severity", "sentiment")
 
 
@@ -85,6 +86,14 @@ def questions_for(key, variant, prefix=""):
                         criteria=dict.fromkeys(INTENT_CRITERIA))
         severity = Choice(instructions=f"Severity of the problem in {ref}, using `definitions.severity`.",
                           criteria=dict.fromkeys(SEVERITY_CRITERIA))
+    elif variant == "verify_v1":
+        # Verifier: inline rubric with its own wording; it never sees the enricher's answer.
+        topic = Choice(instructions=f"Read the app review {ref}. Which product area is it mainly about? "
+                                    f"{TOPIC_RULE}", criteria=TOPIC_CRITERIA)
+        intent = Choice(instructions=f"Read the app review {ref}. What is the reviewer doing? {INTENT_RULE}",
+                        criteria=INTENT_CRITERIA)
+        severity = Choice(instructions=f"Read the app review {ref}. Using only what the text states, "
+                                       f"how much harm or loss of function is reported?", criteria=SEVERITY_CRITERIA)
     else:
         raise ValueError(f"unknown variant {variant}")
     sentiment = Score(instructions=f"Overall sentiment of the app review {ref}", criteria=SENTIMENT_LEVELS)

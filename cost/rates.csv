@@ -1,3 +1,7 @@
 provider,model,billing_item,unit,price_per_unit,currency,source_url,checked_on,notes
 typesafe,jev-1.13.0,input_tokens,token,0.000000042,USD,https://docs.typesafe.ai/models,2026-10-02,$0.042 per 1M input tokens ($42 per 1B)
 typesafe,jev-1.13.0,output_tokens,token,0,USD,https://docs.typesafe.ai/models,2026-10-02,output tokens are free per the models page
+anthropic,claude-haiku-4-5,input_tokens,token,0.000001,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,$1.00 per 1M input tokens (standard tier)
+anthropic,claude-haiku-4-5,output_tokens,token,0.000005,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,$5.00 per 1M output tokens (standard tier)
+anthropic,claude-haiku-4-5-20251001,input_tokens,token,0.000001,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,dated ID returned by the API for claude-haiku-4-5
+anthropic,claude-haiku-4-5-20251001,output_tokens,token,0.000005,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,dated ID returned by the API for claude-haiku-4-5
