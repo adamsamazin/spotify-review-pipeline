@@ -1,0 +1,4 @@
+# Keep LF endings so files (e.g. data/README.md) stay byte-identical to the course originals
+* text=auto eol=lf
+*.csv -text
+*.jsonl -text

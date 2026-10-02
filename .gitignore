@@ -1,0 +1,9 @@
+# raw dataset (97.4 MB) is linked + checksummed in README, not committed
+data/*
+!data/README.md
+.env
+.venv/
+__pycache__/
+*.pyc
+outputs/cache/
+runs/
