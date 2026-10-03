@@ -5,3 +5,5 @@ anthropic,claude-haiku-4-5,input_tokens,token,0.000001,USD,https://platform.clau
 anthropic,claude-haiku-4-5,output_tokens,token,0.000005,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,$5.00 per 1M output tokens (standard tier)
 anthropic,claude-haiku-4-5-20251001,input_tokens,token,0.000001,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,dated ID returned by the API for claude-haiku-4-5
 anthropic,claude-haiku-4-5-20251001,output_tokens,token,0.000005,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,dated ID returned by the API for claude-haiku-4-5
+anthropic,claude-sonnet-5-5,input_tokens,token,0.000002,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,$2.00 per 1M input tokens (standard tier)
+anthropic,claude-sonnet-5-5,output_tokens,token,0.00001,USD,https://platform.claude.com/docs/en/models/overview,2026-10-02,$10.00 per 1M output tokens incl. thinking (standard tier)

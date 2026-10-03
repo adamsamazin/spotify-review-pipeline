@@ -1,0 +1,8 @@
+pilot_phase,request_id,role,model,outcome,attempt,n_reviews,input_tokens,output_tokens,seconds,started_at,usage_status
+cold,req_01a0fe83844d70abaff86468749d6d70,enrich,jev-1.13.0,succeeded,1,50,15210,10380,0.322,2026-10-02T21:27:06.826+00:00,provider-reported
+cold,req_01a0fe83855877ad9efe3a0133095c80,enrich,jev-1.13.0,succeeded,1,50,15277,10380,0.218,2026-10-02T21:27:07.158+00:00,provider-reported
+cold,req_01a0fe8386427fbebfc9eb602828a4a8,verify,jev-1.13.0,succeeded,1,20,14805,4151,0.185,2026-10-02T21:27:07.391+00:00,provider-reported
+cold,req_011Cfe7qqiEeA1d9agMBA6q4,group,claude-haiku-4-5-20251001,succeeded,1,0,2276,909,13.464,2026-10-02T21:27:07.592+00:00,provider-reported
+cold,req_01a0fe83bbe27da5923c18ded6a9aa62,group,jev-1.13.0,succeeded,1,9,1434,599,0.131,2026-10-02T21:27:21.103+00:00,provider-reported
+cold,req_01a0fe83bc687c0c8f37d3ebe3bfb57a,group,jev-1.13.0,succeeded,1,14,2272,1167,0.169,2026-10-02T21:27:21.250+00:00,provider-reported
+cold,req_011Cfe7rrsD5L2qfjvvgBw9H,memo,claude-haiku-4-5-20251001,succeeded,1,0,3504,1000,15.175,2026-10-02T21:27:21.471+00:00,provider-reported

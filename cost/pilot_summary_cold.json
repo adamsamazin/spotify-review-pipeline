@@ -1,0 +1,142 @@
+{
+  "label": "cold",
+  "input": "C:\\Users\\adams\\Documents\\agentic-ai\\spotify-pipeline\\data\\cost_100.csv",
+  "run": "pilot_cost_100",
+  "timings": {
+    "ingest": 0.091,
+    "enrich": 0.57,
+    "verify": 0.198,
+    "group": 13.861,
+    "rank": 0.015,
+    "memo": 15.189
+  },
+  "wall_seconds": 29.929,
+  "calls_this_invocation": {
+    "enrich": {
+      "attempts": 2,
+      "failed": 0,
+      "input_tokens": 30487,
+      "output_tokens": 20760
+    },
+    "group": {
+      "attempts": 3,
+      "failed": 0,
+      "input_tokens": 5982,
+      "output_tokens": 2675
+    },
+    "memo": {
+      "attempts": 1,
+      "failed": 0,
+      "input_tokens": 3504,
+      "output_tokens": 1000
+    },
+    "verify": {
+      "attempts": 1,
+      "failed": 0,
+      "input_tokens": 14805,
+      "output_tokens": 4151
+    }
+  },
+  "statuses": {
+    "completed": 100
+  },
+  "enrich": {
+    "requests": 2,
+    "attempts": 2,
+    "completed": 100,
+    "cache_hits": 0,
+    "quarantined": 0,
+    "input_tokens": 30487,
+    "cost_usd": 0.00128,
+    "stop_reason": "all_pending_processed",
+    "phase": "initial",
+    "label_config": "jev-1.13.0+enrich_shared_v1+schema_v1"
+  },
+  "verify": {
+    "sample_size": 20,
+    "verified": 20,
+    "missing": 0,
+    "disagreement_rate": {
+      "topic": 0.05,
+      "intent": 0.0,
+      "severity": 0.05,
+      "sentiment": 0.0
+    },
+    "any_field_disagreement_rate": 0.1,
+    "stop_reason": "complete",
+    "label_config": "jev-1.13.0+verify_v1+schema_v1",
+    "sample_seed": "a5-verify-v1",
+    "fraction": 0.02,
+    "minimum": 20,
+    "calls": 1,
+    "cost_usd": 0.000622
+  },
+  "planted_test": {
+    "planted": 10,
+    "flagged": 10,
+    "summary": "10/10 planted wrong topics flagged"
+  },
+  "group": {
+    "negatives": 50,
+    "members": 50,
+    "issues_used": 13,
+    "uncovered_negatives": 0,
+    "assign_calls": 2,
+    "group_config": "jev-1.13.0+group_assign_v1+catalog_df2d778dad",
+    "stop_reason": "complete",
+    "cost_usd": 0.006977
+  },
+  "rank": {
+    "issues_ranked": 11,
+    "uncovered_negatives": 0,
+    "membership_problems": 0,
+    "totals": {
+      "records": 100,
+      "completed": 100,
+      "complaint_or_cancellation": 50,
+      "intents": {
+        "unclear": 5,
+        "praise": 42,
+        "complaint": 41,
+        "cancellation": 9,
+        "request": 3
+      }
+    },
+    "ranking_sha256": "447042570646be27ea1990a5865042f9b7060e2389079691e955d9ffdc8b7c25"
+  },
+  "memo": {
+    "status": "valid",
+    "problems": [],
+    "input_key": "3f0c6d9486ddbf2ebfdbce6aeb81676f4d301a71431718ed117753b6eabcb571",
+    "label_config": "claude-haiku-4-5+memo_v1",
+    "claims": 5,
+    "cited_review_ids": [
+      "55cc3abf-c295-4591-8c3a-78085cfdefaa",
+      "46ff0c74-5e86-4e5b-b4cd-36201aab0f9e",
+      "66a29b3c-c14d-440e-b722-b23e0c99ae82"
+    ],
+    "created_at": "2026-10-02T21:27:36.649+00:00",
+    "calls": 1,
+    "cost_usd": 0.008504,
+    "reused": false
+  },
+  "ledger_spent_usd": 0.029924,
+  "ledger_cap_usd": 10.0,
+  "input_sha256": "c884ac3b9be5066995d5063f96ad9af6e5e082975788c1684c4f6b6ea661dd0e",
+  "ingest": {
+    "extras": {
+      "distinct_nonempty_texts": 100,
+      "duplicate_text_groups": 0,
+      "nonempty_texts": 100,
+      "rows_in_duplicate_text_groups": 0,
+      "rows_reusable_from_cache": 0,
+      "text_length_chars": {
+        "max": 486,
+        "median": 46,
+        "min": 4,
+        "p99": 486
+      },
+      "top_duplicate_texts": []
+    }
+  }
+}

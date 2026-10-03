@@ -25,7 +25,7 @@ from pipeline.contract import ROOT
 from pipeline.enrich import Enricher, now
 from pipeline.rank import compute
 
-MEMO_PROMPT_VERSION = "memo_v1"
+MEMO_PROMPT_VERSION = "memo_v3"
 TOP_ISSUES = 6
 EXAMPLES_PER_ISSUE = 4
 EXAMPLE_CHARS = 250
@@ -39,9 +39,14 @@ Write a concise decision memo in Markdown (at most 450 words) with these section
 ## Recommendation, ## Evidence, ## Alternatives considered, ## Limitations.
 Rules:
 - Use only numbers that appear in the input. Do not calculate new numbers, percentages or totals.
-- Every issue-level number you state must carry a claim tag like [C1], and each tag must have a
-  matching entry in `claims` with the exact issue_id, metric and value from the ranking table.
+- Do not type issue-level numbers yourself. Where a ranking-table number belongs, write only its
+  claim tag, e.g. "`billing.x` has [C2] complaints"; code inserts the exact value before the tag.
+  Each tag needs an entry in `claims` with the issue_id, metric and value from the ranking table.
   Allowed metrics: complaint_count, severity_sum, mean_severity, priority_score.
+- Any other number (topic_rollup, run_totals) must be copied exactly as written in the input,
+  with every digit (3.692308, never 3.69), and say which table it comes from.
+- Describe comparisons accurately (do not call different numbers a tie), and do not describe the
+  evidence pack's size.
 - Refer to issues by their issue_id in backticks. Cite representative reviews by review_id in
   backticks, using only IDs from the evidence pack, and list them in `cited_review_ids`.
 - The data are self-selected public app reviews from a historical window. Cancellation language is
@@ -100,6 +105,24 @@ def allowed_numbers(inp):
     return nums
 
 
+def render(text, claims, problems):
+    """Code inserts each claim's exact value before its tag; a different number already typed there is an error."""
+    values = {c["claim_id"]: c["value"] for c in claims}
+
+    def sub(m):
+        typed, cid = m.group(1), m.group(2)
+        if cid not in values:
+            return m.group(0)
+        if typed:
+            try:
+                if Decimal(typed) != Decimal(values[cid]):
+                    problems.append(f"'{typed} [{cid}]': typed number differs from claim value {values[cid]}")
+            except InvalidOperation:
+                pass
+        return f"{values[cid]} [{cid}]"
+    return re.sub(r"(?:(-?\d+(?:\.\d+)?)\s*)?\[(C\d+)\]", sub, text)
+
+
 def validate(out, inp):
     problems = []
     ranking = {r["issue_id"]: r for r in inp["ranking_top"]}
@@ -122,7 +145,8 @@ def validate(out, inp):
             problems.append(f"{cid}: value {v!r} is not a number")
             continue
         claims.append({"claim_id": cid, "issue_id": iid, "metric": m, "value": ranking[iid][m]})
-    text = out.get("memo_markdown", "")
+    text = render(out.get("memo_markdown", ""), claims, problems)
+    out["memo_rendered"] = text
     tags = set(re.findall(r"\[(C\d+)\]", text))
     for t in sorted(tags - seen):
         problems.append(f"memo cites [{t}] but no claim has that id")
@@ -137,6 +161,21 @@ def validate(out, inp):
     for iid in set(re.findall(r"`([a-z]+\.[a-z0-9_]+)`", text)):
         if iid not in full_ids:
             problems.append(f"memo mentions issue {iid} not in the ranking table given")
+    # every ranking-table number must be written as "<number> [Cn]" with the claim's value equal to it
+    claim_value = {c["claim_id"]: Decimal(c["value"]) for c in claims}
+    for num, cid in re.findall(r"(-?\d+(?:\.\d+)?)\s*\[(C\d+)\]", text):
+        if cid in claim_value and Decimal(num) != claim_value[cid]:
+            problems.append(f"'{num} [{cid}]': the number does not equal claim {cid}'s value {claim_value[cid]}")
+    tagged = {Decimal(n).normalize() for n, _ in re.findall(r"(-?\d+(?:\.\d+)?)\s*\[(C\d+)\]", text)}
+    other_tables = allowed_numbers({"t": inp["topic_rollup"], "r": inp["run_totals"]})
+    ranking_vals = {Decimal(r[m]).normalize() for r in inp["ranking_top"] for m in METRICS}
+    untagged_text = re.sub(r"-?\d+(?:\.\d+)?\s*\[C\d+\]", " ", text)
+    untagged_text = re.sub(r"`[^`]*`", " ", untagged_text)
+    for m in re.findall(r"(?<![\w.])-?\d+(?:\.\d+)?(?![\w.])", untagged_text):
+        d = Decimal(m).normalize()
+        repeats_claim = d in {Decimal(c["value"]).normalize() for c in claims}  # restating a claimed value is traceable
+        if d in ranking_vals and d not in other_tables and not repeats_claim and not (d == d.to_integral() and 0 <= d <= 10):
+            problems.append(f"ranking-table number {m} appears without a claim tag right after it")
     # numbers in prose must come from the input (ignore claim tags, IDs, and small ordinals 1-10)
     scrub = re.sub(r"\[C\d+\]|`[^`]*`|[0-9a-f]{8}-[0-9a-f-]{27}", " ", text)
     allowed = allowed_numbers(inp)
@@ -207,7 +246,7 @@ class MemoWriter(Enricher):
     def _call(self, system, user, attempt):
         rates = self.ledger.rates
         est = (len(system) + len(user)) / 3 * rates.get((self.claude.model, "input_tokens"), 0) \
-            + 4000 * rates.get((self.claude.model, "output_tokens"), 0)
+            + self.claude.max_tokens * rates.get((self.claude.model, "output_tokens"), 0)
         for t in (1, 2, 3):
             self.ledger.reserve(est)
             started = now()
@@ -239,8 +278,8 @@ def main():
         from evals.fakes import fake_claude
         claude = fake_claude()
     else:
-        from pipeline.claude import ClaudeClient
-        claude = ClaudeClient()
+        from pipeline.claude import MEMO_EFFORT, MEMO_MODEL, ClaudeClient
+        claude = ClaudeClient(MEMO_MODEL, max_tokens=16000, effort=MEMO_EFFORT)
     MemoWriter(args.run_dir, claude, Ledger(args.budget)).run_memo()
 
 

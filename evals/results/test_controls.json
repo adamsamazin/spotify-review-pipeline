@@ -151,7 +151,7 @@
   },
   "budget_stop": {
     "pass": true,
-    "stop_reason": "budget stop: spent $0.0125 + reserved $0.0000 + next $0.0017 would exceed cap $0.00",
+    "stop_reason": "budget stop: spent $0.1377 + reserved $0.0000 + next $0.0017 would exceed cap $0.00",
     "pending": 7,
     "quarantined": 1,
     "reasons": [

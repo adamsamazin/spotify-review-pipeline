@@ -18,6 +18,7 @@ def _payload(user):
 
 def responder(system, user, schema, bad_memo=False):
     data = _payload(user)
+    data = data.get("reviews_by_topic", data)
     if "issues" in schema["properties"]:
         return {"issues": [{"topic": t, "slug": "main_problem", "name": f"Main {t} problem",
                             "definition": f"The most common {t} complaint.",
@@ -27,7 +28,7 @@ def responder(system, user, schema, bad_memo=False):
     pack = data["evidence_pack"][top["issue_id"]]
     rid = pack[0]["review_id"] if pack else None
     value = "999" if bad_memo else top["complaint_count"]
-    memo = (f"## Recommendation\nPrioritize `{top['issue_id']}`: {value} complaints [C1] with severity sum "
+    memo = (f"## Recommendation\nPrioritize `{top['issue_id']}`: {value} [C1] complaints with severity sum "
             f"{top['severity_sum']} [C2].\n\n## Evidence\n" + (f"See `{rid}`.\n" if rid else "") +
             "\n## Alternatives considered\nOther issues rank lower.\n\n## Limitations\nSelf-selected reviews.\n")
     return {"memo_markdown": memo, "cited_review_ids": [rid] if rid else [],

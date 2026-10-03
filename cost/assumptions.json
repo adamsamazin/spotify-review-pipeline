@@ -3,6 +3,7 @@
   "budget_usd": 10.0,
   "max_workers": 1,
   "claude_output_token_cap": 4000,
+  "memo_output_token_cap": 16000,
   "max_fallback_fraction": 0.0,
   "fallback_note": "No stronger-model fallback is used; invalid outputs are retried once then quarantined.",
   "full_rows": 660622,

@@ -10,27 +10,31 @@ import uuid
 
 from pipeline.jev import CallResult
 
-DEFAULT_CLAUDE_MODEL = "claude-haiku-4-5"
+DEFAULT_CLAUDE_MODEL = "claude-haiku-4-5"   # issue naming
+MEMO_MODEL = "claude-sonnet-5-5"            # memo writing (stronger reasoning, chosen after Haiku memo errors)
+MEMO_EFFORT = "high"
 
 
 class ClaudeClient:
-    def __init__(self, model=DEFAULT_CLAUDE_MODEL, timeout=120.0):
+    def __init__(self, model=DEFAULT_CLAUDE_MODEL, timeout=300.0, max_tokens=4000, effort=None):
         import anthropic
         from dotenv import load_dotenv
         from pipeline.contract import ROOT
         load_dotenv(ROOT / ".env")
-        self.model = model
+        self.model, self.max_tokens, self.effort = model, max_tokens, effort
         self._anthropic = anthropic
         self._client = anthropic.Anthropic(max_retries=0, timeout=timeout)
 
-    def ask_json(self, system, user, schema, max_tokens=4000):
+    def ask_json(self, system, user, schema, max_tokens=None):
         a = self._anthropic
+        output_config = {"format": {"type": "json_schema", "schema": schema}}
+        if self.effort:  # Sonnet 5.5 thinks adaptively; effort sets depth (Haiku 4.5 takes no effort setting)
+            output_config["effort"] = self.effort
         start = time.perf_counter()
         try:
             r = self._client.messages.create(
-                model=self.model, max_tokens=max_tokens, system=system,
-                messages=[{"role": "user", "content": user}],
-                output_config={"format": {"type": "json_schema", "schema": schema}})
+                model=self.model, max_tokens=max_tokens or self.max_tokens, system=system,
+                messages=[{"role": "user", "content": user}], output_config=output_config)
         except (a.RateLimitError, a.InternalServerError, a.APIConnectionError, a.APITimeoutError) as e:
             status = getattr(e, "status_code", None)
             return CallResult(False, request_id=f"local-{uuid.uuid4()}", status=status,
@@ -57,7 +61,7 @@ class FakeClaude:
     """Offline stand-in: `responder(system, user, schema) -> dict` builds the JSON answer."""
 
     def __init__(self, responder, model="fake-claude"):
-        self.responder, self.model, self.calls = responder, model, 0
+        self.responder, self.model, self.calls, self.max_tokens = responder, model, 0, 4000
 
     def ask_json(self, system, user, schema, max_tokens=4000):
         self.calls += 1

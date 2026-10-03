@@ -1,0 +1,15 @@
+pilot_phase,request_id,role,model,outcome,billing_item,units,price_per_unit_usd,item_cost_usd
+cold,req_01a0fe83844d70abaff86468749d6d70,enrich,jev-1.13.0,succeeded,input_tokens,15210,0.000000042000,0.0006388200
+cold,req_01a0fe83844d70abaff86468749d6d70,enrich,jev-1.13.0,succeeded,output_tokens,10380,0.000000000000,0.0000000000
+cold,req_01a0fe83855877ad9efe3a0133095c80,enrich,jev-1.13.0,succeeded,input_tokens,15277,0.000000042000,0.0006416340
+cold,req_01a0fe83855877ad9efe3a0133095c80,enrich,jev-1.13.0,succeeded,output_tokens,10380,0.000000000000,0.0000000000
+cold,req_01a0fe8386427fbebfc9eb602828a4a8,verify,jev-1.13.0,succeeded,input_tokens,14805,0.000000042000,0.0006218100
+cold,req_01a0fe8386427fbebfc9eb602828a4a8,verify,jev-1.13.0,succeeded,output_tokens,4151,0.000000000000,0.0000000000
+cold,req_011Cfe7qqiEeA1d9agMBA6q4,group,claude-haiku-4-5-20251001,succeeded,input_tokens,2276,0.000001000000,0.0022760000
+cold,req_011Cfe7qqiEeA1d9agMBA6q4,group,claude-haiku-4-5-20251001,succeeded,output_tokens,909,0.000005000000,0.0045450000
+cold,req_01a0fe83bbe27da5923c18ded6a9aa62,group,jev-1.13.0,succeeded,input_tokens,1434,0.000000042000,0.0000602280
+cold,req_01a0fe83bbe27da5923c18ded6a9aa62,group,jev-1.13.0,succeeded,output_tokens,599,0.000000000000,0.0000000000
+cold,req_01a0fe83bc687c0c8f37d3ebe3bfb57a,group,jev-1.13.0,succeeded,input_tokens,2272,0.000000042000,0.0000954240
+cold,req_01a0fe83bc687c0c8f37d3ebe3bfb57a,group,jev-1.13.0,succeeded,output_tokens,1167,0.000000000000,0.0000000000
+cold,req_011Cfe7rrsD5L2qfjvvgBw9H,memo,claude-haiku-4-5-20251001,succeeded,input_tokens,3504,0.000001000000,0.0035040000
+cold,req_011Cfe7rrsD5L2qfjvvgBw9H,memo,claude-haiku-4-5-20251001,succeeded,output_tokens,1000,0.000005000000,0.0050000000

@@ -37,10 +37,12 @@ def run(csv_path, run_name, *, fake=False, budget=None, verify_fraction=0.02, ve
         from evals.fakes import fake_claude
         from pipeline.jev import FakeJev
         jev, jev_model, claude = FakeJev(), "fake-jev", fake_claude()
+        memo_claude = fake_claude()
     else:
-        from pipeline.claude import ClaudeClient
+        from pipeline.claude import MEMO_EFFORT, MEMO_MODEL, ClaudeClient
         from pipeline.jev import JevClient
         jev, jev_model, claude = JevClient(DEFAULT_MODEL), DEFAULT_MODEL, ClaudeClient()
+        memo_claude = ClaudeClient(MEMO_MODEL, max_tokens=16000, effort=MEMO_EFFORT)
     ledger = Ledger(budget)
     log_path = run_dir / "run_log.jsonl"
     timings, results = {}, {}
@@ -77,7 +79,7 @@ def run(csv_path, run_name, *, fake=False, budget=None, verify_fraction=0.02, ve
     ver = results["verify"]
     notes = {"verifier_sample_size": ver["verified"], "verifier_any_field_disagreement_rate": ver["any_field_disagreement_rate"],
              "quarantined_records": rep["state"]["statuses"].get("quarantined", 0)}
-    stage("memo", lambda: MemoWriter(run_dir, claude, ledger, log=log).run_memo(notes))
+    stage("memo", lambda: MemoWriter(run_dir, memo_claude, ledger, log=log).run_memo(notes))
     db = sqlite3.connect(run_dir / "state.sqlite")
     by_role = {role: {"attempts": n, "failed": f, "input_tokens": i or 0, "output_tokens": o or 0}
                for role, n, f, i, o in db.execute(

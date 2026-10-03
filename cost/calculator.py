@@ -84,6 +84,11 @@ def unit_measurements(calls, run_dir, rates):
     m = {
         "run": Path(run_dir).name, "records_completed": completed, "direct_labelled": direct,
         "negative_share": negatives / completed if completed else None,
+        # share of complaint records actually sent to Jev for assignment (single-issue topics and
+        # duplicate texts are assigned by code at no cost)
+        "jev_assign_share": (sum(len(c["review_ids"]) for c in calls if c["role"] == "group"
+                                 and c["model"].startswith(("jev", "fake-jev")) and c["outcome"] == "succeeded")
+                             / negatives) if negatives else None,
         "enrich": {"tokens_per_review": tok(by["enrich"]) / direct if direct else None,
                    "sec_per_request": secs(by["enrich"]) / len(by["enrich"]) if by["enrich"] else None,
                    "attempts": len(by["enrich"]), "model": by["enrich"][0]["model"] if by["enrich"] else None},
@@ -126,7 +131,7 @@ def project(units, a, rates, rows, scenario_name):
             return cost, t
         c1, t1 = var("enrich", D)
         c2, t2 = var("verify", max(a["verify_min"], math.ceil(s["verify_fraction"] * D)))
-        neg = units["negative_share"] or 0
+        neg = (units["negative_share"] or 0) * (units.get("jev_assign_share") or 0)
         c3, t3 = var("group_assign", neg * D)
         fixed = []
         for stage, mult in (("group_discovery", 0 if a["catalog_reused_in_full_run"] else 1),
@@ -217,9 +222,9 @@ def replay(args):
             refresh.append(unit_measurements(rc, r, rates))
     units = dict(pilot_units)
     for ref in refresh:  # larger runs give steadier per-unit rates; fill stages the pilot could not measure
-        for k in ("enrich", "verify", "group_assign", "group_discovery", "memo", "negative_share"):
+        for k in ("enrich", "verify", "group_assign", "group_discovery", "memo", "negative_share", "jev_assign_share"):
             v = ref[k]
-            if (isinstance(v, dict) and v.get("model")) or (k == "negative_share" and v is not None):
+            if (isinstance(v, dict) and v.get("model")) or (k in ("negative_share", "jev_assign_share") and v is not None):
                 units[k] = v
         units["source"] = ref["run"]
     units.setdefault("source", PILOT_RUN)
@@ -251,7 +256,7 @@ def replay(args):
     w("|---|---|---|---|---|---|---|---|---|---|---|---|---|")
     effort = {"enrich": "no effort control (Jev); 4 questions/review", "verify": "no effort control (Jev)",
               "group": "Jev assign / Haiku discovery: no extended thinking, JSON schema",
-              "memo": "Haiku: no extended thinking, JSON schema, max_tokens 4000"}
+              "memo": "per model in this column (Sonnet 5.5: adaptive thinking, effort high, max_tokens 16000; earlier Haiku runs: no thinking, max_tokens 4000); JSON schema"}
     for role in ("enrich", "verify", "group", "memo"):
         st = stage.get(("cold", role))
         if not st:

@@ -1,0 +1,12 @@
+rank,issue_id,complaint_count,severity_sum,mean_severity,priority_score
+1,playback.other_playback,7,25,3.571429,25
+2,billing.premium_paywall_for_basic_features,7,21,3.000000,21
+3,other.general,11,21,1.909091,21
+4,usability.excessive_ad_volume,6,16,2.666667,16
+5,usability.involuntary_shuffle_and_skip_limits,4,12,3.000000,12
+6,usability.poor_ui_redesign,4,12,3.000000,12
+7,catalog.other_catalog,4,11,2.750000,11
+8,access.other_access,2,8,4.000000,8
+9,downloads.other_downloads,2,7,3.500000,7
+10,billing.aggressive_premium_promotion,2,5,2.500000,5
+11,support.other_support,1,2,2.000000,2

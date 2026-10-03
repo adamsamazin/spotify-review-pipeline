@@ -1,0 +1,6 @@
+claim_id,issue_id,metric,value
+C1,playback.other_playback,priority_score,25
+C2,billing.premium_paywall_for_basic_features,priority_score,21
+C3,usability.excessive_ad_volume,complaint_count,6
+C4,usability.involuntary_shuffle_and_skip_limits,complaint_count,4
+C5,other.general,complaint_count,11
