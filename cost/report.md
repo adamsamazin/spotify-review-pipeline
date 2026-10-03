@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-03 00:19 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-03 00:20 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 
@@ -50,6 +50,10 @@ Provider-reported usage compared with our call logs (scope may cover all runs th
 | 2026-10-02 | anthropic | claude-haiku-4-5 on 2026-10-02 | cost_usd | 0.08 | 0.0806 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
 | 2026-10-02 | anthropic | claude-sonnet-5-5 on 2026-10-02 | cost_usd | 0.03 | 0.0347 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
 | 2026-10-02 | anthropic | all real calls on 2026-10-02 (API key spotify-pipeline) | cost_usd | 0.12 | 0.1153 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
+| 2026-10-02 | typesafe | all real calls in the last 24 h to 2026-10-02 (all traffic) | requests | 38 | 38 | 0 | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
+| 2026-10-02 | typesafe | all real calls in the last 24 h to 2026-10-02 (all traffic) | total_tokens | 837789 | 837789 | 0 | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
+| 2026-10-02 | typesafe | all real calls in the last 24 h to 2026-10-02 (all traffic) | cost_usd | 0.0224 | 0.0224 | 0 | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
+| 2026-10-02 | typesafe | account balance | balance_usd | 5.00 | 4.9776 expected | not yet deducted | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
 
 ## Full-run projection (estimates, not measurements)
 

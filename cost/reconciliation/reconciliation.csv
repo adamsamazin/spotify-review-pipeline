@@ -6,3 +6,7 @@ checked_on,provider,scope,metric,provider_dashboard,our_call_logs,difference,scr
 2026-10-02,anthropic,claude-haiku-4-5 on 2026-10-02,cost_usd,0.08,0.0806,within rounding,2026-10-02_anthropic_cost.png,dashboard shows whole cents
 2026-10-02,anthropic,claude-sonnet-5-5 on 2026-10-02,cost_usd,0.03,0.0347,within rounding,2026-10-02_anthropic_cost.png,dashboard shows whole cents
 2026-10-02,anthropic,all real calls on 2026-10-02 (API key spotify-pipeline),cost_usd,0.12,0.1153,within rounding,2026-10-02_anthropic_cost.png,billed total
+2026-10-02,typesafe,all real calls in the last 24 h to 2026-10-02 (all traffic),requests,38,38,0,2026-10-02_typesafe_usage.webp,
+2026-10-02,typesafe,all real calls in the last 24 h to 2026-10-02 (all traffic),total_tokens,837789,837789,0,2026-10-02_typesafe_usage.webp,input 532407 + output 305382 (output is free)
+2026-10-02,typesafe,all real calls in the last 24 h to 2026-10-02 (all traffic),cost_usd,0.0224,0.0224,0,2026-10-02_typesafe_usage.webp,dashboard spend is labelled an estimate at $0.042/MTok input with free output - same rate as cost/rates.csv
+2026-10-02,typesafe,account balance,balance_usd,5.00,4.9776 expected,not yet deducted,2026-10-02_typesafe_usage.webp,balance had not updated when captured (dashboard notes stats may be delayed); recheck later
