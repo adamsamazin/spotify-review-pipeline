@@ -282,6 +282,18 @@ def replay(args):
       f"mutually exclusive items; Jev bills input only (output price 0); no cached-input or batch tier was used. "
       f"Per-call lines: `cost/cost_lines.csv`; raw usage: `cost/usage.csv`.\n")
     w(f"Local compute: {a['local_compute']}\n")
+    rec_path = COST / "reconciliation" / "reconciliation.csv"
+    if rec_path.exists():
+        w("### Reconciliation with provider dashboards\n")
+        w("Provider-reported usage compared with our call logs (scope may cover all runs that day, not only the "
+          "pilot). Screenshots are in `cost/reconciliation/`.\n")
+        w("| Checked | Provider | Scope | Metric | Provider dashboard | Our logs | Difference | Screenshot |")
+        w("|---|---|---|---|---|---|---|---|")
+        with rec_path.open(encoding="utf-8", newline="") as f:
+            for r in csv.DictReader(f):
+                w(f"| {r['checked_on']} | {r['provider']} | {r['scope']} | {r['metric']} | {r['provider_dashboard']} | "
+                  f"{r['our_call_logs']} | {r['difference']} | [{r['screenshot']}](reconciliation/{r['screenshot']}) |")
+        w("")
 
     w("## Full-run projection (estimates, not measurements)\n")
     w(f"Per-unit usage source: **{units['source']}**" + (" (refreshed from a larger run)" if refresh else " (pilot)") +

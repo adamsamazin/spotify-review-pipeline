@@ -1,0 +1,8 @@
+checked_on,provider,scope,metric,provider_dashboard,our_call_logs,difference,screenshot,note
+2026-10-02,anthropic,all real calls on 2026-10-02 (API key spotify-pipeline),input_tokens,33183,33183,0,2026-10-02_anthropic_usage.png,Haiku 4.5 28693 + Sonnet 5.5 4490
+2026-10-02,anthropic,all real calls on 2026-10-02 (API key spotify-pipeline),output_tokens,12954,12954,0,2026-10-02_anthropic_usage.png,Haiku 4.5 10384 + Sonnet 5.5 2570
+2026-10-02,anthropic,claude-haiku-4-5 on 2026-10-02,total_tokens,39077,39077,0,2026-10-02_anthropic_usage.png,
+2026-10-02,anthropic,claude-sonnet-5-5 on 2026-10-02,total_tokens,7060,7060,0,2026-10-02_anthropic_usage.png,
+2026-10-02,anthropic,claude-haiku-4-5 on 2026-10-02,cost_usd,0.08,0.0806,within rounding,2026-10-02_anthropic_cost.png,dashboard shows whole cents
+2026-10-02,anthropic,claude-sonnet-5-5 on 2026-10-02,cost_usd,0.03,0.0347,within rounding,2026-10-02_anthropic_cost.png,dashboard shows whole cents
+2026-10-02,anthropic,all real calls on 2026-10-02 (API key spotify-pipeline),cost_usd,0.12,0.1153,within rounding,2026-10-02_anthropic_cost.png,billed total

@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-02 21:32 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-03 00:19 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 
@@ -19,7 +19,7 @@ Generated 2026-10-02 21:32 UTC by offline replay (`python -m cost.calculator`). 
 | enrich | typesafe | jev-1.13.0 | no effort control (Jev); 4 questions/review | jev-1.13.0+enrich_shared_v1+schema_v1 | <=50 | 1 | 2 / 0 | 100 | 30,487 | 20,760 | $0.0013 | 0.57 |
 | verify | typesafe | jev-1.13.0 | no effort control (Jev) | jev-1.13.0+verify_v1+schema_v1 | <=50 | 1 | 1 / 0 | 20 | 14,805 | 4,151 | $0.0006 | 0.20 |
 | group | anthropic, typesafe | claude-haiku-4-5-20251001, jev-1.13.0 | Jev assign / Haiku discovery: no extended thinking, JSON schema | claude-haiku-4-5+group_discover_v1, jev-1.13.0+group_assign_v1+catalog_df2d778dad | <=50 | 1 | 3 / 0 | 23 | 5,982 | 2,675 | $0.0070 | 13.86 |
-| memo | anthropic | claude-haiku-4-5-20251001 | Haiku: no extended thinking, JSON schema, max_tokens 4000 | claude-haiku-4-5+memo_v1 | 1 | 1 | 1 / 0 | 0 | 3,504 | 1,000 | $0.0085 | 15.19 |
+| memo | anthropic | claude-haiku-4-5-20251001 | per model in this column (Sonnet 5.5: adaptive thinking, effort high, max_tokens 16000; earlier Haiku runs: no thinking, max_tokens 4000); JSON schema | claude-haiku-4-5+memo_v1 | 1 | 1 | 1 / 0 | 0 | 3,504 | 1,000 | $0.0085 | 15.19 |
 | ingest + rank (code) | local | - | - | - | - | 1 | 0 | - | - | - | $0 API (local compute unknown) | 0.11 |
 
 Summed call durations are not wall-clock time; the wall-clock figures above are from a clock around the whole run.
@@ -37,6 +37,20 @@ Item cost = billed units x price per unit (per-million prices divided by 1,000,0
 
 Local compute: Pipeline code runs on a Windows laptop. Electricity and hardware time are not metered: reported as unknown, not zero.
 
+### Reconciliation with provider dashboards
+
+Provider-reported usage compared with our call logs (scope may cover all runs that day, not only the pilot). Screenshots are in `cost/reconciliation/`.
+
+| Checked | Provider | Scope | Metric | Provider dashboard | Our logs | Difference | Screenshot |
+|---|---|---|---|---|---|---|---|
+| 2026-10-02 | anthropic | all real calls on 2026-10-02 (API key spotify-pipeline) | input_tokens | 33183 | 33183 | 0 | [2026-10-02_anthropic_usage.png](reconciliation/2026-10-02_anthropic_usage.png) |
+| 2026-10-02 | anthropic | all real calls on 2026-10-02 (API key spotify-pipeline) | output_tokens | 12954 | 12954 | 0 | [2026-10-02_anthropic_usage.png](reconciliation/2026-10-02_anthropic_usage.png) |
+| 2026-10-02 | anthropic | claude-haiku-4-5 on 2026-10-02 | total_tokens | 39077 | 39077 | 0 | [2026-10-02_anthropic_usage.png](reconciliation/2026-10-02_anthropic_usage.png) |
+| 2026-10-02 | anthropic | claude-sonnet-5-5 on 2026-10-02 | total_tokens | 7060 | 7060 | 0 | [2026-10-02_anthropic_usage.png](reconciliation/2026-10-02_anthropic_usage.png) |
+| 2026-10-02 | anthropic | claude-haiku-4-5 on 2026-10-02 | cost_usd | 0.08 | 0.0806 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
+| 2026-10-02 | anthropic | claude-sonnet-5-5 on 2026-10-02 | cost_usd | 0.03 | 0.0347 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
+| 2026-10-02 | anthropic | all real calls on 2026-10-02 (API key spotify-pipeline) | cost_usd | 0.12 | 0.1153 | within rounding | [2026-10-02_anthropic_cost.png](reconciliation/2026-10-02_anthropic_cost.png) |
+
 ## Full-run projection (estimates, not measurements)
 
 Per-unit usage source: **checkpoint_500** (refreshed from a larger run). Projected rows: 660,622 (all source rows); 660,609 nonempty classifications and 13 empty-text quarantines at the course volume; exact-text reuse leaves 484,189 distinct texts for first-pass enrichment. Fixed overhead (memo, issue discovery) is counted once, never per review.
@@ -45,10 +59,10 @@ Controls: budget **$10.00**, max workers **1**, Claude output cap **4000** token
 
 | Scenario | Reuse | Enrich | Verify | Group assign | Fixed (memo, discovery) | **Total** | Est. time | Budget check |
 |---|---|---|---|---|---|---|---|---|
-| base | with exact text reuse | $6.27 | $0.3075 | $0.9719 | $0.0105 | **$7.56** | 0.70 h | within budget |
-| base | no reuse | $8.55 | $0.4196 | $1.33 | $0.0105 | **$10.31** | 0.95 h | **OVER BUDGET** |
-| conservative | with exact text reuse | $7.49 | $0.7353 | $1.16 | $0.0211 | **$9.41** | 1.06 h | within budget |
-| conservative | no reuse | $10.22 | $1.00 | $1.59 | $0.0211 | **$12.83** | 1.45 h | **OVER BUDGET** |
+| base | with exact text reuse | $6.27 | $0.3075 | $0.9719 | $0.0119 | **$7.56** | 0.70 h | within budget |
+| base | no reuse | $8.55 | $0.4196 | $1.33 | $0.0119 | **$10.31** | 0.95 h | **OVER BUDGET** |
+| conservative | with exact text reuse | $7.49 | $0.7353 | $1.16 | $0.0238 | **$9.42** | 1.06 h | within budget |
+| conservative | no reuse | $10.22 | $1.00 | $1.59 | $0.0238 | **$12.84** | 1.45 h | **OVER BUDGET** |
 
 Assumptions: base = retry 1%, verify 2%; conservative = retry 5%, +15% tokens, verify 4%, memo x2, +50% time. Time = requests x measured seconds per request / workers.
 
@@ -84,10 +98,10 @@ Per-unit measurements used:
     "model": "claude-haiku-4-5-20251001"
   },
   "memo": {
-    "input_tokens": 14645,
-    "output_tokens": 5498,
-    "seconds": 59.215,
-    "attempts": 4,
+    "input_tokens": 19135,
+    "output_tokens": 8068,
+    "seconds": 80.292,
+    "attempts": 5,
     "model": "claude-haiku-4-5-20251001"
   },
   "source": "checkpoint_500"
