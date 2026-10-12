@@ -1,0 +1,74 @@
+[
+  {
+    "run": "checkpoint_500",
+    "records_completed": 500,
+    "direct_labelled": 479,
+    "negative_share": 0.474,
+    "jev_assign_share": 0.7172995780590717,
+    "enrich": {
+      "tokens_per_review": 305.19415448851777,
+      "sec_per_request": 0.2129,
+      "attempts": 10,
+      "model": "jev-1.13.0"
+    },
+    "verify": {
+      "tokens_per_review": 748.55,
+      "sec_per_request": 0.16,
+      "model": "jev-1.13.0"
+    },
+    "group_assign": {
+      "tokens_per_review": 139.1764705882353,
+      "sec_per_request": 0.12266666666666666,
+      "model": "jev-1.13.0"
+    },
+    "group_discovery": {
+      "input_tokens": 8268,
+      "output_tokens": 2977,
+      "seconds": 44.888,
+      "model": "claude-haiku-4-5-20251001"
+    },
+    "memo": {
+      "input_tokens": 19135,
+      "output_tokens": 8068,
+      "seconds": 80.292,
+      "attempts": 5,
+      "model": "claude-haiku-4-5-20251001"
+    }
+  },
+  {
+    "run": "analysis_10000",
+    "records_completed": 10000,
+    "direct_labelled": 8448,
+    "negative_share": 0.4446,
+    "jev_assign_share": 0.6925326135852452,
+    "enrich": {
+      "tokens_per_review": 305.13529829545456,
+      "sec_per_request": 0.2187988165680473,
+      "attempts": 169,
+      "model": "jev-1.13.0"
+    },
+    "verify": {
+      "tokens_per_review": 733.0295857988166,
+      "sec_per_request": 0.2925,
+      "model": "jev-1.13.0"
+    },
+    "group_assign": {
+      "tokens_per_review": 132.23838908736602,
+      "sec_per_request": 0.14631818181818182,
+      "model": "jev-1.13.0"
+    },
+    "group_discovery": {
+      "input_tokens": 13412,
+      "output_tokens": 3376,
+      "seconds": 51.536,
+      "model": "claude-haiku-4-5-20251001"
+    },
+    "memo": {
+      "input_tokens": 4765,
+      "output_tokens": 2884,
+      "seconds": 23.53,
+      "attempts": 1,
+      "model": "claude-sonnet-5-5"
+    }
+  }
+]

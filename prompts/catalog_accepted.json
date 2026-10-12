@@ -1,0 +1,369 @@
+{
+  "version": "group_discover_v2",
+  "model": "claude-haiku-4-5",
+  "created_at": "2026-10-12T23:08:00.854+00:00",
+  "examples_per_topic": 30,
+  "rejected": [],
+  "issues": [
+    {
+      "issue_id": "access.automatic_logout_issues",
+      "topic": "access",
+      "name": "Automatic Logout and Session Loss",
+      "definition": "Users experiencing involuntary logout from the app without warning, losing access to their accounts and saved data like liked songs after updates or app closures.",
+      "example_ids": [
+        "50fec8c5-517e-44ef-a8aa-9c4808433276",
+        "c4356017-a823-4c4b-b890-ad0ba31a1b33",
+        "4c18d22a-fb57-4376-b55e-a8b747089de1",
+        "55123d02-711d-4e41-b644-06e2c3c4db18",
+        "7142ad2b-7178-4353-aa39-1393bfd2cda1"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "access.login_authentication_failures",
+      "topic": "access",
+      "name": "Login and Authentication Failures",
+      "definition": "Users unable to log in to their accounts on mobile devices or specific platforms, receiving error messages or being unable to authenticate with email, phone number, or social login methods.",
+      "example_ids": [
+        "9f810c6a-7ef9-4060-994d-cf15e2dfefb7",
+        "303bf2d7-9032-4e30-b32c-62c62b603af1",
+        "ccd05e83-f88d-458b-90e3-19589ba2e8c0",
+        "63f1e824-2986-40f0-b309-d69ce4d26445",
+        "c0fc2fb8-b744-4b90-ad87-2ee57fae2381",
+        "37d925ee-60c9-49b9-a961-59b597f63c1f"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "access.other_access",
+      "topic": "access",
+      "name": "Other access problems",
+      "definition": "Access complaints that fit no other access issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "billing.excessive_paywall_restrictions",
+      "topic": "billing",
+      "name": "Excessive Premium Paywall on Basic Features",
+      "definition": "Core music player functionality previously free now locked behind premium paywall, including shuffle, song skipping, looping, and playback controls.",
+      "example_ids": [
+        "88cc8f74-0622-4064-b652-894fe63e1fd6",
+        "9c7696f7-c67b-4efc-9eb7-7eb0ae1cfd48",
+        "de2ffdfa-afcd-4784-bda0-1557d7f95a9d",
+        "d84c3d16-81be-4d49-8585-82f73e1691c5",
+        "8f4d1cfc-064d-482a-9bf8-fa1ecc560c51",
+        "94032ad7-ca92-44a4-b974-be8de88af527"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "billing.other_billing",
+      "topic": "billing",
+      "name": "Other billing problems",
+      "definition": "Billing complaints that fit no other billing issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "billing.premium_feature_availability_gaps",
+      "topic": "billing",
+      "name": "Premium Features Unavailable or Degraded",
+      "definition": "Paid premium users unable to access promised features like lyrics, audiobooks, or experiencing ads despite active subscription.",
+      "example_ids": [
+        "0f1d7211-cd8d-4264-a433-2a5511bba7a1",
+        "3b6d7be5-c71a-47a3-8490-76bfc48e4279"
+      ],
+      "dropped_unknown_example_ids": [
+        "bf8292c1-d2e7-4b15-ae9f-511e8f006be5"
+      ],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "catalog.lyrics_display_failures",
+      "topic": "catalog",
+      "name": "Lyrics Display and Loading Issues",
+      "definition": "Lyrics feature not loading, displaying incorrectly, or becoming unavailable for extended periods across multiple songs and user types.",
+      "example_ids": [
+        "2264145b-c219-4ab2-a4a5-e60e581311e6",
+        "520c9ec2-a9aa-4e7e-977b-a39942734702",
+        "fb4c21ae-6e1a-4bbd-b984-2ffee672e3df",
+        "9e887aaf-cac3-4c03-b273-69fd5c88746c",
+        "7899d93e-0c1c-4407-b9f6-8c55db24fe00"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "catalog.other_catalog",
+      "topic": "catalog",
+      "name": "Other catalog problems",
+      "definition": "Catalog complaints that fit no other catalog issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "catalog.recommendation_algorithm_problems",
+      "topic": "catalog",
+      "name": "Poor recommendations or unwanted songs added",
+      "definition": "Recommendations that miss the user's taste, or the app inserting unwanted songs into playlists or radio, or ignoring recommendation settings.",
+      "example_ids": [
+        "ed8efdfe-43e3-4baa-bbed-317807663531",
+        "2f82574d-9c30-4477-9fe5-7b6f562563f7"
+      ],
+      "dropped_unknown_example_ids": [
+        "b2b68a9f-ad0b-4ceb-9525-036ad7b09ff9"
+      ],
+      "source": "human_edit"
+    },
+    {
+      "issue_id": "catalog.song_search_and_availability_issues",
+      "topic": "catalog",
+      "name": "Missing or Unsearchable Songs",
+      "definition": "Popular songs, specific artists, or regional music unavailable in the catalog or failing to appear in search results despite being on the platform.",
+      "example_ids": [
+        "3392d969-621d-4091-a4de-5b8f00e3692b",
+        "fd8c6b97-7155-491c-bcf5-2f7dd289d2a6",
+        "5d7d8547-24cc-4c9f-b105-45738bd04435",
+        "e44bf9c3-8e60-4b0c-9133-ab5d3a8e003a",
+        "38005fc6-66a5-4872-adc4-7fb2341c1071"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "downloads.download_feature_premium_only",
+      "topic": "downloads",
+      "name": "Downloads locked to premium",
+      "definition": "Free users unable to download songs for offline listening, with download functionality locked behind premium paywall.",
+      "example_ids": [
+        "c3963a63-88b3-456e-a99e-e53fcf878627",
+        "8421d917-b3db-46e0-aed4-875ce466fa35",
+        "1d3f978e-b31f-4a4b-ab17-ec46ab4966b3",
+        "ecacb0eb-19b5-4a3d-898d-1daa8d6411ed"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "human_edit"
+    },
+    {
+      "issue_id": "downloads.download_persistence_failures",
+      "topic": "downloads",
+      "name": "Downloaded Songs Disappearing or Failing to Persist",
+      "definition": "Downloaded playlists or songs automatically deleting, requiring constant re-downloading, or vanishing after app updates or phone restarts.",
+      "example_ids": [
+        "4fa17991-f6dd-444c-9878-26055a48280e",
+        "2ec69f89-936c-4c2b-8ea3-27b0d276b1ae",
+        "b845ff5f-3b14-4f40-bbb3-637618843569",
+        "a588c1c7-c7f7-4d81-848c-68fc202b8dad",
+        "e8b8ced6-5849-4be4-be9a-18a4c7c7993f",
+        "fbbd7971-0279-45de-ab2c-468e8eaec8ae"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "downloads.offline_playback_slow_loading",
+      "topic": "downloads",
+      "name": "Slow or Non-Functional Offline Playback",
+      "definition": "Downloaded songs taking excessive time to load in offline mode or failing to play despite successful download, making offline listening unusable.",
+      "example_ids": [
+        "66cf3c40-a1d2-4fa1-b06d-7a902accba75",
+        "455f67cb-da39-4869-b3d5-38519f2b9249",
+        "b03d6dc9-449a-4647-b112-559186656759"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "downloads.other_downloads",
+      "topic": "downloads",
+      "name": "Other downloads problems",
+      "definition": "Downloads complaints that fit no other downloads issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "other.general",
+      "topic": "other",
+      "name": "General dissatisfaction",
+      "definition": "Negative reviews with no specific product problem stated.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "playback.other_playback",
+      "topic": "playback",
+      "name": "Other playback problems",
+      "definition": "Playback complaints that fit no other playback issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "playback.playback_connectivity_errors",
+      "topic": "playback",
+      "name": "False No Internet Connection Errors During Playback",
+      "definition": "App showing no internet connection error or interrupting playback even when device has active internet connection.",
+      "example_ids": [
+        "5b55846e-2f70-49c4-9d96-6188e977aac3",
+        "bd336803-8824-4c93-b448-a63cca2a3385",
+        "bdca809b-b507-48ac-806d-e17c480900a5"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "playback.playback_crashes_and_freezes",
+      "topic": "playback",
+      "name": "App Crashes and Playback Freezes",
+      "definition": "App crashing during playback, stopping unexpectedly after one song, or requiring frequent force-closes to function.",
+      "example_ids": [
+        "89be32ab-664a-4647-a5e3-e4006a67e4e1",
+        "647975bc-5143-4c8f-a38e-48b4acfe2916",
+        "2ad80f64-a9fd-459e-967d-a6298e230851",
+        "df14fc02-1b82-496f-9da4-887ab20e69cb"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "playback.wrong_song_playback",
+      "topic": "playback",
+      "name": "Wrong Song Playing When Selected",
+      "definition": "App playing different song than the one user selected or clicked on, or unexpected songs randomly added to playback.",
+      "example_ids": [
+        "f6092df1-ddef-41c1-99d5-bf29f822a27c",
+        "60ba18d8-d0ab-4486-a443-e6d89bf53689",
+        "a89fcace-c4a8-4f21-a612-1e66f8dc87cb",
+        "fc456f03-b0d6-43b9-8090-104ae99991eb"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "support.other_support",
+      "topic": "support",
+      "name": "Other support problems",
+      "definition": "Support complaints that fit no other support issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "support.unhelpful_or_slow_support",
+      "topic": "support",
+      "name": "Unhelpful or slow customer support",
+      "definition": "Customer support that is slow, unresponsive or unable to resolve the problem, including hacked-account recovery and billing disputes.",
+      "example_ids": [
+        "10800b01-920d-4c22-91f5-521c45caf4f0",
+        "45d07c5b-1110-422a-8c4d-7f128042697c",
+        "5782aeec-f1e0-4730-a0c4-51ba54303b27",
+        "946070c1-d690-4251-a550-07b0af85859c",
+        "cfe3f469-fc07-4add-a9d0-e6fac82aaca8",
+        "d7f0416d-849f-43d3-88b0-e821a1802383",
+        "e3ab8023-f0d4-4ef3-beb1-6d0fc554bd05"
+      ],
+      "source": "human_merge",
+      "merged_from": [
+        "support.account_security_support_failures",
+        "support.slow_unresponsive_customer_support",
+        "support.support_billing_issues"
+      ]
+    },
+    {
+      "issue_id": "usability.excessive_ad_frequency",
+      "topic": "usability",
+      "name": "Excessive Ads in Free Tier",
+      "definition": "Free users experiencing ads appearing every few songs or continuously, disrupting music listening experience.",
+      "example_ids": [
+        "27907435-abca-4b35-b545-6204d0622949",
+        "cf7cb282-1a38-4a5f-a733-c41bf2926117",
+        "818a84a2-6e60-40d1-80bf-cdb1bf00db5c",
+        "fa5eba46-75b8-4aba-8efd-a0e47c186906",
+        "38d47152-9646-460a-9d41-4b79aab1e9f0",
+        "6b310133-b01f-4cee-be28-86e5ea0e1d7a"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "claude_discovery"
+    },
+    {
+      "issue_id": "usability.interface_and_ui_problems",
+      "topic": "usability",
+      "name": "Interface issues and update-related usability degradation",
+      "definition": "Major UI changes causing confusion, or removal of familiar features after updates, making the app harder to navigate and use.",
+      "example_ids": [
+        "b7488c9e-672a-443a-9f0f-13b1c92201a7",
+        "e398ee3a-f2dc-4dff-b123-bbe5ae7311bb",
+        "45c561b9-cc47-4d80-95d3-f0d20bc84af3"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "human_edit"
+    },
+    {
+      "issue_id": "usability.other_usability",
+      "topic": "usability",
+      "name": "Other usability problems",
+      "definition": "Usability complaints that fit no other usability issue.",
+      "example_ids": [],
+      "source": "code_catch_all"
+    },
+    {
+      "issue_id": "usability.unavailable_playback_controls",
+      "topic": "usability",
+      "name": "Playback controls missing or hard to use",
+      "definition": "Playback controls (repeat/loop, skip, previous, seek) removed, hidden or confusing after updates, where the review does not say they are locked to premium.",
+      "example_ids": [
+        "66b7c16d-2a17-4128-9977-07452c7c4d84",
+        "97c57930-0ead-4e3c-96ad-efda13654871",
+        "0b2ad82e-2cc4-4664-bd4d-bfda9d46024f",
+        "982c3b8c-ee10-40d3-9a72-5c2a82665a05",
+        "7084ced1-0428-4093-9328-442f74719b4f"
+      ],
+      "dropped_unknown_example_ids": [],
+      "source": "human_edit"
+    }
+  ],
+  "edits": [
+    {
+      "op": "rename",
+      "id": "usability.unavailable_playback_controls",
+      "name": "Playback controls missing or hard to use",
+      "definition": "Playback controls (repeat/loop, skip, previous, seek) removed, hidden or confusing after updates, where the review does not say they are locked to premium."
+    },
+    {
+      "op": "rename",
+      "id": "downloads.download_feature_premium_only",
+      "name": "Downloads locked to premium"
+    },
+    {
+      "op": "rename",
+      "id": "catalog.recommendation_algorithm_problems",
+      "name": "Poor recommendations or unwanted songs added",
+      "definition": "Recommendations that miss the user's taste, or the app inserting unwanted songs into playlists or radio, or ignoring recommendation settings."
+    },
+    {
+      "op": "rename",
+      "id": "usability.interface_and_ui_problems",
+      "name": "Interface issues and update-related usability degradation",
+      "definition": "Major UI changes causing confusion, or removal of familiar features after updates, making the app harder to navigate and use."
+    },
+    {
+      "op": "merge",
+      "from": [
+        "support.account_security_support_failures",
+        "support.slow_unresponsive_customer_support",
+        "support.support_billing_issues"
+      ],
+      "into": "support.unhelpful_or_slow_support",
+      "name": "Unhelpful or slow customer support",
+      "definition": "Customer support that is slow, unresponsive or unable to resolve the problem, including hacked-account recovery and billing disputes."
+    },
+    {
+      "op": "drop",
+      "id": "access.device_access_management_barriers"
+    }
+  ],
+  "accepted_by": "human review of the analysis_10000 catalog",
+  "accepted_at": "2026-10-12T23:15:17+00:00"
+}

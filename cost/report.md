@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-12 23:09 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-12 23:16 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 
@@ -8,19 +8,19 @@ Generated 2026-10-12 23:09 UTC by offline replay (`python -m cost.calculator`). 
 - Pilot IDs saved: 100; identical to cost_100.csv IDs in order: **True**
 - Records: 100 completed, 0 not completed; unique texts 100; result-cache hits 0
 - Cold run: empty result cache (fresh run directory), 1 worker. Warm run: same settings, saved results.
-- **Wall-clock (measured with a clock): cold 29.93 s, warm 0.14 s**
-- **API cost: cold $0.0174, warm (incremental) $0.0000**; warm enrichment calls: **0**
-- Cost per 1,000 input rows (cold): $0.1738; per completed record: $0.0002; throughput 3.3 rows/s end-to-end
+- **Wall-clock (measured with a clock): cold 24.25 s, warm 0.12 s**
+- **API cost: cold $0.0429, warm (incremental) $0.0000**; warm enrichment calls: **0**
+- Cost per 1,000 input rows (cold): $0.4293; per completed record: $0.0004; throughput 4.1 rows/s end-to-end
 
 ### By stage (cold run)
 
 | Stage | Provider | Exact model | Effort / settings | Prompt / schema version | Batch | Workers | Requests (attempts / failed) | Reviews sent | Input tok | Output tok | Cost | Stage time (s) |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
-| enrich | typesafe | jev-1.13.0 | no effort control (Jev); 4 questions/review | jev-1.13.0+enrich_shared_v1+schema_v1 | <=50 | 1 | 2 / 0 | 100 | 30,487 | 20,760 | $0.0013 | 0.57 |
-| verify | typesafe | jev-1.13.0 | no effort control (Jev) | jev-1.13.0+verify_v1+schema_v1 | <=50 | 1 | 1 / 0 | 20 | 14,805 | 4,151 | $0.0006 | 0.20 |
-| group | anthropic, typesafe | claude-haiku-4-5-20251001, jev-1.13.0 | Jev assign / Haiku discovery: no extended thinking, JSON schema | claude-haiku-4-5+group_discover_v1, jev-1.13.0+group_assign_v1+catalog_df2d778dad | <=50 | 1 | 3 / 0 | 23 | 5,982 | 2,675 | $0.0070 | 13.86 |
-| memo | anthropic | claude-haiku-4-5-20251001 | per model in this column (Sonnet 5.5: adaptive thinking, effort high, max_tokens 16000; earlier Haiku runs: no thinking, max_tokens 4000); JSON schema | claude-haiku-4-5+memo_v1 | 1 | 1 | 1 / 0 | 0 | 3,504 | 1,000 | $0.0085 | 15.19 |
-| ingest + rank (code) | local | - | - | - | - | 1 | 0 | - | - | - | $0 API (local compute unknown) | 0.11 |
+| enrich | typesafe | jev-1.13.0 | no effort control (Jev); 4 questions/review | jev-1.13.0+enrich_shared_v1+schema_v1 | <=50 | 1 | 2 / 0 | 100 | 30,487 | 20,762 | $0.0013 | 0.56 |
+| verify | typesafe | jev-1.13.0 | no effort control (Jev) | jev-1.13.0+verify_v1+schema_v1 | <=50 | 1 | 1 / 0 | 20 | 14,805 | 4,151 | $0.0006 | 0.18 |
+| group | typesafe | jev-1.13.0 | Jev assign / Haiku discovery: no extended thinking, JSON schema | jev-1.13.0+group_assign_v1+catalog_b4a33aea9b | <=50 | 1 | 7 / 0 | 39 | 7,432 | 3,015 | $0.0003 | 0.74 |
+| memo | anthropic | claude-sonnet-5-5 | per model in this column (Sonnet 5.5: adaptive thinking, effort high, max_tokens 16000; earlier Haiku runs: no thinking, max_tokens 4000); JSON schema | claude-sonnet-5-5+memo_v3 | 1 | 1 | 1 / 0 | 0 | 4,291 | 3,213 | $0.0407 | 22.68 |
+| ingest + rank (code) | local | - | - | - | - | 1 | 0 | - | - | - | $0 API (local compute unknown) | 0.09 |
 
 Summed call durations are not wall-clock time; the wall-clock figures above are from a clock around the whole run.
 
@@ -28,8 +28,8 @@ Summed call durations are not wall-clock time; the wall-clock figures above are 
 
 | Model | Item | Price per unit | Currency | Source | Checked |
 |---|---|---|---|---|---|
-| claude-haiku-4-5-20251001 | input_tokens | 0.000001000000 per token | USD | https://platform.claude.com/docs/en/models/overview | 2026-10-02 |
-| claude-haiku-4-5-20251001 | output_tokens | 0.000005000000 per token | USD | https://platform.claude.com/docs/en/models/overview | 2026-10-02 |
+| claude-sonnet-5-5 | input_tokens | 0.000002000000 per token | USD | https://platform.claude.com/docs/en/models/overview | 2026-10-02 |
+| claude-sonnet-5-5 | output_tokens | 0.000010000000 per token | USD | https://platform.claude.com/docs/en/models/overview | 2026-10-02 |
 | jev-1.13.0 | input_tokens | 0.000000042000 per token | USD | https://docs.typesafe.ai/models | 2026-10-02 |
 | jev-1.13.0 | output_tokens | 0.000000000000 per token | USD | https://docs.typesafe.ai/models | 2026-10-02 |
 

@@ -3,14 +3,14 @@
   "input": "C:\\Users\\adams\\Documents\\agentic-ai\\spotify-pipeline\\data\\cost_100.csv",
   "run": "pilot_cost_100",
   "timings": {
-    "ingest": 0.077,
+    "ingest": 0.058,
     "enrich": 0.005,
-    "verify": 0.011,
-    "group": 0.008,
-    "rank": 0.006,
-    "memo": 0.03
+    "verify": 0.016,
+    "group": 0.009,
+    "rank": 0.011,
+    "memo": 0.014
   },
-  "wall_seconds": 0.143,
+  "wall_seconds": 0.118,
   "calls_this_invocation": {},
   "statuses": {
     "completed": 100
@@ -32,12 +32,12 @@
     "verified": 20,
     "missing": 0,
     "disagreement_rate": {
-      "topic": 0.05,
+      "topic": 0.1,
       "intent": 0.0,
       "severity": 0.05,
       "sentiment": 0.0
     },
-    "any_field_disagreement_rate": 0.1,
+    "any_field_disagreement_rate": 0.15,
     "stop_reason": "complete",
     "label_config": "jev-1.13.0+verify_v1+schema_v1",
     "sample_seed": "a5-verify-v1",
@@ -54,15 +54,15 @@
   "group": {
     "negatives": 50,
     "members": 50,
-    "issues_used": 13,
+    "issues_used": 25,
     "uncovered_negatives": 0,
     "assign_calls": 0,
-    "group_config": "jev-1.13.0+group_assign_v1+catalog_df2d778dad",
+    "group_config": "jev-1.13.0+group_assign_v1+catalog_b4a33aea9b",
     "stop_reason": "complete",
     "cost_usd": 0.0
   },
   "rank": {
-    "issues_ranked": 11,
+    "issues_ranked": 15,
     "uncovered_negatives": 0,
     "membership_problems": 0,
     "totals": {
@@ -72,30 +72,34 @@
       "intents": {
         "unclear": 5,
         "praise": 42,
-        "complaint": 41,
-        "cancellation": 9,
+        "complaint": 42,
+        "cancellation": 8,
         "request": 3
       }
     },
-    "ranking_sha256": "447042570646be27ea1990a5865042f9b7060e2389079691e955d9ffdc8b7c25"
+    "ranking_sha256": "75d70a48432c4d4677196a328d9b1b4e22b1ef786aa0bd96ebf059a49d5dba8b"
   },
   "memo": {
     "status": "valid",
     "problems": [],
-    "input_key": "3f0c6d9486ddbf2ebfdbce6aeb81676f4d301a71431718ed117753b6eabcb571",
-    "label_config": "claude-haiku-4-5+memo_v1",
-    "claims": 5,
+    "input_key": "765d2a23eb44a3276f3a6bd238aef5991c4469561a716edf56876adc4de6eb31",
+    "label_config": "claude-sonnet-5-5+memo_v3",
+    "claims": 13,
     "cited_review_ids": [
-      "55cc3abf-c295-4591-8c3a-78085cfdefaa",
-      "46ff0c74-5e86-4e5b-b4cd-36201aab0f9e",
-      "66a29b3c-c14d-440e-b722-b23e0c99ae82"
+      "06a45bd5-3ed9-43af-b7f2-8b9487e2ffff",
+      "a78d831a-69f4-428a-9235-cfdd9775c509",
+      "c2738a4f-e57c-46bc-a4ad-8ec5a4b5d5cd",
+      "7084ced1-0428-4093-9328-442f74719b4f",
+      "a3605554-5c3a-441d-836e-e9fdea83eb2e",
+      "32fb340f-4f9f-4551-8dae-755221e58d6a",
+      "035213ba-b1b9-411c-b028-70296e5f0e73"
     ],
-    "created_at": "2026-10-02T21:27:36.649+00:00",
+    "created_at": "2026-10-12T23:15:56.520+00:00",
     "calls": 1,
-    "cost_usd": 0.008504,
+    "cost_usd": 0.040712,
     "reused": true
   },
-  "ledger_spent_usd": 0.029924,
+  "ledger_spent_usd": 0.379903,
   "ledger_cap_usd": 10.0,
   "input_sha256": "c884ac3b9be5066995d5063f96ad9af6e5e082975788c1684c4f6b6ea661dd0e",
   "ingest": {

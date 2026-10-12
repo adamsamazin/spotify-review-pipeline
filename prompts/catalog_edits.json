@@ -1,0 +1,13 @@
+[
+  {"op": "rename", "id": "usability.unavailable_playback_controls", "name": "Playback controls missing or hard to use",
+   "definition": "Playback controls (repeat/loop, skip, previous, seek) removed, hidden or confusing after updates, where the review does not say they are locked to premium."},
+  {"op": "rename", "id": "downloads.download_feature_premium_only", "name": "Downloads locked to premium"},
+  {"op": "rename", "id": "catalog.recommendation_algorithm_problems", "name": "Poor recommendations or unwanted songs added",
+   "definition": "Recommendations that miss the user's taste, or the app inserting unwanted songs into playlists or radio, or ignoring recommendation settings."},
+  {"op": "rename", "id": "usability.interface_and_ui_problems", "name": "Interface issues and update-related usability degradation",
+   "definition": "Major UI changes causing confusion, or removal of familiar features after updates, making the app harder to navigate and use."},
+  {"op": "merge", "from": ["support.account_security_support_failures", "support.slow_unresponsive_customer_support", "support.support_billing_issues"],
+   "into": "support.unhelpful_or_slow_support", "name": "Unhelpful or slow customer support",
+   "definition": "Customer support that is slow, unresponsive or unable to resolve the problem, including hacked-account recovery and billing disputes."},
+  {"op": "drop", "id": "access.device_access_management_barriers"}
+]

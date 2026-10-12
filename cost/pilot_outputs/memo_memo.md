@@ -1,29 +1,19 @@
 ## Recommendation
-
-Prioritize **playback** for the next quarter. `playback.other_playback` ranks as the top issue with the highest severity profile [C1], driven by critical failures including app crashes and loading problems that completely block user access to core functionality.
+Put next quarter's effort into **usability**, focused on free-tier experience: `usability.excessive_ad_frequency`, `usability.unavailable_playback_controls` and `usability.interface_and_ui_problems`. Review the paywall policy behind `billing.excessive_paywall_restrictions` alongside it. Many reviews tie missing controls and ads to the premium upsell, so the two may need one joint decision.
 
 ## Evidence
-
-`playback.other_playback` has a priority score of [C1] 25 with mean severity of 3.571429—the highest mean severity across all issues. Representative complaints include app crashes preventing use entirely (`55cc3abf-c295-4591-8c3a-78085cfdefaa`), Google Assistant integration failures (`46ff0c74-5e86-4e5b-b4cd-36201aab0f9e`), and persistent loading screen hangs (`66a29b3c-c14d-440e-b722-b23e0c99ae82`).
-
-`billing.premium_paywall_for_basic_features` [C2] ranks second with priority score 21 and mean severity 3.0, reflecting user frustration over feature restrictions in the free tier. However, these are policy-driven limitations rather than technical failures.
-
-`usability.excessive_ad_volume` [C3] and `usability.involuntary_shuffle_and_skip_limits` [C4] tie at complaint counts of 6 and 4 respectively, with mean severities of 2.666667 and 3.0. Ad volume complaints cite overwhelming ad frequency, while skip/shuffle limitations anger users through forced playlist play patterns and skip quotas.
-
-`other.general` [C5] has the highest complaint count (11) but lowest mean severity (1.909091), suggesting diffuse dissatisfaction rather than specific, actionable problems.
+- In topic_rollup, usability has complaint_count 16, severity_sum 46 and mean_severity 2.875000, the largest severity_sum of any topic.
+- `other.general` ranks first with 11 [C1] complaints and priority_score 21 [C2]. It is generic dissatisfaction (e.g. `06a45bd5-3ed9-43af-b7f2-8b9487e2ffff`), so it gives no actionable direction.
+- `billing.excessive_paywall_restrictions` ranks second with 7 [C3] complaints, mean_severity 2.857143 [C4] and priority_score 20 [C5]. This is below `other.general` on priority_score. Example: `a78d831a-69f4-428a-9235-cfdd9775c509`.
+- `usability.excessive_ad_frequency` has 6 [C6] complaints and priority_score 16 [C7]. Example: `c2738a4f-e57c-46bc-a4ad-8ec5a4b5d5cd`.
+- `usability.interface_and_ui_problems` has priority_score 15 [C8] and mean_severity 3.000000 [C9]. Reviews cite updates that removed basic features: `7084ced1-0428-4093-9328-442f74719b4f`.
+- `usability.unavailable_playback_controls` has 4 [C10] complaints and mean_severity 3.000000 [C11], the same mean_severity as the interface issue. Example: `a3605554-5c3a-441d-836e-e9fdea83eb2e`, which describes skip and previous-song removal for non-subscribed users.
+- Run_totals shows complaint_or_cancellation 50 out of records 100.
 
 ## Alternatives considered
-
-**Usability (combined topic level):** While usability issues aggregate to 14 complaints and severity sum 40, they span multiple distinct problems (ads, shuffle/skip limits, UI redesign). This fragmentation reduces leverage—fixing one doesn't resolve others.
-
-**Billing/Premium Paywall:** Though tied with playback in complaint count at 7, the lower mean severity (3.0 vs. 3.571429) and policy-driven nature suggest these reflect business model decisions rather than execution failures.
-
-**Access:** Only 2 complaints but mean severity 4.0; however, the small sample limits confidence in priority.
+- **Access:** `access.login_authentication_failures` has only 2 [C12] complaints but the highest mean_severity at 4.000000 [C13]; see `32fb340f-4f9f-4551-8dae-755221e58d6a`. The topic_rollup shows access with complaint_count 2 and severity_sum 8. Worth a targeted fix, but it is small in volume.
+- **Playback (topic):** topic_rollup lists playback with complaint_count 7, severity_sum 25 and mean_severity 3.571429. That is higher per complaint than usability's 2.875000 but lower in total.
+- **Billing/support:** topic_rollup shows billing with complaint_count 7 and severity_sum 20, and support with complaint_count 1 and severity_sum 2. Billing is covered by the joint paywall review above.
 
 ## Limitations
-
-- Data represent self-selected public reviews (100 records, 50 complaint/cancellation intents); they do not represent all users or churn causation.
-- "Cancellation language" reflects stated intent, not observed churn. Revenue or retention impact cannot be inferred.
-- Mean severity scores reflect review-author perception, not objective impact measurement.
-- The evidence pack is small (7 reviews per top issue) and may not capture the full distribution of user experiences.
-- Playback problems may involve platform-specific or device-specific failures not visible in aggregate data.
+The data are self-selected public app reviews from a historical window, so they do not represent all users. Cancellation language is stated intent, not observed churn (e.g. `035213ba-b1b9-411c-b028-70296e5f0e73`). This memo makes no revenue, churn or causal estimates. The verifier notes report verifier_any_field_disagreement_rate 0.15, so some labels may be wrong. Issue categorisation is imperfect: related free-tier restriction complaints are split between billing and usability.

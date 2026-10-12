@@ -3,18 +3,36 @@
   "verified": 20,
   "missing": 0,
   "disagreement_rate": {
-    "topic": 0.05,
+    "topic": 0.1,
     "intent": 0.0,
     "severity": 0.05,
     "sentiment": 0.0
   },
-  "any_field_disagreement_rate": 0.1,
+  "any_field_disagreement_rate": 0.15,
   "planted_test": {
     "planted": 10,
     "flagged": 10,
     "summary": "10/10 planted wrong topics flagged"
   },
   "cases": [
+    {
+      "review_id": "a3605554-5c3a-441d-836e-e9fdea83eb2e",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.615
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.845
+      }
+    },
     {
       "review_id": "47becad0-8ae5-4a10-9731-fde8f2091862",
       "fields": [
@@ -24,7 +42,7 @@
         "topic": "catalog",
         "intent": "complaint",
         "severity": 3,
-        "sentiment": 0.195
+        "sentiment": 0.19
       },
       "verifier": {
         "topic": "catalog",
@@ -42,13 +60,13 @@
         "topic": "billing",
         "intent": "praise",
         "severity": 1,
-        "sentiment": 0.385
+        "sentiment": 0.435
       },
       "verifier": {
         "topic": "other",
         "intent": "praise",
         "severity": 1,
-        "sentiment": 0.585
+        "sentiment": 0.59
       }
     }
   ],

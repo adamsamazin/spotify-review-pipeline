@@ -220,6 +220,11 @@ def replay(args):
         rc = read_jsonl(Path(r) / "calls.jsonl")
         if rc:
             refresh.append(unit_measurements(rc, r, rates))
+    saved = COST / "refresh_measurements.json"
+    if refresh:  # save per-unit usage from larger runs so offline replay works without the run folders
+        saved.write_text(json.dumps(refresh, indent=2, default=str), encoding="utf-8")
+    elif saved.exists():
+        refresh = json.loads(saved.read_text(encoding="utf-8"))
     units = dict(pilot_units)
     for ref in refresh:  # larger runs give steadier per-unit rates; fill stages the pilot could not measure
         for k in ("enrich", "verify", "group_assign", "group_discovery", "memo", "negative_share", "jev_assign_share"):
@@ -346,9 +351,9 @@ def pilot(args):
         if not args.fresh:
             sys.exit(f"{run_dir} exists; pass --fresh to delete it and start a new cold pilot")
         shutil.rmtree(run_dir)
-    cold = run(PILOT_CSV, PILOT_RUN, label="cold", budget=args.budget)
+    cold = run(PILOT_CSV, PILOT_RUN, label="cold", budget=args.budget, catalog=args.catalog)
     n_cold = len(read_jsonl(run_dir / "calls.jsonl"))
-    warm = run(PILOT_CSV, PILOT_RUN, label="warm", budget=args.budget)
+    warm = run(PILOT_CSV, PILOT_RUN, label="warm", budget=args.budget, catalog=args.catalog)
     calls = read_jsonl(run_dir / "calls.jsonl")
     with (COST / "pilot_calls.jsonl").open("w", encoding="utf-8") as f:
         for i, c in enumerate(calls):
@@ -394,6 +399,8 @@ def main():
     ap.add_argument("--print", action="store_true")
     ap.add_argument("--confirm-paid", action="store_true")
     ap.add_argument("--fresh", action="store_true")
+    ap.add_argument("--catalog", default=ROOT / "prompts" / "catalog_accepted.json",
+                    help="accepted issue catalog (the final configuration reuses it)")
     args = ap.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
     pilot(args) if args.command == "pilot" else replay(args)
