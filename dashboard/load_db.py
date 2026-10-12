@@ -165,6 +165,8 @@ def load(run_dir, url):
             cur.execute("SELECT 1 FROM pg_roles WHERE rolname='dashboard_reader'")
             if not cur.fetchone():
                 cur.execute(sql.SQL("CREATE ROLE dashboard_reader LOGIN PASSWORD {}").format(sql.Literal(pw)))
+        cur.execute("SELECT 1 FROM pg_roles WHERE rolname='dashboard_reader'")
+        if cur.fetchone():  # tables were just recreated: re-grant read-only access for the deployed backend
             cur.execute("GRANT USAGE ON SCHEMA public TO dashboard_reader")
             cur.execute("GRANT SELECT ON ALL TABLES IN SCHEMA public TO dashboard_reader")
         pg.commit()
