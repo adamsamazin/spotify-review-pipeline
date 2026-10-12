@@ -1,0 +1,130 @@
+{
+  "label": "official",
+  "input": "data\\analysis_10000.csv",
+  "run": "analysis_10000",
+  "timings": {
+    "ingest": 0.289,
+    "enrich": 20.25,
+    "verify": 1.232,
+    "group": 62.021,
+    "rank": 0.154,
+    "memo": 23.721
+  },
+  "wall_seconds": 107.672,
+  "calls_this_invocation": {
+    "enrich": {
+      "attempts": 169,
+      "failed": 0,
+      "input_tokens": 2577783,
+      "output_tokens": 1753541
+    },
+    "group": {
+      "attempts": 67,
+      "failed": 0,
+      "input_tokens": 420574,
+      "output_tokens": 240878
+    },
+    "memo": {
+      "attempts": 1,
+      "failed": 0,
+      "input_tokens": 4765,
+      "output_tokens": 2884
+    },
+    "verify": {
+      "attempts": 4,
+      "failed": 0,
+      "input_tokens": 123882,
+      "output_tokens": 35084
+    }
+  },
+  "statuses": {
+    "completed": 10000
+  },
+  "enrich": {
+    "requests": 169,
+    "attempts": 169,
+    "completed": 8448,
+    "cache_hits": 1552,
+    "quarantined": 0,
+    "input_tokens": 2577783,
+    "cost_usd": 0.108267,
+    "stop_reason": "all_pending_processed",
+    "phase": "initial",
+    "label_config": "jev-1.13.0+enrich_shared_v1+schema_v1"
+  },
+  "verify": {
+    "sample_size": 169,
+    "verified": 169,
+    "missing": 0,
+    "disagreement_rate": {
+      "topic": 0.089,
+      "intent": 0.053,
+      "severity": 0.089,
+      "sentiment": 0.006
+    },
+    "any_field_disagreement_rate": 0.189,
+    "stop_reason": "complete",
+    "label_config": "jev-1.13.0+verify_v1+schema_v1",
+    "sample_seed": "a5-verify-v1",
+    "fraction": 0.02,
+    "minimum": 20,
+    "calls": 4,
+    "cost_usd": 0.005203
+  },
+  "planted_test": {
+    "planted": 10,
+    "flagged": 10,
+    "summary": "10/10 planted wrong topics flagged"
+  },
+  "group": {
+    "negatives": 4446,
+    "members": 4446,
+    "issues_used": 28,
+    "uncovered_negatives": 0,
+    "assign_calls": 66,
+    "group_config": "jev-1.13.0+group_assign_v1+catalog_ce61b7eace",
+    "stop_reason": "complete",
+    "cost_usd": 0.047393
+  },
+  "rank": {
+    "issues_ranked": 28,
+    "uncovered_negatives": 0,
+    "membership_problems": 0,
+    "totals": {
+      "records": 10000,
+      "completed": 10000,
+      "complaint_or_cancellation": 4446,
+      "intents": {
+        "unclear": 879,
+        "praise": 4235,
+        "complaint": 4070,
+        "cancellation": 376,
+        "request": 440
+      }
+    },
+    "ranking_sha256": "f809c3546581eca3cd75a6798fb0f33af4cf93f51c2efff065aeb182b7ff56f5"
+  },
+  "memo": {
+    "status": "valid",
+    "problems": [],
+    "input_key": "a67de2f21d055c77bacb01cadb08a52e0ce3d40994ef4b4d44cd556b7fd3420a",
+    "label_config": "claude-sonnet-5-5+memo_v3",
+    "claims": 8,
+    "cited_review_ids": [
+      "21ddfe12-8433-4bad-b0f8-e7f605c056ae",
+      "0c8b53c5-0c87-496f-b124-1d7457781ed8",
+      "fbb8cab0-eb66-49de-9624-a06015514118",
+      "986e5431-3132-4496-9a79-f1d1ad99e858",
+      "ee11e1df-cb73-4c3a-b5e8-7268c7872b01",
+      "3e3b92ef-dc95-4ddd-97e4-5b992c60db26",
+      "e85607c3-a8b4-4a61-a548-a58b17b0eae1",
+      "7913fe22-645a-4f46-a3be-7bd1ed3c8953"
+    ],
+    "created_at": "2026-10-12T23:08:35.093+00:00",
+    "calls": 1,
+    "cost_usd": 0.03837,
+    "reused": false
+  },
+  "ledger_spent_usd": 0.336977,
+  "ledger_cap_usd": 10.0
+}

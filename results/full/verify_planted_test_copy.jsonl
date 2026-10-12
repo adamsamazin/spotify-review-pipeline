@@ -1,0 +1,10 @@
+{"review_id": "189ffab1-9684-4385-a626-34ab59e1a58b", "synthetic": true, "original_topic": "usability", "planted_topic": "playback", "verifier_topic": "usability", "flagged": true}
+{"review_id": "49938439-1be5-4324-9c7c-f8c4904a6eb4", "synthetic": true, "original_topic": "usability", "planted_topic": "playback", "verifier_topic": "usability", "flagged": true}
+{"review_id": "8d62bc1f-94b8-4ffb-bff7-77bf2c38734b", "synthetic": true, "original_topic": "usability", "planted_topic": "playback", "verifier_topic": "playback", "flagged": false}
+{"review_id": "64708390-484b-4393-b8d7-160697c6f664", "synthetic": true, "original_topic": "access", "planted_topic": "usability", "verifier_topic": "access", "flagged": true}
+{"review_id": "467739eb-732e-4ea7-a752-73386fee042f", "synthetic": true, "original_topic": "catalog", "planted_topic": "billing", "verifier_topic": "catalog", "flagged": true}
+{"review_id": "24dc4668-d92d-4550-97d5-893598e595d6", "synthetic": true, "original_topic": "other", "planted_topic": "access", "verifier_topic": "catalog", "flagged": true}
+{"review_id": "c4cf89b3-8abf-4e96-961b-4cf7bb534aaf", "synthetic": true, "original_topic": "billing", "planted_topic": "support", "verifier_topic": "billing", "flagged": true}
+{"review_id": "f64ddf6f-0e0a-4ea8-9ef7-775e61e898a3", "synthetic": true, "original_topic": "catalog", "planted_topic": "billing", "verifier_topic": "catalog", "flagged": true}
+{"review_id": "9e571aca-abd8-4019-bdbc-103b5f7a5d57", "synthetic": true, "original_topic": "usability", "planted_topic": "playback", "verifier_topic": "playback", "flagged": false}
+{"review_id": "1037e998-3a25-4161-9b07-26b8b8b452da", "synthetic": true, "original_topic": "catalog", "planted_topic": "billing", "verifier_topic": "catalog", "flagged": true}

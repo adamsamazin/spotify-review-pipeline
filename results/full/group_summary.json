@@ -1,0 +1,10 @@
+{
+  "negatives": 293327,
+  "members": 293327,
+  "issues_used": 25,
+  "uncovered_negatives": 0,
+  "assign_calls": 3919,
+  "group_config": "jev-1.13.0+group_assign_v1+catalog_b4a33aea9b",
+  "stop_reason": "complete",
+  "cost_usd": 1.080057
+}

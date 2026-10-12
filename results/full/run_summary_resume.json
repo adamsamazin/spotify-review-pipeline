@@ -1,0 +1,10 @@
+{
+  "label": "resume",
+  "stopped_after": "enrich",
+  "pending": 558136,
+  "timings": {
+    "ingest": 14.494,
+    "enrich": 6.401
+  },
+  "wall_seconds": 20.917
+}

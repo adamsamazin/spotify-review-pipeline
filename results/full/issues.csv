@@ -1,0 +1,26 @@
+issue_id,topic,name,definition,member_count,source
+access.automatic_logout_issues,access,Automatic Logout and Session Loss,"Users experiencing involuntary logout from the app without warning, losing access to their accounts and saved data like liked songs after updates or app closures.",1196,claude_discovery
+access.login_authentication_failures,access,Login and Authentication Failures,"Users unable to log in to their accounts on mobile devices or specific platforms, receiving error messages or being unable to authenticate with email, phone number, or social login methods.",7925,claude_discovery
+access.other_access,access,Other access problems,Access complaints that fit no other access issue.,1696,code_catch_all
+billing.excessive_paywall_restrictions,billing,Excessive Premium Paywall on Basic Features,"Core music player functionality previously free now locked behind premium paywall, including shuffle, song skipping, looping, and playback controls.",49604,claude_discovery
+billing.other_billing,billing,Other billing problems,Billing complaints that fit no other billing issue.,4637,code_catch_all
+billing.premium_feature_availability_gaps,billing,Premium Features Unavailable or Degraded,"Paid premium users unable to access promised features like lyrics, audiobooks, or experiencing ads despite active subscription.",2570,claude_discovery
+catalog.lyrics_display_failures,catalog,Lyrics Display and Loading Issues,"Lyrics feature not loading, displaying incorrectly, or becoming unavailable for extended periods across multiple songs and user types.",4027,claude_discovery
+catalog.other_catalog,catalog,Other catalog problems,Catalog complaints that fit no other catalog issue.,1496,code_catch_all
+catalog.recommendation_algorithm_problems,catalog,Poor recommendations or unwanted songs added,"Recommendations that miss the user's taste, or the app inserting unwanted songs into playlists or radio, or ignoring recommendation settings.",2042,human_edit
+catalog.song_search_and_availability_issues,catalog,Missing or Unsearchable Songs,"Popular songs, specific artists, or regional music unavailable in the catalog or failing to appear in search results despite being on the platform.",6294,claude_discovery
+downloads.download_feature_premium_only,downloads,Downloads locked to premium,"Free users unable to download songs for offline listening, with download functionality locked behind premium paywall.",948,human_edit
+downloads.download_persistence_failures,downloads,Downloaded Songs Disappearing or Failing to Persist,"Downloaded playlists or songs automatically deleting, requiring constant re-downloading, or vanishing after app updates or phone restarts.",1510,claude_discovery
+downloads.offline_playback_slow_loading,downloads,Slow or Non-Functional Offline Playback,"Downloaded songs taking excessive time to load in offline mode or failing to play despite successful download, making offline listening unusable.",1327,claude_discovery
+downloads.other_downloads,downloads,Other downloads problems,Downloads complaints that fit no other downloads issue.,1870,code_catch_all
+other.general,other,General dissatisfaction,Negative reviews with no specific product problem stated.,92695,code_catch_all
+playback.other_playback,playback,Other playback problems,Playback complaints that fit no other playback issue.,16548,code_catch_all
+playback.playback_connectivity_errors,playback,False No Internet Connection Errors During Playback,App showing no internet connection error or interrupting playback even when device has active internet connection.,5335,claude_discovery
+playback.playback_crashes_and_freezes,playback,App Crashes and Playback Freezes,"App crashing during playback, stopping unexpectedly after one song, or requiring frequent force-closes to function.",10612,claude_discovery
+playback.wrong_song_playback,playback,Wrong Song Playing When Selected,"App playing different song than the one user selected or clicked on, or unexpected songs randomly added to playback.",4881,claude_discovery
+support.other_support,support,Other support problems,Support complaints that fit no other support issue.,31,code_catch_all
+support.unhelpful_or_slow_support,support,Unhelpful or slow customer support,"Customer support that is slow, unresponsive or unable to resolve the problem, including hacked-account recovery and billing disputes.",778,human_merge
+usability.excessive_ad_frequency,usability,Excessive Ads in Free Tier,"Free users experiencing ads appearing every few songs or continuously, disrupting music listening experience.",33331,claude_discovery
+usability.interface_and_ui_problems,usability,Interface issues and update-related usability degradation,"Major UI changes causing confusion, or removal of familiar features after updates, making the app harder to navigate and use.",13779,human_edit
+usability.other_usability,usability,Other usability problems,Usability complaints that fit no other usability issue.,15059,code_catch_all
+usability.unavailable_playback_controls,usability,Playback controls missing or hard to use,"Playback controls (repeat/loop, skip, previous, seek) removed, hidden or confusing after updates, where the review does not say they are locked to premium.",13136,human_edit

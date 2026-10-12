@@ -1,0 +1,610 @@
+{
+  "sample_size": 169,
+  "verified": 169,
+  "missing": 0,
+  "disagreement_rate": {
+    "topic": 0.089,
+    "intent": 0.053,
+    "severity": 0.089,
+    "sentiment": 0.006
+  },
+  "any_field_disagreement_rate": 0.189,
+  "planted_test": {
+    "planted": 10,
+    "flagged": 10,
+    "summary": "10/10 planted wrong topics flagged"
+  },
+  "cases": [
+    {
+      "review_id": "b0b2bb69-b40a-4a8c-8be9-4ccbfcb9edf2",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.685
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.585
+      }
+    },
+    {
+      "review_id": "446eea99-fb26-42cb-907a-91d924d4cdb1",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.44
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.41
+      }
+    },
+    {
+      "review_id": "cb88ed2e-5093-418c-9c68-e64e1825b9bc",
+      "fields": [
+        "intent"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1,
+        "sentiment": 0.445
+      },
+      "verifier": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.5
+      }
+    },
+    {
+      "review_id": "cb6da3f1-a202-4ccf-9407-f876823dc182",
+      "fields": [
+        "intent",
+        "severity",
+        "sentiment"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1,
+        "sentiment": -0.315
+      },
+      "verifier": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.85
+      }
+    },
+    {
+      "review_id": "1686179b-f54b-41f0-834a-6b584bfd5edd",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "support",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      },
+      "verifier": {
+        "topic": "playback",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      }
+    },
+    {
+      "review_id": "172adc2b-5e3e-44ab-976d-f35ed1d1a10d",
+      "fields": [
+        "intent",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "billing",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.245
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": 0.34
+      }
+    },
+    {
+      "review_id": "ef46d830-977b-46f0-8061-8eb647ce90b1",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.29
+      },
+      "verifier": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.425
+      }
+    },
+    {
+      "review_id": "e8734298-81f1-4e96-b289-674f3ae9f9a8",
+      "fields": [
+        "intent",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.665
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 1,
+        "sentiment": -0.77
+      }
+    },
+    {
+      "review_id": "f9a535bd-c15b-4a64-a2fc-f5fa86ba4260",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -1.0
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -1.0
+      }
+    },
+    {
+      "review_id": "10800b01-920d-4c22-91f5-521c45caf4f0",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "support",
+        "intent": "complaint",
+        "severity": 5,
+        "sentiment": -1.0
+      },
+      "verifier": {
+        "topic": "support",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -1.0
+      }
+    },
+    {
+      "review_id": "ec10ebd5-63fb-42be-848f-e5a700b3a11d",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.815
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.85
+      }
+    },
+    {
+      "review_id": "3694cbca-4c67-4afb-b40c-57d2454134ba",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.995
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -1.0
+      }
+    },
+    {
+      "review_id": "45a8c903-7b98-4d2e-97e8-124b565506a9",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.66
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.665
+      }
+    },
+    {
+      "review_id": "a3ab25bd-6a11-4790-b608-dae4f3b7ebc0",
+      "fields": [
+        "intent"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 1,
+        "sentiment": 0.535
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.705
+      }
+    },
+    {
+      "review_id": "db98b02f-8a79-4b0c-af77-439171a20781",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      }
+    },
+    {
+      "review_id": "5a99342f-fc56-4d0f-a53e-d111ed52b777",
+      "fields": [
+        "intent"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1,
+        "sentiment": 0.275
+      },
+      "verifier": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.36
+      }
+    },
+    {
+      "review_id": "981ef0e7-a420-4942-b48f-a26b369aee7c",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.84
+      },
+      "verifier": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.845
+      }
+    },
+    {
+      "review_id": "6456a30a-7075-4010-a53e-4e419a0a97f9",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.81
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.69
+      }
+    },
+    {
+      "review_id": "1f2330cf-6aa4-4fcc-9784-0c2c65868baf",
+      "fields": [
+        "intent",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "request",
+        "severity": 1,
+        "sentiment": 0.49
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": 0.605
+      }
+    },
+    {
+      "review_id": "6cefce1b-fc7b-403c-9889-26704c5321b9",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.965
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.96
+      }
+    },
+    {
+      "review_id": "3383be27-a573-4448-8ed2-8791f26c7b00",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.995
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.995
+      }
+    },
+    {
+      "review_id": "964b4087-32d8-4746-b645-dab7f2c20546",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.995
+      },
+      "verifier": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.93
+      }
+    },
+    {
+      "review_id": "053ec353-6168-4737-a6bd-e01069695694",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.975
+      },
+      "verifier": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.995
+      }
+    },
+    {
+      "review_id": "9e8f4310-9ed0-4565-966c-cb2e2a708133",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "access",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.995
+      },
+      "verifier": {
+        "topic": "access",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.99
+      }
+    },
+    {
+      "review_id": "6af96e25-fd29-49d5-8474-3d0d64fca77f",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.99
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.965
+      }
+    },
+    {
+      "review_id": "6ce0b2f1-0679-44cf-8042-800d7cc54ddd",
+      "fields": [
+        "intent",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.67
+      },
+      "verifier": {
+        "topic": "other",
+        "intent": "unclear",
+        "severity": 1,
+        "sentiment": -0.415
+      }
+    },
+    {
+      "review_id": "f2c29ebb-f201-4a00-ac00-bb9832b88c7b",
+      "fields": [
+        "intent",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": 0.005
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.345
+      }
+    },
+    {
+      "review_id": "4a1c23a7-1c6a-4ff7-ae40-1225b3e35f82",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "downloads",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.9
+      },
+      "verifier": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.705
+      }
+    },
+    {
+      "review_id": "b50edb71-4605-4971-b4db-dba823ef0d1a",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4,
+        "sentiment": -0.605
+      },
+      "verifier": {
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.61
+      }
+    },
+    {
+      "review_id": "ba351b7d-3631-4e3a-aefd-331f51e3b1ae",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.93
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.845
+      }
+    },
+    {
+      "review_id": "ca51d8b6-fbf2-4ef8-bdff-81abebe6ec62",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.99
+      },
+      "verifier": {
+        "topic": "catalog",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.995
+      }
+    },
+    {
+      "review_id": "4c1a0065-923a-4bc7-9a41-b34598ea1937",
+      "fields": [
+        "topic",
+        "severity"
+      ],
+      "enriched": {
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.485
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.54
+      }
+    }
+  ],
+  "stop_reason": "complete",
+  "label_config": "jev-1.13.0+verify_v1+schema_v1",
+  "sample_seed": "a5-verify-v1",
+  "fraction": 0.02,
+  "minimum": 20,
+  "calls": 4,
+  "cost_usd": 0.005203
+}

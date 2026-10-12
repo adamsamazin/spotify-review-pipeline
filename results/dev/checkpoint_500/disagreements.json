@@ -1,0 +1,116 @@
+{
+  "sample_size": 20,
+  "verified": 20,
+  "missing": 0,
+  "disagreement_rate": {
+    "topic": 0.1,
+    "intent": 0.0,
+    "severity": 0.15,
+    "sentiment": 0.0
+  },
+  "any_field_disagreement_rate": 0.25,
+  "planted_test": {
+    "planted": 10,
+    "flagged": 10,
+    "summary": "10/10 planted wrong topics flagged"
+  },
+  "cases": [
+    {
+      "review_id": "db98b02f-8a79-4b0c-af77-439171a20781",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 1.0
+      }
+    },
+    {
+      "review_id": "9f3626e0-1bcb-4788-a412-f812102502d1",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": -0.965
+      },
+      "verifier": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.995
+      }
+    },
+    {
+      "review_id": "b543d31c-665d-483e-976a-fb1d1bfc75b3",
+      "fields": [
+        "topic"
+      ],
+      "enriched": {
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.73
+      },
+      "verifier": {
+        "topic": "usability",
+        "intent": "praise",
+        "severity": 1,
+        "sentiment": 0.65
+      }
+    },
+    {
+      "review_id": "b03d6dc9-449a-4647-b112-559186656759",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "downloads",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": -0.24
+      },
+      "verifier": {
+        "topic": "downloads",
+        "intent": "complaint",
+        "severity": 5,
+        "sentiment": -0.2
+      }
+    },
+    {
+      "review_id": "47becad0-8ae5-4a10-9731-fde8f2091862",
+      "fields": [
+        "severity"
+      ],
+      "enriched": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 3,
+        "sentiment": 0.16
+      },
+      "verifier": {
+        "topic": "catalog",
+        "intent": "complaint",
+        "severity": 2,
+        "sentiment": 0.29
+      }
+    }
+  ],
+  "stop_reason": "complete",
+  "label_config": "jev-1.13.0+verify_v1+schema_v1",
+  "sample_seed": "a5-verify-v1",
+  "fraction": 0.02,
+  "minimum": 20,
+  "calls": 1,
+  "cost_usd": 0.000629
+}

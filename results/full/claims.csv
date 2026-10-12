@@ -1,0 +1,9 @@
+claim_id,issue_id,metric,value
+C1,usability.excessive_ad_frequency,complaint_count,33331
+C2,usability.excessive_ad_frequency,priority_score,83778
+C3,billing.excessive_paywall_restrictions,complaint_count,49604
+C4,billing.excessive_paywall_restrictions,mean_severity,2.930288
+C5,usability.unavailable_playback_controls,priority_score,40788
+C6,playback.other_playback,mean_severity,3.406514
+C7,usability.other_usability,priority_score,44092
+C8,other.general,priority_score,186723

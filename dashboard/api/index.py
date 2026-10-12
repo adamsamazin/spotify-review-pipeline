@@ -41,18 +41,14 @@ def health():
 
 @app.get("/api/summary")
 def summary():
-    statuses = info("statuses") or {}
+    ri = {r["key"]: r["value"] for r in q("SELECT key, value FROM run_info")}  # one round trip
+    statuses = ri.get("statuses") or {}
     return {
-        "run": info("run"), "manifest": info("manifest"), "ingestion": info("ingestion"),
-        "distinct_texts": info("distinct_texts"), "statuses": statuses,
-        "total_records": sum(statuses.values()), "cache_reuse": info("cache_reuse"),
-        "needs_review": info("needs_review"), "intents": info("intents"), "calls_by_role": info("calls_by_role"),
-        "topics": q("SELECT topic, COUNT(*) AS reviews, ROUND(AVG(severity)::numeric, 3) AS mean_severity, "
-                    "SUM(CASE WHEN intent IN ('complaint','cancellation') THEN 1 ELSE 0 END) AS negative "
-                    "FROM reviews WHERE status = 'completed' GROUP BY topic ORDER BY reviews DESC"),
-        "severity": q("SELECT severity, COUNT(*) AS n FROM reviews WHERE status='completed' GROUP BY severity "
-                      "ORDER BY severity"),
-        "quarantine": q("SELECT reason, COUNT(*) AS n FROM reviews WHERE status='quarantined' GROUP BY reason"),
+        "run": ri.get("run"), "manifest": ri.get("manifest"), "ingestion": ri.get("ingestion"),
+        "distinct_texts": ri.get("distinct_texts"), "statuses": statuses,
+        "total_records": sum(statuses.values()), "cache_reuse": ri.get("cache_reuse"),
+        "needs_review": ri.get("needs_review"), "intents": ri.get("intents"), "calls_by_role": ri.get("calls_by_role"),
+        "topics": ri.get("topic_counts"), "severity": ri.get("severity_counts"), "quarantine": ri.get("quarantine_counts"),
     }
 
 

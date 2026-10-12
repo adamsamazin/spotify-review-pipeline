@@ -1,0 +1,268 @@
+{
+  "question": "Where should the next quarter of product effort go: access, usability, playback, or billing/support?",
+  "ranking_top": [
+    {
+      "rank": "1",
+      "issue_id": "other.general",
+      "complaint_count": "92695",
+      "severity_sum": "186723",
+      "mean_severity": "2.014380",
+      "priority_score": "186723",
+      "topic": "other",
+      "name": "General dissatisfaction"
+    },
+    {
+      "rank": "2",
+      "issue_id": "billing.excessive_paywall_restrictions",
+      "complaint_count": "49604",
+      "severity_sum": "145354",
+      "mean_severity": "2.930288",
+      "priority_score": "145354",
+      "topic": "billing",
+      "name": "Excessive Premium Paywall on Basic Features"
+    },
+    {
+      "rank": "3",
+      "issue_id": "usability.excessive_ad_frequency",
+      "complaint_count": "33331",
+      "severity_sum": "83778",
+      "mean_severity": "2.513516",
+      "priority_score": "83778",
+      "topic": "usability",
+      "name": "Excessive Ads in Free Tier"
+    },
+    {
+      "rank": "4",
+      "issue_id": "playback.other_playback",
+      "complaint_count": "16548",
+      "severity_sum": "56371",
+      "mean_severity": "3.406514",
+      "priority_score": "56371",
+      "topic": "playback",
+      "name": "Other playback problems"
+    },
+    {
+      "rank": "5",
+      "issue_id": "usability.other_usability",
+      "complaint_count": "15059",
+      "severity_sum": "44092",
+      "mean_severity": "2.927950",
+      "priority_score": "44092",
+      "topic": "usability",
+      "name": "Other usability problems"
+    },
+    {
+      "rank": "6",
+      "issue_id": "usability.unavailable_playback_controls",
+      "complaint_count": "13136",
+      "severity_sum": "40788",
+      "mean_severity": "3.105055",
+      "priority_score": "40788",
+      "topic": "usability",
+      "name": "Playback controls missing or hard to use"
+    }
+  ],
+  "ranking_rule": "priority_score = severity_sum = complaint_count x mean_severity, over completed complaint and cancellation records; each review counted once per issue",
+  "topic_rollup": [
+    {
+      "topic": "usability",
+      "complaint_count": "75305",
+      "severity_sum": "206389",
+      "mean_severity": "2.740708"
+    },
+    {
+      "topic": "other",
+      "complaint_count": "92695",
+      "severity_sum": "186723",
+      "mean_severity": "2.014380"
+    },
+    {
+      "topic": "billing",
+      "complaint_count": "56811",
+      "severity_sum": "168434",
+      "mean_severity": "2.964813"
+    },
+    {
+      "topic": "playback",
+      "complaint_count": "37376",
+      "severity_sum": "132785",
+      "mean_severity": "3.552681"
+    },
+    {
+      "topic": "access",
+      "complaint_count": "10817",
+      "severity_sum": "42959",
+      "mean_severity": "3.971434"
+    },
+    {
+      "topic": "catalog",
+      "complaint_count": "13859",
+      "severity_sum": "41088",
+      "mean_severity": "2.964716"
+    },
+    {
+      "topic": "downloads",
+      "complaint_count": "5655",
+      "severity_sum": "19225",
+      "mean_severity": "3.399646"
+    },
+    {
+      "topic": "support",
+      "complaint_count": "809",
+      "severity_sum": "2481",
+      "mean_severity": "3.066749"
+    }
+  ],
+  "run_totals": {
+    "records": 660622,
+    "completed": 660609,
+    "quarantined": 13,
+    "complaint_or_cancellation": 293327,
+    "intents": {
+      "cancellation": 26098,
+      "praise": 283718,
+      "complaint": 267229,
+      "request": 27312,
+      "unclear": 56252
+    }
+  },
+  "evidence_pack": {
+    "other.general": [
+      {
+        "review_id": "b8c19ade-7440-4a54-a1e7-7ced7e4e21af",
+        "severity": 5,
+        "text": "Deleted my subscription and deleted the app coz they are racist and too much unequal decisions when it comes to Palestine. Removing Dammi Falastini is a back stabbing to Palestinelians remember Palestine will get free no matter how biased decision yo"
+      },
+      {
+        "review_id": "19624a6c-e065-4155-a7ba-5b1d4ad98988",
+        "severity": 5,
+        "text": "It's impossible to click on one particular song. It's also impossible to create a playlist, without Spotify messing it up. I have no clue, why anyone would use the app. Tenecent is also invested in Spotify, and that means, that all collected data, is"
+      },
+      {
+        "review_id": "d2b1e0be-b320-4549-9adc-89d74b344172",
+        "severity": 5,
+        "text": "I'm already very dissatisfied with the podcast experience, but now that I'm hearing they are banning people based on their free speech, I'm leaving Spotify after years of paying for the service."
+      },
+      {
+        "review_id": "c0d767f4-d101-41e1-9914-e5859b5b58ee",
+        "severity": 5,
+        "text": "the head of spotify abusing their power and blacklisting artists they don't like ..decidjng to delete streams of them with no explanation to make others win is the lowest you can go ..#SpotifyCorrupt"
+      }
+    ],
+    "billing.excessive_paywall_restrictions": [
+      {
+        "review_id": "d9bfee4f-4ec6-4972-88e5-2c4fde32ba0f",
+        "severity": 5,
+        "text": "The worst paid app I have ever used!!! Free version is absolute garbage now... Do yourself a favour, download your music to a device manually like we use to, and boycott Spotify!"
+      },
+      {
+        "review_id": "fa7a958b-f770-4b1d-b770-686c80471334",
+        "severity": 5,
+        "text": "It's honestly astounding how consistently Spotify releases completely broken updates for this app. It just keeps getting worse.. Every. Single. Update. Not only that, but they seem to be actually getting more efficient at finding new ways to frustrat"
+      },
+      {
+        "review_id": "7f9f0ccd-273d-4cbb-a5d8-7b051fd7a2cb",
+        "severity": 5,
+        "text": "They say ads every 15mins, what they dont say is its every 2 songs and ads run about 1.5mins to 2mins which is just ridiculous. Dont believe me, Spotify? Look at my user log using my email address, thats illegal... uninstalling now. I gave yiu money "
+      },
+      {
+        "review_id": "631fa9f6-5c28-42e4-8751-efe23ab80976",
+        "severity": 5,
+        "text": "Basically malware playing ads in the background of my phone after listening to the web player on a pc. Cry more about how you can't play your ads. Recent update is not free user friendly. If you charged more like $4, I might consider it, but nah, you"
+      }
+    ],
+    "usability.excessive_ad_frequency": [
+      {
+        "review_id": "9f7e2151-cb7b-4ace-8c80-dd0ff0625f93",
+        "severity": 5,
+        "text": "Ads on Premium. Frequent pop-ups about random junk, including for me to listen in on other Spotify users' sessions without their consent. Smart shuffle randomly turns on (never wanted this feature and can't disable it). I only use this app because I "
+      },
+      {
+        "review_id": "4c74fc5c-c363-4efe-ad8a-10f9041ff679",
+        "severity": 5,
+        "text": "SCAM. I deleted this app over a year ago, thought I would try it again. Spotify is worse now! When it says \"Watch this video and get 30 minutes of ad free listening\" its lying. I watch said video and the app only plays 2 songs, maybe 10 minutes total"
+      },
+      {
+        "review_id": "b580eace-1645-4a6a-8290-bebacb5848d2",
+        "severity": 5,
+        "text": "It's a shame that I would give a free music app such a low rating. However the inability to shut it off warrants a low rating. I cannot start my car without Spotify taking over. This has been an ongoing issue with Spotify and they will do nothing abo"
+      },
+      {
+        "review_id": "6a60b353-efaf-4181-9815-32bdfeff059d",
+        "severity": 5,
+        "text": "Runs in background. Steals your info. I truly hate all the pop up notifications built into the app even on premium subscription. Fuc! your pop-ups and advertisements."
+      }
+    ],
+    "playback.other_playback": [
+      {
+        "review_id": "3d702696-8185-467c-9b17-9c6cbae8ce3e",
+        "severity": 5,
+        "text": "I'm a premium subscriber. Canceled and uninstalled. Autoplay is relentless. When I turn my headphones on, or take them out of my head and put them back in, or end a phone call, it starts playing. If any BT device connects to my phone it starts playin"
+      },
+      {
+        "review_id": "91132204-877d-4ac1-9d08-20d03f1414f6",
+        "severity": 5,
+        "text": "I had to delete and uninstall this app more than one time and I still have the same problem with it it's somehow decides to automatically start playing. Even over other media audio applications plus they keep changing the location of where you can sh"
+      },
+      {
+        "review_id": "8991b385-507f-4798-855f-9ff6390b1b50",
+        "severity": 5,
+        "text": "Edit: Two years later and the app is still very buggy, shows incorrect titles, gives me a permanent notification, and stops/starts by itself. Still occasionally wakes up the whole house by randomly coming on at odd hours while I'm listening to ambien"
+      },
+      {
+        "review_id": "ad990330-69f5-4647-ba11-a55f70b4a020",
+        "severity": 5,
+        "text": "Since the last two updates I have not been able to play any of my saved songs, and nothing appears in my library. My subscription just renewed and I can't use anything and still charged 16 bucks."
+      }
+    ],
+    "usability.other_usability": [
+      {
+        "review_id": "f9ad8f06-6a4a-421c-8b1e-eaf2216f6a79",
+        "severity": 5,
+        "text": "The latest version leaves the last song playing in the notification window. Despite removing it, the song comes back. It seems other users have the same annoying problem. Closing the app, recent window and or even turning off or rebooting doesn't wor"
+      },
+      {
+        "review_id": "183a4585-a071-467d-80d4-316bdcaa8a4c",
+        "severity": 5,
+        "text": "I would like to EXIT Spotify to when I close the app. Instead it keeps playing in the background. I continually have to find the app, scroll thru 50 settings to exit the app. I understand why Spotify does that..... As long as the app is open, Spotify"
+      },
+      {
+        "review_id": "a9f3d7d6-5f9f-47f2-b193-2623a57051d8",
+        "severity": 5,
+        "text": "I had initially given this app a high ranking. The more I used it, the more irritated I became. First, you can not turn it off. Just stop what you are playing. Most worrisome, the app appears suddenly and blocks parts of the phone screen at the worse"
+      },
+      {
+        "review_id": "fa33ca38-6f5a-45d6-8c94-d9aaeb4bfa0d",
+        "severity": 5,
+        "text": "I was driving peacefully with my car's bluetooth connected to the phone, I do this always to receive the phone calls while driving. But Spotify automatically starts playing the songs which is very annoying and I was about to meet the accident while d"
+      }
+    ],
+    "usability.unavailable_playback_controls": [
+      {
+        "review_id": "e06d93e4-fa25-4a78-879a-9de771e54b2c",
+        "severity": 5,
+        "text": "The app has become unsafe, and in some jurisdictions illegal, to use in a vehicle since they removed the voice controls. Even worse, you're now required to purchase a separate device to access voice controls. Just put the feature back on the app, esp"
+      },
+      {
+        "review_id": "a565eeb1-8718-4052-a8d6-1cc71430a95b",
+        "severity": 5,
+        "text": "Some develop country still didn't have drive & phone law. If they have, it's a new law. People still interact with their phone while they're driving. On free spotify, It set & locked to shuffling. It can be really dangerous. Been seen 2 accident beca"
+      },
+      {
+        "review_id": "a01bf9be-b323-4166-b98f-0f1c1e0ae043",
+        "severity": 5,
+        "text": "What I despise about this godforsaken app is that it AUTOMATICALLY WITHOUT WARNING put my music i was listening to on EVERY tv of the house. I also had to take 2 HOURS to fix one of the tv's that stopped working due to the sudden cause of it happenin"
+      },
+      {
+        "review_id": "af42e294-db18-405f-9813-63cdc9a79ee1",
+        "severity": 4,
+        "text": "The recent updates of the app have become very disappointing, can't search for a song and then play it, neither can skip songs anymore, or play a specific part or rewind a song. This has honestly brought down the entire experience of the app to a poi"
+      }
+    ]
+  },
+  "notes": {
+    "verifier_sample_size": 4842,
+    "verifier_any_field_disagreement_rate": 0.268,
+    "quarantined_records": 13
+  }
+}

@@ -145,13 +145,22 @@ def load(run_dir, url):
             "intents": dict(Counter(json.loads(r)["intent"] for (r,) in lite.execute("SELECT record_json FROM results"))),
             "run_summaries": {p.stem: read_json(p) for p in sorted(run_dir.glob("run_summary_*.json"))},
         }
+        # precomputed aggregates so the API does not scan 660k rows on every page load
+        cur.execute("SELECT topic, COUNT(*) AS reviews, ROUND(AVG(severity)::numeric, 3)::float AS mean_severity, "
+                    "SUM(CASE WHEN intent IN ('complaint','cancellation') THEN 1 ELSE 0 END) AS negative "
+                    "FROM reviews WHERE status = 'completed' GROUP BY topic ORDER BY reviews DESC")
+        info["topic_counts"] = [dict(zip(("topic", "reviews", "mean_severity", "negative"), r)) for r in cur.fetchall()]
+        cur.execute("SELECT severity, COUNT(*) FROM reviews WHERE status='completed' GROUP BY severity ORDER BY severity")
+        info["severity_counts"] = [{"severity": a, "n": b} for a, b in cur.fetchall()]
+        cur.execute("SELECT reason, COUNT(*) FROM reviews WHERE status='quarantined' GROUP BY reason")
+        info["quarantine_counts"] = [{"reason": a, "n": b} for a, b in cur.fetchall()]
         cur.executemany("INSERT INTO run_info VALUES (%s, %s)", [(k, json.dumps(v, default=str)) for k, v in info.items()])
         evals = {
-            "verify": {k: v for k, v in read_json(run_dir / "verify" / "disagreements.json", {}).items()},
+            "verify": {k: v for k, v in read_json(run_dir / "verify" / "disagreements.json", {}).items() if k != "cases"},
             "golden": {k: v for k, v in read_json(ROOT / "evals" / "results" / "golden_probe_golden_shared.json", {}).items()
                        if k != "cases"},
             "injection": read_json(ROOT / "evals" / "results" / "injection_test.json", {}),
-            "controls": read_json(ROOT / "evals" / "results" / "test_controls.json", {}),
+            "controls": {k: {"pass": v.get("pass")} for k, v in read_json(ROOT / "evals" / "results" / "test_controls.json", {}).items()},
             "pilot_cold": {k: read_json(ROOT / "cost" / "pilot_summary_cold.json", {}).get(k)
                            for k in ("wall_seconds", "calls_this_invocation", "timings")},
             "pilot_warm": {k: read_json(ROOT / "cost" / "pilot_summary_warm.json", {}).get(k)

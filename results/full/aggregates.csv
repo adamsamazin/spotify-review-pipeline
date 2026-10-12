@@ -1,0 +1,26 @@
+issue_id,topic,name,complaint_count,severity_sum,mean_severity,priority_score
+other.general,other,General dissatisfaction,92695,186723,2.014380,186723
+billing.excessive_paywall_restrictions,billing,Excessive Premium Paywall on Basic Features,49604,145354,2.930288,145354
+usability.excessive_ad_frequency,usability,Excessive Ads in Free Tier,33331,83778,2.513516,83778
+playback.other_playback,playback,Other playback problems,16548,56371,3.406514,56371
+usability.other_usability,usability,Other usability problems,15059,44092,2.927950,44092
+usability.unavailable_playback_controls,usability,Playback controls missing or hard to use,13136,40788,3.105055,40788
+playback.playback_crashes_and_freezes,playback,App Crashes and Playback Freezes,10612,40075,3.776385,40075
+usability.interface_and_ui_problems,usability,Interface issues and update-related usability degradation,13779,37731,2.738297,37731
+access.login_authentication_failures,access,Login and Authentication Failures,7925,31611,3.988770,31611
+playback.playback_connectivity_errors,playback,False No Internet Connection Errors During Playback,5335,19465,3.648547,19465
+catalog.song_search_and_availability_issues,catalog,Missing or Unsearchable Songs,6294,19077,3.030982,19077
+playback.wrong_song_playback,playback,Wrong Song Playing When Selected,4881,16874,3.457078,16874
+billing.other_billing,billing,Other billing problems,4637,14769,3.185033,14769
+catalog.lyrics_display_failures,catalog,Lyrics Display and Loading Issues,4027,11969,2.972188,11969
+billing.premium_feature_availability_gaps,billing,Premium Features Unavailable or Degraded,2570,8311,3.233852,8311
+access.other_access,access,Other access problems,1696,6636,3.912736,6636
+downloads.other_downloads,downloads,Other downloads problems,1870,6282,3.359358,6282
+catalog.recommendation_algorithm_problems,catalog,Poor recommendations or unwanted songs added,2042,5513,2.699804,5513
+downloads.download_persistence_failures,downloads,Downloaded Songs Disappearing or Failing to Persist,1510,5157,3.415232,5157
+access.automatic_logout_issues,access,Automatic Logout and Session Loss,1196,4712,3.939799,4712
+downloads.offline_playback_slow_loading,downloads,Slow or Non-Functional Offline Playback,1327,4707,3.547099,4707
+catalog.other_catalog,catalog,Other catalog problems,1496,4529,3.027406,4529
+downloads.download_feature_premium_only,downloads,Downloads locked to premium,948,3079,3.247890,3079
+support.unhelpful_or_slow_support,support,Unhelpful or slow customer support,778,2401,3.086118,2401
+support.other_support,support,Other support problems,31,80,2.580645,80

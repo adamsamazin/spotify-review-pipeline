@@ -1,0 +1,17 @@
+{
+  "status": "valid",
+  "problems": [],
+  "input_key": "3764bbfd61de08fe6d2c56236d1c7c95dd34517681ba7be5ed912bf950cd3f55",
+  "label_config": "claude-sonnet-5-5+memo_v3",
+  "claims": 8,
+  "cited_review_ids": [
+    "9f7e2151-cb7b-4ace-8c80-dd0ff0625f93",
+    "4c74fc5c-c363-4efe-ad8a-10f9041ff679",
+    "d9bfee4f-4ec6-4972-88e5-2c4fde32ba0f",
+    "e06d93e4-fa25-4a78-879a-9de771e54b2c",
+    "3d702696-8185-467c-9b17-9c6cbae8ce3e"
+  ],
+  "created_at": "2026-10-12T23:42:48.846+00:00",
+  "calls": 1,
+  "cost_usd": 0.035016
+}

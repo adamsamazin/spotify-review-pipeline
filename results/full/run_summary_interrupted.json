@@ -1,0 +1,10 @@
+{
+  "label": "interrupted",
+  "stopped_after": "enrich",
+  "pending": 571766,
+  "timings": {
+    "ingest": 26.18,
+    "enrich": 10.474
+  },
+  "wall_seconds": 36.677
+}

@@ -1,0 +1,19 @@
+{
+  "issues_ranked": 25,
+  "uncovered_negatives": 0,
+  "membership_problems": 0,
+  "totals": {
+    "records": 660622,
+    "completed": 660609,
+    "quarantined": 13,
+    "complaint_or_cancellation": 293327,
+    "intents": {
+      "cancellation": 26098,
+      "praise": 283718,
+      "complaint": 267229,
+      "request": 27312,
+      "unclear": 56252
+    }
+  },
+  "ranking_sha256": "9f6f756c78675de528091302966b524a3d49bfc613957b746d0210c31198d5b4"
+}

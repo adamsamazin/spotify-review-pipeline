@@ -1,0 +1,22 @@
+issue_id,topic,name,definition,member_count,source
+access.login_and_authentication_errors,access,Login and Authentication Errors,"Users unable to log in to their accounts or stay logged in, experiencing repeated authentication failures, password rejection, or being unexpectedly logged out.",7,claude_discovery
+access.offline_mode_and_connection_issues,access,False Offline Connection Errors,App incorrectly reports no internet connection or offline status even when the device has active connectivity and other apps work normally.,2,claude_discovery
+access.other_access,access,Other access problems,Access complaints that fit no other access issue.,1,code_catch_all
+billing.free_tier_feature_restrictions,billing,Excessive Free Tier Feature Restrictions,"Free users unable to access basic music listening features such as skipping songs, choosing specific tracks, shuffling playlists, or viewing lyrics without upgrading to premium.",11,claude_discovery
+billing.other_billing,billing,Other billing problems,Billing complaints that fit no other billing issue.,1,code_catch_all
+billing.premium_paywall_expansion,billing,Aggressive Premium Paywall Expansion,"App restricts features and content that were previously free or expects to be basic, forcing users to purchase premium for standard functionality like playing full songs, accessing lyrics, or controlling playback.",31,claude_discovery
+billing.premium_purchase_failures,billing,Premium Purchase and Billing Errors,"Users unable to complete premium subscription purchases due to blank pages, payment processing failures, or error messages when attempting to buy premium plans.",3,claude_discovery
+catalog.lyrics_loading_failures,catalog,Lyrics Loading and Display Issues,"Song lyrics fail to load, display inconsistently across songs and devices, or stop working despite app updates and manual refresh attempts.",5,claude_discovery
+catalog.missing_or_unavailable_content,catalog,Missing or Unavailable Music Content,"Popular songs, albums, or entire artist catalogs are unavailable on the platform, either regionally or globally, limiting user access to desired music.",8,claude_discovery
+catalog.other_catalog,catalog,Other catalog problems,Catalog complaints that fit no other catalog issue.,2,code_catch_all
+downloads.other_downloads,downloads,Other downloads problems,Downloads complaints that fit no other downloads issue.,6,code_catch_all
+other.general,other,General dissatisfaction,Negative reviews with no specific product problem stated.,60,code_catch_all
+playback.app_crashes_and_force_close,playback,App Crashes and Force Close Errors,"App crashes during playback, requires forced closure and reinstallation to regain functionality, or becomes completely unresponsive.",6,claude_discovery
+playback.false_internet_connection_errors,playback,False Internet Connection Errors During Playback,App reports no internet connection or connectivity errors during playback even when device has active internet and other apps function normally.,5,claude_discovery
+playback.intermittent_playback_failures,playback,Intermittent Playback and Stopping Issues,"Music playback fails intermittently, songs fail to play on demand, app randomly pauses or stops playing mid-song without user action, or requires app restart to resume playback.",11,claude_discovery
+playback.other_playback,playback,Other playback problems,Playback complaints that fit no other playback issue.,14,code_catch_all
+support.other_support,support,Other support problems,Support complaints that fit no other support issue.,1,code_catch_all
+usability.excessive_ad_interruptions,usability,Excessive Ad Interruptions,"Free users experience an overwhelming number of video and audio ads that interrupt music listening, with ad duration or frequency outweighing actual music content.",29,claude_discovery
+usability.other_usability,usability,Other usability problems,Usability complaints that fit no other usability issue.,9,code_catch_all
+usability.shuffle_and_repeat_feature_issues,usability,Shuffle and Repeat Functionality Problems,"Shuffle mode does not work as expected, plays same songs repeatedly, or users are unable to control or disable shuffle and repeat features properly.",9,claude_discovery
+usability.ui_redesign_usability_issues,usability,UI Redesign and Navigation Problems,"Recent app updates introduce confusing interface changes, make it harder to find content, or remove previously intuitive navigation features, degrading user experience.",16,claude_discovery
