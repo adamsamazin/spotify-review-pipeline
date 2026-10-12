@@ -31,7 +31,7 @@ from pipeline.verify import Verifier
 
 
 def run(csv_path, run_name, *, fake=False, budget=None, verify_fraction=0.02, verify_min=20, catalog=None,
-        max_batches=None, variant="shared_v1", label="run", log=print):
+        max_batches=None, variant="shared_v1", label="run", log=print, workers=1):
     run_dir = ROOT / "runs" / run_name
     if fake:
         from evals.fakes import fake_claude
@@ -63,7 +63,8 @@ def run(csv_path, run_name, *, fake=False, budget=None, verify_fraction=0.02, ve
         return out
 
     rep = stage("ingest", lambda: {k: v for k, v in ingest(csv_path, run_dir).items() if k != "course_profile"})
-    enr = stage("enrich", lambda: Enricher(run_dir, jev, jev_model, variant, ledger, log=log).run(max_batches))
+    enr = stage("enrich", lambda: Enricher(run_dir, jev, jev_model, variant, ledger, log=log,
+                                                  workers=workers).run(max_batches))
     pending = sqlite3.connect(run_dir / "state.sqlite").execute(
         "SELECT COUNT(*) FROM records WHERE status='pending'").fetchone()[0]
     if pending:
@@ -107,6 +108,7 @@ def main():
     ap.add_argument("--verify-fraction", type=float, default=0.02)
     ap.add_argument("--verify-min", type=int, default=20)
     ap.add_argument("--max-batches", type=int, help="stop enrichment after N requests (interruption demo)")
+    ap.add_argument("--workers", type=int, default=1, help="parallel enrichment workers")
     ap.add_argument("--budget", type=float)
     ap.add_argument("--fake", action="store_true", help="offline fake models (free)")
     args = ap.parse_args()
@@ -114,7 +116,8 @@ def main():
     from dotenv import load_dotenv
     load_dotenv(ROOT / ".env")
     run(args.csv, args.run or args.csv.stem, fake=args.fake, budget=args.budget, verify_fraction=args.verify_fraction,
-        verify_min=args.verify_min, catalog=args.catalog, max_batches=args.max_batches, label=args.label)
+        verify_min=args.verify_min, catalog=args.catalog, max_batches=args.max_batches, label=args.label,
+        workers=args.workers)
 
 
 if __name__ == "__main__":

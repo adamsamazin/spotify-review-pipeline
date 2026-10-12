@@ -3,6 +3,7 @@
     python -m pipeline.enrich runs/cost_100                 # paid: calls Jev
     python -m pipeline.enrich runs/cost_100 --dry-run       # free: request sizes + cost estimate only
     python -m pipeline.enrich runs/_test --fake             # free: offline fake model for testing
+    python -m pipeline.enrich runs/full --workers 4         # paid, 4 parallel request workers
 
 Control flow is owned by code:
   * one representative per exact text is sent; duplicates reuse its validated result (cache_source_id)
@@ -11,6 +12,8 @@ Control flow is owned by code:
   * 429/529/5xx/timeouts -> bounded exponential backoff with jitter, then the run stops (progress kept)
   * spend is reserved before each request and the run stops before the cap would be crossed
   * results are committed after every request, so an interrupted run resumes without re-paying
+  * --workers N: a queue feeds N threads that only make network calls; this thread keeps the queue,
+    the spend reservations and every database write (one writer, atomic commits)
 """
 
 import argparse
@@ -18,7 +21,10 @@ import json
 import random
 import sqlite3
 import sys
+import threading
 import time
+from collections import deque
+from concurrent.futures import FIRST_COMPLETED, ThreadPoolExecutor, wait
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -65,11 +71,15 @@ def estimate_tokens(state, questions):
 
 
 class Enricher:
-    def __init__(self, run_dir, client, model, variant, ledger, batch_size=MAX_BATCH, role="enrich", log=print):
+    def __init__(self, run_dir, client, model, variant, ledger, batch_size=MAX_BATCH, role="enrich", log=print,
+                 workers=1):
         if not 1 <= batch_size <= MAX_BATCH:
             raise ValueError(f"batch size must be 1..{MAX_BATCH}")
         self.run_dir, self.client, self.model, self.variant = Path(run_dir), client, model, variant
         self.ledger, self.batch_size, self.role, self.log = ledger, batch_size, role, log
+        self.workers = max(1, int(workers))
+        self._local = threading.local()
+        self._tsha = {}
         self.label_config = label_config_for(model, variant)
         self.db = sqlite3.connect(self.run_dir / "state.sqlite", isolation_level=None)
         self.db.executescript(TABLES)
@@ -119,26 +129,55 @@ class Enricher:
         self.stats["cost_usd"] += cost
 
     # ---------- one request with bounded transient retries ----------
-    def _send(self, items, batch_no):
-        """items: [(review_id, text)]. Returns (CallResult or None, question_ids_by_review)."""
+    def _thread_client(self):
+        """Each worker thread gets its own HTTP client when the client supports clone()."""
+        if self.workers == 1 or not hasattr(self.client, "clone"):
+            return self.client
+        if not hasattr(self._local, "client"):
+            self._local.client = self.client.clone()
+        return self._local.client
+
+    def _attempts(self, items, batch_no):
+        """Runs in a worker thread, no database access.
+        Returns ([(result, attempt, est_cost, started_at)], BudgetExceeded or None)."""
         state, questions = build_request([t for _, t in items], self.variant)
         est_cost = estimate_tokens(state, questions) * self.ledger.rates.get((self.model, "input_tokens"), 0)
-        ids = [rid for rid, _ in items]
-        self.stats["requests"] += 1
+        client, out = self._thread_client(), []
         for attempt in range(1, MAX_TRANSIENT_ATTEMPTS + 1):
-            self.ledger.reserve(est_cost)  # raises BudgetExceeded before any money is spent
+            try:
+                self.ledger.reserve(est_cost)  # raises before any money is spent
+            except BudgetExceeded as e:
+                return out, e
             started = now()
-            res = self.client.ask(state, questions)
+            res = client.ask(state, questions)
             if res.ok and res.model and res.model != self.model:
                 res.ok, res.error = False, f"model mismatch: asked {self.model}, got {res.model}"
-            self._log_call(res, ids, attempt, batch_no, est_cost, started)
+            out.append((res, attempt, est_cost, started))
             if res.ok or not res.transient:
-                return res
+                break
             delay = min(30.0, 1.0 * 2 ** (attempt - 1)) * (1 - random.uniform(0, 0.25))
             self.log(f"  batch {batch_no}: transient failure ({res.status or res.error[:40]}); "
                      f"retry {attempt}/{MAX_TRANSIENT_ATTEMPTS - 1} in {delay:.1f}s")
             time.sleep(delay)
+        return out, None
+
+    def _record(self, items, batch_no, out):
+        """Main thread: log every attempt; return the final result, or None if transient failures ran out."""
+        ids = [rid for rid, _ in items]
+        for res, attempt, est, started in out:
+            self._log_call(res, ids, attempt, batch_no, est, started)
+        if out and (out[-1][0].ok or not out[-1][0].transient):
+            return out[-1][0]
         return None
+
+    def _send(self, items, batch_no):
+        """Sequential helper used by the verify role."""
+        self.stats["requests"] += 1
+        out, err = self._attempts(items, batch_no)
+        res = self._record(items, batch_no, out)
+        if err:
+            raise err
+        return res
 
     def _parse(self, items, res):
         """Validate every returned question ID and build records. Returns (valid{id: rec}, invalid{id: reason})."""
@@ -193,14 +232,22 @@ class Enricher:
         self.stats["quarantined"] += len(invalid) if final_attempt else 0
         return retry
 
-    def _propagate_cache(self):
-        """Pending rows whose exact text already has a directly-labelled completed original."""
-        rows = self.db.execute("""
+    def _propagate_cache(self, tshas=None):
+        """Pending rows whose exact text already has a directly-labelled completed original.
+        With `tshas`, only those texts are checked (cheap per-batch pass); without, a full pass."""
+        where, params = "", [self.label_config]
+        if tshas is not None:
+            tshas = list(set(tshas))
+            if not tshas:
+                return 0
+            where = f" AND p.text_sha256 IN ({','.join('?' * len(tshas))})"
+            params += tshas
+        rows = self.db.execute(f"""
             SELECT p.review_id, r.review_id, r.record_json, MIN(o.row_idx) FROM records p
             JOIN records o ON o.text_sha256 = p.text_sha256 AND o.status = 'completed'
             JOIN results r ON r.review_id = o.review_id AND r.label_config = ? AND r.cache_source_id IS NULL
-            WHERE p.status = 'pending'
-            GROUP BY p.review_id""", (self.label_config,)).fetchall()
+            WHERE p.status = 'pending'{where}
+            GROUP BY p.review_id""", params).fetchall()
         if not rows:
             return 0
         ts = now()
@@ -220,6 +267,7 @@ class Enricher:
             if tsha not in seen:
                 seen.add(tsha)
                 queue.append((rid, text))
+                self._tsha[rid] = tsha
         return queue
 
     # ---------- main loop ----------
@@ -234,48 +282,77 @@ class Enricher:
         self.log(f"{self.run_dir.name}: {len(queue)} distinct pending texts | phase={self.phase} | "
                  f"{self.label_config} | spent so far ${self.ledger.spent:.4f} of ${self.ledger.cap:.2f} cap")
         stop, batch_no = "all_pending_processed", 0
+        retry_jobs = deque()  # (items, batch_no): second attempts after invalid output
+        batches = (queue[i:i + self.batch_size] for i in range(0, len(queue), self.batch_size))
+        admitting, futures = True, {}
+        pool = ThreadPoolExecutor(max_workers=self.workers, thread_name_prefix=self.role)
         try:
-            for start in range(0, len(queue), self.batch_size):
-                if max_batches is not None and batch_no >= max_batches:
-                    stop = f"max_batches={max_batches} reached (deliberate interruption)"
+            while True:
+                # admit work up to the worker limit: retries first, then new batches
+                while admitting and len(futures) < self.workers:
+                    if retry_jobs:
+                        items, b = retry_jobs.popleft()
+                        final = True
+                    else:
+                        if max_batches is not None and batch_no >= max_batches:
+                            stop, admitting = f"max_batches={max_batches} reached (deliberate interruption)", False
+                            break
+                        if max_minutes is not None and time.perf_counter() - t0 > max_minutes * 60:
+                            stop, admitting = f"max_minutes={max_minutes} reached", False
+                            break
+                        items = next(batches, None)
+                        if items is None:
+                            break
+                        batch_no += 1
+                        b, final = batch_no, False
+                    self.stats["requests"] += 1
+                    futures[pool.submit(self._attempts, items, b)] = (items, b, final)
+                if not futures:
                     break
-                if max_minutes is not None and time.perf_counter() - t0 > max_minutes * 60:
-                    stop = f"max_minutes={max_minutes} reached"
-                    break
-                batch_no += 1
-                items = queue[start:start + self.batch_size]
-                res = self._send(items, batch_no)
-                if res is None:
-                    stop = "transient failures exhausted; progress saved, rerun to resume"
-                    break
-                if res.status in (401, 403):
-                    stop = f"authentication error {res.status}"
-                    break
-                if res.ok:
-                    valid, invalid = self._parse(items, res)
-                else:  # request rejected (e.g. 422): retry each review alone to isolate the bad one
-                    valid, invalid = {}, {rid: f"request_rejected_{res.status}" for rid, _ in items}
-                retry = self._commit(items, valid, invalid, res.request_id, final_attempt=False)
-                if retry:
-                    self.stats["retried_reviews"] += len(retry)
-                    texts = dict(items)
-                    groups = [[(r, texts[r])] for r in retry] if not res.ok else [[(r, texts[r]) for r in retry]]
-                    for g in groups:
-                        r2 = self._send(g, batch_no)
-                        if r2 is not None and r2.ok:
-                            v2, i2 = self._parse(g, r2)
+                done, _ = wait(futures, return_when=FIRST_COMPLETED)
+                for fut in done:
+                    items, b, final = futures.pop(fut)
+                    out, err = fut.result()
+                    res = self._record(items, b, out)
+                    if err is not None:
+                        stop, admitting = f"budget stop: {err}", False
+                    if res is None:
+                        if err is None:
+                            stop, admitting = "transient failures exhausted; progress saved, rerun to resume", False
+                        continue  # these reviews stay pending for a resume
+                    if res.status in (401, 403):
+                        stop, admitting = f"authentication error {res.status}", False
+                        continue
+                    if res.ok:
+                        valid, invalid = self._parse(items, res)
+                    else:  # request rejected (e.g. 422): retry each review alone to isolate the bad one
+                        valid, invalid = {}, {rid: f"request_rejected_{res.status}" for rid, _ in items}
+                    retry = self._commit(items, valid, invalid, res.request_id, final_attempt=final)
+                    if retry and admitting:
+                        self.stats["retried_reviews"] += len(retry)
+                        texts = dict(items)
+                        if res.ok:
+                            retry_jobs.append(([(r, texts[r]) for r in retry], b))
                         else:
-                            why = "transient failures exhausted" if r2 is None else f"request_rejected_{r2.status}"
-                            v2, i2 = {}, {rid: why for rid, _ in g}
-                        self._commit(g, v2, i2, r2.request_id if r2 else None, final_attempt=True)
-                self._propagate_cache()
-                done = self.db.execute("SELECT COUNT(*) FROM records WHERE status='completed'").fetchone()[0]
-                self.log(f"  batch {batch_no}: +{len(valid)} valid, {len(invalid)} invalid | completed {done} | "
-                         f"tokens {self.stats['input_tokens']:,} | ${self.stats['cost_usd']:.5f}")
-        except BudgetExceeded as e:
-            stop = f"budget stop: {e}"
+                            retry_jobs.extend(([(r, texts[r])], b) for r in retry)
+                    self._propagate_cache([self._tsha[rid] for rid, _ in items if rid in self._tsha])
+                    if b % 20 == 0 or self.workers == 1 or len(queue) <= 2000:
+                        done_n = self.db.execute("SELECT COUNT(*) FROM records WHERE status='completed'").fetchone()[0]
+                        self.log(f"  batch {b}{' (retry)' if final else ''}: +{len(valid)} valid, {len(invalid)} "
+                                 f"invalid | completed {done_n} | tokens {self.stats['input_tokens']:,} | "
+                                 f"${self.stats['cost_usd']:.5f}")
         except KeyboardInterrupt:
-            stop = "interrupted by user (progress saved after last committed batch)"
+            stop, admitting = "interrupted by user (progress saved after last committed batch)", False
+            for fut in list(futures):  # save what is already in flight
+                items, b, final = futures.pop(fut)
+                try:
+                    out, _ = fut.result()
+                    self._record(items, b, out)
+                except Exception:  # noqa: BLE001 - an interrupted request may not return
+                    pass
+        finally:
+            pool.shutdown(wait=True)
+        self._propagate_cache()  # full pass: duplicates of texts finished in this session
         return self._finish(stop, time.perf_counter() - t0)
 
     def _finish(self, stop, wall):
@@ -314,6 +391,7 @@ def main():
     ap.add_argument("--budget", type=float, help="USD cap across all runs (default: SPEND_CAP_USD or 10)")
     ap.add_argument("--max-batches", type=int, help="stop after N requests (interruption demo)")
     ap.add_argument("--max-minutes", type=float)
+    ap.add_argument("--workers", type=int, default=1, help="parallel request workers (start at 1, then 2, 4)")
     ap.add_argument("--dry-run", action="store_true", help="estimate only, no API calls")
     ap.add_argument("--fake", action="store_true", help="offline fake model (free, for tests)")
     args = ap.parse_args()
@@ -330,7 +408,8 @@ def main():
     else:
         from pipeline.jev import JevClient
         client, model = JevClient(args.model), args.model
-    Enricher(args.run_dir, client, model, args.variant, Ledger(args.budget), args.batch_size).run(
+    Enricher(args.run_dir, client, model, args.variant, Ledger(args.budget), args.batch_size,
+             workers=args.workers).run(
         args.max_batches, args.max_minutes, args.dry_run)
 
 

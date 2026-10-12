@@ -30,8 +30,8 @@ def load_rates(path=RATES_PATH):
 
 def call_cost(rates, model, input_tokens, output_tokens):
     """Mutually exclusive billing items x price per unit. Unknown model -> KeyError (never silently $0)."""
-    if model and model.startswith("fake-"):  # offline test double, never billed
-        return 0.0
+    if model and model.startswith("fake-") and (model, "input_tokens") not in rates:
+        return 0.0  # offline test double: free unless a test gives it a price explicitly
     return (input_tokens or 0) * rates[(model, "input_tokens")] + (output_tokens or 0) * rates[(model, "output_tokens")]
 
 

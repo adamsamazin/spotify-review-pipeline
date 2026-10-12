@@ -1,7 +1,10 @@
 # raw dataset (97.4 MB) is linked + checksummed in README, not committed
 data/*
 !data/README.md
+# real credentials (course key-safety rules)
 .env
+.env.*
+!.env.example
 .venv/
 __pycache__/
 *.pyc

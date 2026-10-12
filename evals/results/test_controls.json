@@ -158,5 +158,88 @@
       "empty_review_text"
     ],
     "call_outcomes": []
+  },
+  "parallel_2_workers_complete": {
+    "pass": true,
+    "duplicate_results": 0,
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "parallel_interrupt_resume": {
+    "pass": true,
+    "completed_before": 4,
+    "completed_after": 7,
+    "completed": 7,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "resume"
+      ],
+      [
+        "succeeded",
+        1,
+        "resume"
+      ]
+    ]
+  },
+  "parallel_budget_stop": {
+    "pass": true,
+    "attempts": 2,
+    "spent_usd": 0.139489094,
+    "cap_usd": 0.140144094,
+    "stop_reason": "budget stop: spent $0.1389 + reserved $0.0000 + next $0.0017 would exceed cap $0.14",
+    "completed": 5,
+    "pending": 2,
+    "quarantined": 1,
+    "reasons": [
+      "empty_review_text"
+    ],
+    "call_outcomes": [
+      [
+        "succeeded",
+        1,
+        "initial"
+      ],
+      [
+        "succeeded",
+        1,
+        "initial"
+      ]
+    ]
+  },
+  "memo_wrong_number_rejected_then_fixed": {
+    "pass": true,
+    "status": "valid",
+    "calls": 2
   }
 }

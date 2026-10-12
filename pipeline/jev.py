@@ -7,6 +7,7 @@ failures, retries and their usage are visible in calls.jsonl.
 import hashlib
 import json
 import random
+import threading
 import time
 import uuid
 from dataclasses import dataclass, field
@@ -36,6 +37,11 @@ class JevClient:
         load_dotenv(ROOT / ".env")
         self.model = model
         self._client = TypeSafeClient(model=model, retry=RetryPolicy(max_retries=0), timeout=timeout)
+        self.timeout = timeout
+
+    def clone(self):
+        """A separate HTTP client for another worker thread."""
+        return JevClient(self.model, self.timeout)
 
     def ask(self, state, questions):
         import typesafe_sdk as t
@@ -62,10 +68,16 @@ class FakeJev:
 
     def __init__(self, model="fake-jev", fail_plan=None):
         self.model, self.calls, self.fail_plan = model, 0, fail_plan or {}
+        self._lock = threading.Lock()
+
+    def clone(self):
+        return self  # shared, so fail_plan call numbers stay global across workers
 
     def ask(self, state, questions):
-        self.calls += 1
-        mode = self.fail_plan.get(self.calls)
+        with self._lock:
+            self.calls += 1
+            call_no = self.calls
+        mode = self.fail_plan.get(call_no)
         rid = f"fake-{uuid.uuid4()}"
         if mode == "transient":
             return CallResult(False, request_id=rid, status=529, error="fake overload", transient=True)

@@ -37,8 +37,8 @@ def statuses(d):
     return out
 
 
-def enr(d, client, cap=10.0, batch=2):
-    return Enricher(d, client, "fake-jev", "inline_v1", Ledger(cap), batch, log=quiet)
+def enr(d, client, cap=10.0, batch=2, workers=1):
+    return Enricher(d, client, "fake-jev", "inline_v1", Ledger(cap), batch, log=quiet, workers=workers)
 
 
 def main():
@@ -83,6 +83,52 @@ def main():
     s = Enricher(d, FakeJev(), "fake-jev", "inline_v1", led, 2, log=quiet).run()
     results["budget_stop"] = {"pass": s["stop_reason"].startswith("budget stop") and s["attempts"] == 0,
                               "stop_reason": s["stop_reason"], **statuses(d)}
+
+    # ---- parallel workers (queue + 2 threads; one writer) ----
+    d = fresh("parallel")
+    s = enr(d, FakeJev(), workers=2).run()
+    st = statuses(d)
+    dup = sqlite3.connect(d / "state.sqlite").execute(
+        "SELECT COUNT(*) - COUNT(DISTINCT review_id) FROM results").fetchone()[0]
+    results["parallel_2_workers_complete"] = {"pass": st.get("completed") == 7 and dup == 0 and s["attempts"] == 3,
+                                              "duplicate_results": dup, **st}
+
+    d = fresh("parallel_resume")
+    enr(d, FakeJev(), workers=2).run(max_batches=1)
+    db = sqlite3.connect(d / "state.sqlite")
+    before = {r for (r,) in db.execute("SELECT review_id FROM records WHERE status='completed'")}
+    enr(d, FakeJev(), workers=2).run()
+    after = {r for (r,) in db.execute("SELECT review_id FROM records WHERE status='completed'")}
+    resent = [json.loads(ids) for (ids,) in db.execute("SELECT review_ids FROM calls WHERE phase='resume'")]
+    overlap = before & {i for ids in resent for i in ids}
+    results["parallel_interrupt_resume"] = {"pass": before < after and not overlap and len(after) == 7,
+                                            "completed_before": len(before), "completed_after": len(after), **statuses(d)}
+
+    d = fresh("parallel_budget")  # small cap: stops on budget, never exceeds it, leaves work pending
+    led = Ledger(0.0)
+    led.rates[("fake-jev", "input_tokens")] = 1e-6  # price the fake so spend accumulates in this ledger
+    led.rates[("fake-jev", "output_tokens")] = 0.0
+    from pipeline.enrich import estimate_tokens
+    from pipeline.questions import build_request
+    one = estimate_tokens(*build_request(["Good", "Good"], "inline_v1")) * 1e-6
+    led.cap = led.spent + one * 1.5
+    s = Enricher(d, FakeJev(), "fake-jev", "inline_v1", led, 2, log=quiet, workers=2).run()
+    st = statuses(d)
+    results["parallel_budget_stop"] = {"pass": s["stop_reason"].startswith("budget stop") and s["attempts"] >= 1
+                                       and led.spent + led.reserved <= led.cap + 1e-12 and st.get("pending", 0) > 0,
+                                       "attempts": s["attempts"], "spent_usd": led.spent, "cap_usd": led.cap,
+                                       "stop_reason": s["stop_reason"], **statuses(d)}
+
+    # ---- memo: a wrong number is rejected by code, the retry passes ----
+    from evals.fakes import fake_claude
+    from pipeline.memo import MemoWriter
+    from pipeline.run import run as run_pipeline
+    run_pipeline(ROOT / "data" / "cost_100.csv", "_test_memo", fake=True, log=quiet)
+    md = ROOT / "runs" / "_test_memo"
+    (md / "memo" / "memo_validation.json").unlink(missing_ok=True)
+    m = MemoWriter(md, fake_claude(bad_first_memo=True), Ledger(), log=quiet).run_memo()
+    results["memo_wrong_number_rejected_then_fixed"] = {"pass": m["status"] == "valid" and m["calls"] == 2,
+                                                        "status": m["status"], "calls": m["calls"]}
 
     out = ROOT / "evals" / "results" / "test_controls.json"
     out.parent.mkdir(parents=True, exist_ok=True)
