@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-03 00:20 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-12 23:09 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 
@@ -57,18 +57,18 @@ Provider-reported usage compared with our call logs (scope may cover all runs th
 
 ## Full-run projection (estimates, not measurements)
 
-Per-unit usage source: **checkpoint_500** (refreshed from a larger run). Projected rows: 660,622 (all source rows); 660,609 nonempty classifications and 13 empty-text quarantines at the course volume; exact-text reuse leaves 484,189 distinct texts for first-pass enrichment. Fixed overhead (memo, issue discovery) is counted once, never per review.
+Per-unit usage source: **analysis_10000** (refreshed from a larger run). Projected rows: 660,622 (all source rows); 660,609 nonempty classifications and 13 empty-text quarantines at the course volume; exact-text reuse leaves 484,189 distinct texts for first-pass enrichment. Fixed overhead (memo, issue discovery) is counted once, never per review.
 
 Controls: budget **$10.00**, max workers **1**, Claude output cap **4000** tokens, max fallback fraction **0.0** (No stronger-model fallback is used; invalid outputs are retried once then quarantined.)
 
 | Scenario | Reuse | Enrich | Verify | Group assign | Fixed (memo, discovery) | **Total** | Est. time | Budget check |
 |---|---|---|---|---|---|---|---|---|
-| base | with exact text reuse | $6.27 | $0.3075 | $0.9719 | $0.0119 | **$7.56** | 0.70 h | within budget |
-| base | no reuse | $8.55 | $0.4196 | $1.33 | $0.0119 | **$10.31** | 0.95 h | **OVER BUDGET** |
-| conservative | with exact text reuse | $7.49 | $0.7353 | $1.16 | $0.0238 | **$9.42** | 1.06 h | within budget |
-| conservative | no reuse | $10.22 | $1.00 | $1.59 | $0.0238 | **$12.84** | 1.45 h | **OVER BUDGET** |
+| base | with exact text reuse | $6.27 | $0.1506 | $0.8363 | $0.0384 | **$7.29** | 0.72 h | within budget |
+| base | no reuse | $8.55 | $0.2054 | $1.14 | $0.0384 | **$9.94** | 0.99 h | within budget |
+| conservative | with exact text reuse | $7.49 | $0.3600 | $0.9998 | $0.0767 | **$8.93** | 1.10 h | within budget |
+| conservative | no reuse | $10.22 | $0.4912 | $1.36 | $0.0767 | **$12.15** | 1.50 h | **OVER BUDGET** |
 
-Assumptions: base = retry 1%, verify 2%; conservative = retry 5%, +15% tokens, verify 4%, memo x2, +50% time. Time = requests x measured seconds per request / workers.
+Assumptions: base = retry 1%, verify 1%; conservative = retry 5%, +15% tokens, verify 2%, memo x2, +50% time. Time = requests x measured seconds per request / workers.
 
 Per-unit measurements used:
 
@@ -77,37 +77,37 @@ Per-unit measurements used:
   "run": "pilot_cost_100",
   "records_completed": 100,
   "direct_labelled": 100,
-  "negative_share": 0.474,
-  "jev_assign_share": 0.7172995780590717,
+  "negative_share": 0.4446,
+  "jev_assign_share": 0.6925326135852452,
   "enrich": {
-    "tokens_per_review": 305.19415448851777,
-    "sec_per_request": 0.2129,
-    "attempts": 10,
+    "tokens_per_review": 305.13529829545456,
+    "sec_per_request": 0.2187988165680473,
+    "attempts": 169,
     "model": "jev-1.13.0"
   },
   "verify": {
-    "tokens_per_review": 748.55,
-    "sec_per_request": 0.16,
+    "tokens_per_review": 733.0295857988166,
+    "sec_per_request": 0.2925,
     "model": "jev-1.13.0"
   },
   "group_assign": {
-    "tokens_per_review": 139.1764705882353,
-    "sec_per_request": 0.12266666666666666,
+    "tokens_per_review": 132.23838908736602,
+    "sec_per_request": 0.14631818181818182,
     "model": "jev-1.13.0"
   },
   "group_discovery": {
-    "input_tokens": 8268,
-    "output_tokens": 2977,
-    "seconds": 44.888,
+    "input_tokens": 13412,
+    "output_tokens": 3376,
+    "seconds": 51.536,
     "model": "claude-haiku-4-5-20251001"
   },
   "memo": {
-    "input_tokens": 19135,
-    "output_tokens": 8068,
-    "seconds": 80.292,
-    "attempts": 5,
-    "model": "claude-haiku-4-5-20251001"
+    "input_tokens": 4765,
+    "output_tokens": 2884,
+    "seconds": 23.53,
+    "attempts": 1,
+    "model": "claude-sonnet-5-5"
   },
-  "source": "checkpoint_500"
+  "source": "analysis_10000"
 }
 ```

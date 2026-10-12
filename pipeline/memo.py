@@ -232,7 +232,7 @@ class MemoWriter(Enricher):
         (self.out / "memo_raw.json").write_text(json.dumps(out, indent=2, ensure_ascii=False), encoding="utf-8")
         if out.get("memo_markdown"):
             banner = "" if status == "valid" else "> **Validation failed - do not use. See memo_validation.json.**\n\n"
-            (self.out / "memo.md").write_text(banner + out["memo_markdown"].strip() + "\n", encoding="utf-8")
+            (self.out / "memo.md").write_text(banner + out.get("memo_rendered", out["memo_markdown"]).strip() + "\n", encoding="utf-8")
         with (self.out / "claims.csv").open("w", encoding="utf-8", newline="") as f:
             w = csv.DictWriter(f, fieldnames=["claim_id", "issue_id", "metric", "value"], lineterminator="\n")
             w.writeheader()
@@ -285,3 +285,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def rewrite_from_saved(run_dir):
+    """Offline: rebuild memo.md from the saved, validated memo_raw.json (no model call)."""
+    d = Path(run_dir) / "memo"
+    raw = json.loads((d / "memo_raw.json").read_text(encoding="utf-8"))
+    val = json.loads((d / "memo_validation.json").read_text(encoding="utf-8"))
+    banner = "" if val.get("status") == "valid" else "> **Validation failed - do not use. See memo_validation.json.**\n\n"
+    (d / "memo.md").write_text(banner + raw.get("memo_rendered", raw["memo_markdown"]).strip() + "\n", encoding="utf-8")

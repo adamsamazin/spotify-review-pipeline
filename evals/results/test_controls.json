@@ -215,9 +215,9 @@
   "parallel_budget_stop": {
     "pass": true,
     "attempts": 2,
-    "spent_usd": 0.139489094,
-    "cap_usd": 0.140144094,
-    "stop_reason": "budget stop: spent $0.1389 + reserved $0.0000 + next $0.0017 would exceed cap $0.14",
+    "spent_usd": 0.13957893200000002,
+    "cap_usd": 0.140233932,
+    "stop_reason": "budget stop: spent $0.1390 + reserved $0.0000 + next $0.0017 would exceed cap $0.14",
     "completed": 5,
     "pending": 2,
     "quarantined": 1,

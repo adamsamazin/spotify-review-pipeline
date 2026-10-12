@@ -178,6 +178,7 @@ class Grouper(Enricher):
         calls_before = self.stats["attempts"]
         work = defaultdict(list)  # topic -> [(rid, text)] one representative per text
         later = []
+        self.db.execute("BEGIN")  # batch membership writes: one transaction per step, not per row
         for rid, text, tsha, topic, _, _ in pending:
             if tsha in assigned_by_text:
                 later.append((rid, tsha))
@@ -187,6 +188,7 @@ class Grouper(Enricher):
             else:
                 assigned_by_text[tsha] = rid  # reserve: this record represents the text
                 work[topic].append((rid, text))
+        self.db.execute("COMMIT")
         stop = "complete"
         try:
             for topic, items in sorted(work.items()):
@@ -198,6 +200,7 @@ class Grouper(Enricher):
                         instructions=f"Which issue in `issues` best describes the problem in `reviews.r{k + 1:02d}`?",
                         criteria=dict.fromkeys(issues)) for k in range(len(chunk))}
                     res = self._send_raw(state, qs, [r for r, _ in chunk], b)
+                    self.db.execute("BEGIN")
                     for k, (rid, _) in enumerate(chunk):
                         ans = (res.answers.get(f"r{k + 1:02d}") or {}) if res and res.ok else {}
                         iid = ans.get("choice")
@@ -206,14 +209,17 @@ class Grouper(Enricher):
                         else:  # unresolved assignment falls back to the topic catch-all, recorded as such
                             self._save(catch_all_id(topic), rid, gcfg, "fallback_catch_all", None,
                                        res.request_id if res else None)
+                    self.db.execute("COMMIT")
         except BudgetExceeded as e:
             stop = f"budget stop: {e}"
         # exact-duplicate texts reuse the representative's issue
         rep_issue = dict(self.db.execute("SELECT review_id, issue_id FROM membership WHERE group_config=?", (gcfg,)))
+        self.db.execute("BEGIN")
         for rid, tsha in later + [(n[0], n[2]) for n in pending if n[0] not in rep_issue]:
             src = assigned_by_text.get(tsha)
             if src and src != rid and src in rep_issue:
                 self._save(rep_issue[src], rid, gcfg, "cache_duplicate_text", src, None)
+        self.db.execute("COMMIT")
         return stop, self.stats["attempts"] - calls_before, gcfg
 
     def _send_raw(self, state, questions, ids, batch_no):

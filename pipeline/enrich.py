@@ -232,6 +232,35 @@ class Enricher:
         self.stats["quarantined"] += len(invalid) if final_attempt else 0
         return retry
 
+    def _propagate_from(self, valid):
+        """Per-batch fast path: the records just labelled are the originals, so copy each result only to
+        pending rows with the same exact text (index lookup on text_sha256, no scan of completed rows)."""
+        if not valid:
+            return 0
+        ts, n = now(), 0
+        self.db.execute("BEGIN IMMEDIATE")
+        try:
+            for src, rec in valid.items():
+                tsha = self._tsha.get(src)
+                if tsha is None:
+                    continue
+                dups = [r for (r,) in self.db.execute(
+                    "SELECT review_id FROM records WHERE text_sha256=? AND status='pending'", (tsha,))]
+                if not dups:
+                    continue
+                body = json.dumps(rec, ensure_ascii=False)  # identical to the original's saved record_json
+                for rid in dups:
+                    self.db.execute("INSERT OR REPLACE INTO results VALUES (?,?,?,?,?,?)",
+                                    (rid, self.label_config, body, src, None, ts))
+                    self.db.execute("UPDATE records SET status='completed', reason=NULL WHERE review_id=?", (rid,))
+                n += len(dups)
+            self.db.execute("COMMIT")
+        except Exception:
+            self.db.execute("ROLLBACK")
+            raise
+        self.stats["cache_hits"] += n
+        return n
+
     def _propagate_cache(self, tshas=None):
         """Pending rows whose exact text already has a directly-labelled completed original.
         With `tshas`, only those texts are checked (cheap per-batch pass); without, a full pass."""
@@ -335,7 +364,7 @@ class Enricher:
                             retry_jobs.append(([(r, texts[r]) for r in retry], b))
                         else:
                             retry_jobs.extend(([(r, texts[r])], b) for r in retry)
-                    self._propagate_cache([self._tsha[rid] for rid, _ in items if rid in self._tsha])
+                    self._propagate_from(valid)
                     if b % 20 == 0 or self.workers == 1 or len(queue) <= 2000:
                         done_n = self.db.execute("SELECT COUNT(*) FROM records WHERE status='completed'").fetchone()[0]
                         self.log(f"  batch {b}{' (retry)' if final else ''}: +{len(valid)} valid, {len(invalid)} "
