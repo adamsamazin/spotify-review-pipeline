@@ -22,7 +22,7 @@ calls happen when you view it.
 | Full run cost / time | **$7.52** (enrich $6.26, group $1.08, verify $0.15, memo $0.035); **21.3 min** end to end, enrichment 9.8 min at 4 workers. All runs to date: $7.90 of the $10 cap | measured: [results/full/run_summary_complete.json](results/full/run_summary_complete.json) |
 | Projection before the run | base $7.29, conservative $8.93 (refreshed from the 500 and 10k runs) | estimate: [cost/report.md](cost/report.md) |
 | 100-review pilot (final config) | cold **$0.0429 / 24.3 s**, warm **$0 / 0.12 s / 0 calls** | measured: [cost/report.md](cost/report.md) |
-| Interruption / resume | stopped after 40 requests (88,843 completed), resumed (102,473), then finished; **0** checkpointed IDs re-sent | measured: [grading/checkpoint_before.json](grading/checkpoint_before.json), [grading/checkpoint_after.json](grading/checkpoint_after.json), screen recording (release asset) |
+| Interruption / resume | stopped after 40 requests (88,843 completed), resumed (102,473), then finished; **0** checkpointed IDs re-sent | measured: [grading/checkpoint_before.json](grading/checkpoint_before.json), [grading/checkpoint_after.json](grading/checkpoint_after.json), [screen recording](https://github.com/adamsamazin/spotify-review-pipeline/releases/download/v1.0/full_run_interrupt_resume.mp4) (release v1.0) |
 
 Accounted-for rows (660,622) are not the same as completed classifications (660,609): the 13 empty texts are
 quarantined, not classified.
@@ -42,7 +42,7 @@ quarantined, not classified.
 | Real cold/warm pilot, offline calculator, retry/spend/recovery controls | [cost/report.md](cost/report.md), `python -m cost.calculator`, [evals/results/test_controls.json](evals/results/test_controls.json) (10/10), provider reconciliation in [cost/reconciliation/](cost/reconciliation/) |
 | **Working result (3)** | |
 | Full ingestion, coverage, successful classification | [grading/](grading/) passes `check_submission.py` (coverage 1.0) |
-| Staged program, bounded calls, saved handoffs, resume | [pipeline/run.py](pipeline/run.py), [scripts/full_run_demo.py](scripts/full_run_demo.py), checkpoints + recording; ≤50 reviews per enrichment request |
+| Staged program, bounded calls, saved handoffs, resume | [pipeline/run.py](pipeline/run.py), [scripts/full_run_demo.py](scripts/full_run_demo.py), checkpoints + [recording](https://github.com/adamsamazin/spotify-review-pipeline/releases/download/v1.0/full_run_interrupt_resume.mp4); ≤50 reviews per enrichment request |
 | Reproducible ranking and deployed dashboard with grounded AI recommendations | `python -m pipeline.rank runs/full` regenerates [grading/ranking.csv](grading/ranking.csv) byte-for-byte; dashboard URL above ([dashboard/](dashboard/)) |
 
 ## Architecture
