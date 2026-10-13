@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-13 00:04 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-13 00:16 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 
@@ -54,6 +54,12 @@ Provider-reported usage compared with our call logs (scope may cover all runs th
 | 2026-10-02 | typesafe | all real calls in the last 24 h to 2026-10-02 (all traffic) | total_tokens | 837789 | 837789 | 0 | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
 | 2026-10-02 | typesafe | all real calls in the last 24 h to 2026-10-02 (all traffic) | cost_usd | 0.0224 | 0.0224 | 0 | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
 | 2026-10-02 | typesafe | account balance | balance_usd | 5.00 | 4.9776 expected | not yet deducted | [2026-10-02_typesafe_usage.webp](reconciliation/2026-10-02_typesafe_usage.webp) |
+| 2026-10-13 | typesafe | all real calls in the last 30 days (all runs incl. full corpus) | requests | 13988 | 13988 | 0 | [2026-10-12_typesafe_usage_full_run.webp](reconciliation/2026-10-12_typesafe_usage_full_run.webp) |
+| 2026-10-13 | typesafe | all real calls in the last 30 days (all runs incl. full corpus) | total_tokens | 300714724 | 300714724 | 0 | [2026-10-12_typesafe_usage_full_run.webp](reconciliation/2026-10-12_typesafe_usage_full_run.webp) |
+| 2026-10-13 | typesafe | all real calls in the last 30 days (all runs incl. full corpus) | cost_usd | 7.64 | 7.6407 | within rounding | [2026-10-12_typesafe_usage_full_run.webp](reconciliation/2026-10-12_typesafe_usage_full_run.webp) |
+| 2026-10-13 | typesafe | account balance | balance_usd | 3.35 | 3.36 expected (5 + 6 top-up - 7.64) | within rounding | [2026-10-12_typesafe_usage_full_run.webp](reconciliation/2026-10-12_typesafe_usage_full_run.webp) |
+| 2026-10-13 | anthropic | all real calls in the last 30 days (API key spotify-pipeline) | input_tokens | 60964 | 60964 | 0 | [2026-10-12_anthropic_usage_full_run.webp](reconciliation/2026-10-12_anthropic_usage_full_run.webp) |
+| 2026-10-13 | anthropic | all real calls in the last 30 days (API key spotify-pipeline) | output_tokens | 24866 | 24866 | 0 | [2026-10-12_anthropic_usage_full_run.webp](reconciliation/2026-10-12_anthropic_usage_full_run.webp) |
 
 ## Full-run projection (estimates, not measurements)
 

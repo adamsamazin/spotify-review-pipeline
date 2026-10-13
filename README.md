@@ -39,7 +39,7 @@ quarantined, not classified.
 | **Testing & evaluation (3)** | |
 | 50 human labels, per-field comparison, error analysis | [evals/golden_50_labeled.csv](evals/golden_50_labeled.csv), [evals/eval_golden.py](evals/eval_golden.py), [per-case results](evals/results/golden_probe_golden_shared.md), [Evaluation](#evaluation) |
 | Independent verification, planted-error and injection tests | [pipeline/verify.py](pipeline/verify.py), [results/full/verify_disagreements.json](results/full/verify_disagreements.json), [planted copy](results/full/verify_planted_test_copy.jsonl), [evals/results/injection_test.json](evals/results/injection_test.json) |
-| Real cold/warm pilot, offline calculator, retry/spend/recovery controls | [cost/report.md](cost/report.md), `python -m cost.calculator`, [evals/results/test_controls.json](evals/results/test_controls.json) (10/10), provider reconciliation in [cost/reconciliation/](cost/reconciliation/) |
+| Real cold/warm pilot, offline calculator, retry/spend/recovery controls | [cost/report.md](cost/report.md), `python -m cost.calculator`, [evals/results/test_controls.json](evals/results/test_controls.json) (10/10), provider dashboards reconciled exactly (requests, tokens, spend) in [cost/reconciliation/](cost/reconciliation/) |
 | **Working result (3)** | |
 | Full ingestion, coverage, successful classification | [grading/](grading/) passes `check_submission.py` (coverage 1.0) |
 | Staged program, bounded calls, saved handoffs, resume | [pipeline/run.py](pipeline/run.py), [scripts/full_run_demo.py](scripts/full_run_demo.py), checkpoints + [recording](https://github.com/adamsamazin/spotify-review-pipeline/releases/download/v1.0/full_run_interrupt_resume.mp4); ≤50 reviews per enrichment request |
@@ -185,4 +185,4 @@ uses a read-only role. Local preview: `python -m uvicorn dashboard.dev_server:ap
 - Issue membership is limited to the classifier's topic.
 - `other.general` is a large catch-all of generic dissatisfaction.
 - 13 empty reviews are quarantined and not classified; there were no other failures.
-- Provider dashboards were reconciled for the pilot-era spend ([cost/reconciliation/](cost/reconciliation/)); the full-run charges were taken from our call logs.
+- Cost evidence: provider dashboards match our call logs exactly after the full run: Jev 13,988 requests and 300,714,724 tokens ($7.64), Anthropic 60,964 input / 24,866 output tokens ([cost/reconciliation/](cost/reconciliation/)).
