@@ -1,0 +1,136 @@
+{
+  "role": "enrich",
+  "model": "jev-1.13.0",
+  "label_config": "jev-1.13.0+enrich_shared_v1+schema_v1",
+  "notes": "Up to 50 reviews per request keyed r01..r50; definitions are sent once per request in the state. Code then maps answers: sentiment = score/2 - 1; severity rules (praise/request/unclear -> 1, complaint >= 2); evidence quote = full text if <= 280 chars else best keyword sentence; needs_review when a top option < 0.6; post_version post_v2.",
+  "state_shape": {
+    "definitions": {
+      "topic": {
+        "access": "Login, signup, password or account access problems",
+        "usability": "Navigation, controls, layout, queue or playlist management, ad interruptions",
+        "playback": "Playback failure, crashes, lag, connection failures, audio quality, battery or data use",
+        "downloads": "Downloading, saved music, offline listening, disappearing downloads",
+        "catalog": "Missing songs or artists, search, discovery, recommendations, lyrics",
+        "billing": "Price, charges, subscriptions, paywalls, premium entitlement, features or limits locked to premium (e.g. free-tier skip or shuffle limits)",
+        "support": "Contacting customer support and the support response",
+        "other": "General praise or criticism with no specific feature, unrelated or meaningless text",
+        "rule": "If several problems are mentioned, pick the most severe; if tied, the first mentioned. For a positive review pick the first specific praised feature; general praise is other. Mentioning a paid plan alone is not billing."
+      },
+      "intent": {
+        "cancellation": "Explicitly leaving, uninstalling, cancelling or threatening to",
+        "complaint": "Negative experience, including mixed praise and criticism or a generic 'bad app'",
+        "request": "Asks for a change without reporting a failure",
+        "praise": "Positive experience only",
+        "unclear": "Meaningless, unrelated, or a bare boycott slogan with no product complaint",
+        "rule": "If several apply, choose the first in this order: cancellation, complaint, request, praise, unclear."
+      },
+      "severity": {
+        "1": "No reported problem: praise, neutral or unclear text, or a pure feature request",
+        "2": "Dislike, generic criticism, minor annoyance or cosmetic issue; no functional loss",
+        "3": "A degraded or restricted function; some use or a workaround remains",
+        "4": "A core task clearly blocked, such as cannot log in or cannot play music",
+        "5": "Explicit serious financial, privacy or data harm; price, a crash or angry words alone are not enough"
+      }
+    },
+    "reviews": {
+      "r01": "<review text 1>",
+      "r02": "<review text 2>"
+    }
+  },
+  "questions_for_two_reviews": {
+    "r01.topic": {
+      "type": "choice",
+      "instructions": "Primary topic of `reviews.r01`, using `definitions.topic`.",
+      "criteria": {
+        "access": null,
+        "usability": null,
+        "playback": null,
+        "downloads": null,
+        "catalog": null,
+        "billing": null,
+        "support": null,
+        "other": null
+      }
+    },
+    "r01.intent": {
+      "type": "choice",
+      "instructions": "Intent of `reviews.r01`, using `definitions.intent`.",
+      "criteria": {
+        "cancellation": null,
+        "complaint": null,
+        "request": null,
+        "praise": null,
+        "unclear": null
+      }
+    },
+    "r01.severity": {
+      "type": "choice",
+      "instructions": "Severity of the problem in `reviews.r01`, using `definitions.severity`.",
+      "criteria": {
+        "1": null,
+        "2": null,
+        "3": null,
+        "4": null,
+        "5": null
+      }
+    },
+    "r01.sentiment": {
+      "type": "score",
+      "instructions": "Overall sentiment of the app review `reviews.r01`",
+      "criteria": [
+        "Very negative",
+        "Somewhat negative",
+        "Neutral or mixed",
+        "Somewhat positive",
+        "Very positive"
+      ]
+    },
+    "r02.topic": {
+      "type": "choice",
+      "instructions": "Primary topic of `reviews.r02`, using `definitions.topic`.",
+      "criteria": {
+        "access": null,
+        "usability": null,
+        "playback": null,
+        "downloads": null,
+        "catalog": null,
+        "billing": null,
+        "support": null,
+        "other": null
+      }
+    },
+    "r02.intent": {
+      "type": "choice",
+      "instructions": "Intent of `reviews.r02`, using `definitions.intent`.",
+      "criteria": {
+        "cancellation": null,
+        "complaint": null,
+        "request": null,
+        "praise": null,
+        "unclear": null
+      }
+    },
+    "r02.severity": {
+      "type": "choice",
+      "instructions": "Severity of the problem in `reviews.r02`, using `definitions.severity`.",
+      "criteria": {
+        "1": null,
+        "2": null,
+        "3": null,
+        "4": null,
+        "5": null
+      }
+    },
+    "r02.sentiment": {
+      "type": "score",
+      "instructions": "Overall sentiment of the app review `reviews.r02`",
+      "criteria": [
+        "Very negative",
+        "Somewhat negative",
+        "Neutral or mixed",
+        "Somewhat positive",
+        "Very positive"
+      ]
+    }
+  }
+}

@@ -1,0 +1,171 @@
+{
+  "run_id": "full",
+  "input": {
+    "file": "spotify_reviews_18months.csv",
+    "bytes": 97400616,
+    "sha256": "1fc85de68a304dd8978b537cfa58793d5f41cbaf417fa32cb53899f83a2fcef6",
+    "parsed_rows_sha256": "eb5ea1e15f020212004a5b1e2f873e45a9f105d1b4516ad077020492364f71ff"
+  },
+  "code_version": {
+    "at_ingest": "f58b182-dirty",
+    "explanation": "The '-dirty' flag at run start came from files not yet committed: scripts/full_run_demo.py and dashboard changes. `git diff f58b182 d92742c -- pipeline/` is empty, so the pipeline code that produced the run is exactly commit f58b182; d92742c committed the demo script and outputs.",
+    "pipeline_code_commit": "f58b182",
+    "outputs_committed_in": "d92742c",
+    "manifest_written_at_commit": "1770be9"
+  },
+  "models_and_label_configs": [
+    {
+      "role": "enrich",
+      "model": "jev-1.13.0",
+      "label_config": "jev-1.13.0+enrich_shared_v1+schema_v1",
+      "calls": 9684,
+      "failed": 0,
+      "input_tokens": 148952702,
+      "output_tokens": 100524413,
+      "cost_usd": 6.256013
+    },
+    {
+      "role": "group",
+      "model": "jev-1.13.0",
+      "label_config": "jev-1.13.0+group_assign_v1+catalog_b4a33aea9b",
+      "calls": 3919,
+      "failed": 0,
+      "input_tokens": 25715639,
+      "output_tokens": 14902455,
+      "cost_usd": 1.080057
+    },
+    {
+      "role": "memo",
+      "model": "claude-sonnet-5-5",
+      "label_config": "claude-sonnet-5-5+memo_v3",
+      "calls": 1,
+      "failed": 0,
+      "input_tokens": 5313,
+      "output_tokens": 2439,
+      "cost_usd": 0.035016
+    },
+    {
+      "role": "verify",
+      "model": "jev-1.13.0",
+      "label_config": "jev-1.13.0+verify_v1+schema_v1",
+      "calls": 97,
+      "failed": 0,
+      "input_tokens": 3557573,
+      "output_tokens": 1005365,
+      "cost_usd": 0.149418
+    }
+  ],
+  "settings": {
+    "enrich_batch_size": 50,
+    "enrich_workers": 4,
+    "enrich_variant": "shared_v1",
+    "schema": "schema_v1",
+    "post_version": "post_v2",
+    "needs_review_max_prob": 0.6,
+    "verify_fraction": 0.01,
+    "verify_seed": "a5-verify-v1",
+    "transient_attempts": 4,
+    "invalid_output_retries": 1,
+    "spend_cap_usd_all_runs": 10.0,
+    "issue_catalog": "prompts/catalog_accepted.json",
+    "issue_catalog_sha256": "74bd1cc751f9de16440215bc792fa72c356cbfb5811b5b50aedd11935dee04e9",
+    "memo_model": "claude-sonnet-5-5",
+    "memo_effort": "high",
+    "memo_max_tokens": 16000,
+    "interruption": "--max-batches 40 (initial), resume --max-batches 40, then completion"
+  },
+  "sessions": [
+    {
+      "session": 1,
+      "role": "enrich",
+      "phase": "initial",
+      "started_at": "2026-10-12T23:20:53.104+00:00",
+      "ended_at": "2026-10-12T23:21:03.516+00:00",
+      "stop_reason": "max_batches=40 reached (deliberate interruption)"
+    },
+    {
+      "session": 2,
+      "role": "enrich",
+      "phase": "resume",
+      "started_at": "2026-10-12T23:21:20.330+00:00",
+      "ended_at": "2026-10-12T23:21:26.642+00:00",
+      "stop_reason": "max_batches=40 reached (deliberate interruption)"
+    },
+    {
+      "session": 3,
+      "role": "enrich",
+      "phase": "resume",
+      "started_at": "2026-10-12T23:21:43.171+00:00",
+      "ended_at": "2026-10-12T23:31:28.262+00:00",
+      "stop_reason": "all_pending_processed"
+    },
+    {
+      "session": 4,
+      "role": "verify",
+      "phase": "initial",
+      "started_at": "2026-10-12T23:31:32.794+00:00",
+      "ended_at": "2026-10-12T23:32:05.301+00:00",
+      "stop_reason": "complete"
+    },
+    {
+      "session": 5,
+      "role": "group",
+      "phase": "initial",
+      "started_at": "2026-10-12T23:32:05.310+00:00",
+      "ended_at": "2026-10-12T23:41:59.190+00:00",
+      "stop_reason": "complete"
+    },
+    {
+      "session": 6,
+      "role": "memo",
+      "phase": "initial",
+      "started_at": "2026-10-12T23:42:13.135+00:00",
+      "ended_at": "2026-10-12T23:42:48.846+00:00",
+      "stop_reason": "valid"
+    }
+  ],
+  "prompts": {
+    "prompts/catalog_accepted.json": "74bd1cc751f9de16440215bc792fa72c356cbfb5811b5b50aedd11935dee04e9",
+    "prompts/catalog_edits.json": "8aed11fff7031f72757bfa31d111939aaf78ac0f4dec040b36db7db432c6af26",
+    "prompts/labels.md": "6261924678e405329e79bb16fdcb27df702e80ae8b5a142ce03cb911560c3ec3",
+    "prompts/output_schema.md": "675dc1e1dfd2e406ff657b0a5ba98842726ea9df0b928f578d9d944b303b02de",
+    "prompts/roles/enrich_shared_v1.json": "7b90d58fd9042c9d62c07ba8c49e5b04806b52fd8ec1fbf0a4bb95eb55d70b2f",
+    "prompts/roles/group_assign_v1.json": "0ac34ade9370ad9fef562072e145e17f8590e3095b54ab9b3cc5a67ef8e21320",
+    "prompts/roles/group_discover_v2.json": "df49df0c2acd851f916e551a53ed566eaa6d632706de3a4bf6150075697a9e7c",
+    "prompts/roles/memo_v3.json": "686c3e86d2317c73b88593d2fa5f6217549454625c54e6181f663d72c91627b0",
+    "prompts/roles/verify_v1.json": "b650f9f465469a0c7ba22b1c487a96b2e175f386c2991a7729b6363a617f950c"
+  },
+  "outputs": {
+    "grading/calls.jsonl.gz": "bcf1aea04aaa9e8779d0a238238670094fd0732611dafdd0d585223fe4797129",
+    "grading/checkpoint_after.json": "4d30cb03d2ab25754bc1f0ddb199a8414d98016c6bddd39b0cd88339d4376f94",
+    "grading/checkpoint_before.json": "75a85e63811ab7c76ace24f30c451db9c3946c2601f8bd5bbe974f9a57de087d",
+    "grading/claims.csv": "ebaa973162fb1b3ff0b2270690dc6ff03554fb2da3547c31606c55af3d5b2fa1",
+    "grading/ingestion.json": "68f7995588296dc3e2cce2674e9aa44009b1d5b1c489be021e981d2c6e3323d3",
+    "grading/membership.csv": "fb9e18be1fbb41ec3862c7727ef8b13c9bfb60ccef19b09d70f29790add20d86",
+    "grading/ranking.csv": "9f6f756c78675de528091302966b524a3d49bfc613957b746d0210c31198d5b4",
+    "grading/records.jsonl.gz": "0619249a7c291fcc74a0e0e8a5c6ec7bbd3c9fda025504e2fc30e547e28e0e53",
+    "grading/run.json": "5e2d134d1bda6c9138167f87d6c81ed29d379503d07b0ed2162768295711feb5",
+    "results/full/aggregates.csv": "603103e3162940e455f5e144bf67b4dcf8c805c6dc9a17887080b9bfce5a1339",
+    "results/full/catalog.json": "74bd1cc751f9de16440215bc792fa72c356cbfb5811b5b50aedd11935dee04e9",
+    "results/full/claims.csv": "ebaa973162fb1b3ff0b2270690dc6ff03554fb2da3547c31606c55af3d5b2fa1",
+    "results/full/data_manifest.json": "e6506c5bc3fd21fb79cccdfd151a8f3f1b31b2d7b57b0cff4c87b03584052aef",
+    "results/full/group_summary.json": "783169fbfb0ac5c6fb2748523f7827db93886fc8d3264f8336bc8703c2aa76c9",
+    "results/full/ingestion_report.json": "0f10c2b8096b6c6a8e77141026707b1a79005b1df30ac3e83477e1e97d906505",
+    "results/full/issues.csv": "c457e29b210df41b40afe427b92f80bffda6c14bf5ce82ab2d0d7edcedd67ae9",
+    "results/full/memo.md": "3de8470d07c09b47cbddad919b7a14aefd75f9239faa64cda02255a1898c40fa",
+    "results/full/memo_input.json": "d2323023a396c8452f32af74250a25db7bbcca2719bc77f5b5eb35a50c1e3f4b",
+    "results/full/memo_validation.json": "df74a8329cd83d0190b4fd6e8fd7404bb03f32779731cd2560e7492f638da22e",
+    "results/full/quarantine.jsonl": "b1148ad827c483929c6e169bb83bb0a7ae9b404378dde38e1b5dc65b8e737c99",
+    "results/full/rank_summary.json": "4056f86bd627f1e109b7a2b2a29fbf29f626b8bea7f00701889da266f94a6f1b",
+    "results/full/ranking.csv": "9f6f756c78675de528091302966b524a3d49bfc613957b746d0210c31198d5b4",
+    "results/full/run_log.jsonl": "db600d2c88120d3d3c423cbe933165bb860d2c8c5e0e5d4e6b4794e237a21b2d",
+    "results/full/run_summary_complete.json": "57751c852a6f89934db87239f89458ee18cc0a6153593dbcd733b5a046ca3e13",
+    "results/full/run_summary_interrupted.json": "f34507c054a041d36fee5abb3a756772d8ecdc333dc58740a8041aab8a419dbf",
+    "results/full/run_summary_resume.json": "c298e7dfef88634c6f40af5e097ad8cbc30dd1f2a753178c6e9af406fcb33151",
+    "results/full/topic_rollup.csv": "dc2948463a1224ec97bd52a0605959546f30c9f07ed465fa92617b3f27ceef08",
+    "results/full/trend_comparison.json": "b5d9cd700d6e463488d6b784a6675e27e6d3645559d3be8959e8fa7420244e09",
+    "results/full/verifier_predictions.jsonl.gz": "585fbaf87eb5f0f8f642225a4570d4f31c44013362a0bfc6b476d9347fa90873",
+    "results/full/verify_disagreements.json": "49761b0e422e102433863b8152ed9c88511297aa31ff04b0802ae68b6b938ff6",
+    "results/full/verify_planted_test_copy.jsonl": "95982e95441b7e5c91431e6dcceeea058f560367117d21fc912a1aa88b5d73c7"
+  }
+}

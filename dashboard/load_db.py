@@ -157,7 +157,7 @@ def load(run_dir, url):
         cur.executemany("INSERT INTO run_info VALUES (%s, %s)", [(k, json.dumps(v, default=str)) for k, v in info.items()])
         evals = {
             "verify": {k: v for k, v in read_json(run_dir / "verify" / "disagreements.json", {}).items() if k != "cases"},
-            "golden": {k: v for k, v in read_json(ROOT / "evals" / "results" / "golden_probe_golden_shared.json", {}).items()
+            "golden": {k: v for k, v in read_json(ROOT / "evals" / "results" / "golden_full.json", {}).items()
                        if k != "cases"},
             "injection": read_json(ROOT / "evals" / "results" / "injection_test.json", {}),
             "controls": {k: {"pass": v.get("pass")} for k, v in read_json(ROOT / "evals" / "results" / "test_controls.json", {}).items()},

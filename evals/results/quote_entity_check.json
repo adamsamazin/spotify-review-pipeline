@@ -1,0 +1,204 @@
+{
+  "run": "runs/full",
+  "label_config": "jev-1.13.0+enrich_shared_v1+schema_v1",
+  "automated": {
+    "directly_labelled_records": 484189,
+    "entities_total": 531454,
+    "entities_not_found_in_text": 0,
+    "quotes_not_exact_substring": 0,
+    "note": "entities come from a fixed feature-term lexicon matched in code, so unsupported additions are impossible by construction; checked anyway"
+  },
+  "quote_support_sample": {
+    "method": "seeded sample (sha256 'quote-audit:' + review_id) of 20 long reviews (>280 chars) where the quote is one selected sentence; short reviews use the full text as the quote",
+    "judged_by": "assistant (Claude) - not a human review; the user chose to skip the human spot check",
+    "population": 39236,
+    "tally": {
+      "supports": 15,
+      "partial": 4,
+      "does_not_support": 1
+    },
+    "cases": [
+      {
+        "review_id": "3ce8d966-a8ad-4d23-92cc-3fa92af6064c",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "However there are lots of ads, but that's expected so I get premium.",
+        "verdict": "supports",
+        "reason": "ads in the free tier = usability"
+      },
+      {
+        "review_id": "8e2bd7f8-784a-41d8-be15-71c822ee0ccf",
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3,
+        "quote": "Some days back this app was nice but now almost everything unlocks at premium you cannot skip a song you can only play one playlist on a day seriously, then what is the purpose of this app if even we cannot enjoy our music this is just too much now if I could permanently deleted this app I would from playstore you are so money hungry!!!!!!!!",
+        "verdict": "partial",
+        "reason": "quote supports billing (premium paywall); the cancellation wording is later in the review, outside the quote"
+      },
+      {
+        "review_id": "9a33ec2e-b2c0-4444-a6cc-1efa96b89cfe",
+        "topic": "billing",
+        "intent": "praise",
+        "severity": 1,
+        "quote": "I've used this app for 10 years. To say that I cannot live without Spotify is an understatement. It's so cheap as well to listen to unlimited music and podcasts. If you a willing to invest a small amount on a monthly basis, I guarentee you won't regret your experience with Spotif",
+        "verdict": "supports",
+        "reason": "first specific praised feature is price = billing praise"
+      },
+      {
+        "review_id": "80aebf51-6add-4160-bae6-1853f460fc1f",
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "quote": "Light-years beyond Pandora! 🚀 The new Spotify AI DJ feature? Genius! I just noticed a little message talking about my own personal DJ. I tapped it and an AI popped up, introduced itself, and began playing music that I love! Also, I love the DJ's voice. I'm not completely sure how",
+        "verdict": "partial",
+        "reason": "supports praise, but the praised feature (AI DJ) arguably makes the topic catalog, not other"
+      },
+      {
+        "review_id": "842c6f03-2329-4c74-9b5d-24c2692fc9ba",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "But now, this update is so disgusting..",
+        "verdict": "does_not_support",
+        "reason": "'this update is so disgusting' is generic; the specific problem (choosing songs/loop locked to premium) is in the next sentence and points to billing"
+      },
+      {
+        "review_id": "8cf3e66d-2641-45c3-84c4-e51bd3185ab5",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "1: it used to be easy to navigate but after the update it has gotten worse.",
+        "verdict": "supports",
+        "reason": "navigation worse after update = usability"
+      },
+      {
+        "review_id": "4a3e0aa6-57ad-402b-ab30-3cdcd8757d21",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "Absolutely worst nowadays, it is just full of ads every song.",
+        "verdict": "supports",
+        "reason": "ads every song = usability"
+      },
+      {
+        "review_id": "b4c0ea1c-09e2-44b1-bbfc-224282f75a31",
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3,
+        "quote": "Before the new update I liked Spotify for free, but now I can't even listen to the songs I put in the playlist, it's just adding other songs that ruin my experience and shuffles it and I can't turn it off without premium, so there's a paywall to use Spotify normally and until they change it I won't be using Spotify",
+        "verdict": "supports",
+        "reason": "shuffle can't be turned off without premium = billing"
+      },
+      {
+        "review_id": "37d5b7ed-32cc-47bb-836c-340e83cf7c71",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "Spotify today I am going to date is app for stars because there a way too many ads I daily listen to my daily mix to and I have really fun while doing that but when ever I like a song any play that again and again and again there are too much ads like too much please fix this there are two many ads I cannot stand this.",
+        "verdict": "supports",
+        "reason": "too many ads = usability"
+      },
+      {
+        "review_id": "6f292da6-c788-4bf4-8637-21c371d848c7",
+        "topic": "other",
+        "intent": "praise",
+        "severity": 1,
+        "quote": "Spotify user for over 13 years. Huge fan of the premium option. Even though they raised their price recently, that's the 1st time I can remember they've ever done that. Plenty of features, music to customize your experience with the app and very rarely any app issues. even trying",
+        "verdict": "supports",
+        "reason": "general long-time praise = other"
+      },
+      {
+        "review_id": "1205eec9-9bc9-4321-9c17-4d4a29f105fd",
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "Even we have to pay to read the lyrics of many songs (except some few songs).",
+        "verdict": "supports",
+        "reason": "pay to read lyrics = billing"
+      },
+      {
+        "review_id": "ff45ba62-60eb-4fe5-a717-6942fd6fdcf6",
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 4,
+        "quote": "Podcasts don't play at all, they just load infinitely or outright crash the app.",
+        "verdict": "supports",
+        "reason": "podcasts won't play / crash = playback, core task blocked"
+      },
+      {
+        "review_id": "1f8d1bdc-b8c7-4cf6-a1ee-448aeedc6735",
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 4,
+        "quote": "This is one of my favourite application, earlier it allowed us to play previous song , upcoming song easily but now cause of this nonsense premium feature it doesn't allow us to do this all ...",
+        "verdict": "supports",
+        "reason": "previous/next locked to premium = billing; deletion intent follows the quote"
+      },
+      {
+        "review_id": "5cf85c8f-5cb1-4faa-bfff-19ca8c3f8599",
+        "topic": "catalog",
+        "intent": "request",
+        "severity": 1,
+        "quote": "The best feature was putting together a playlist that features artists instead of individual albums or songs.",
+        "verdict": "supports",
+        "reason": "asks for artist stations = catalog request"
+      },
+      {
+        "review_id": "40987a24-50d0-41a5-83c2-74c43baf9285",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "When you have a small playlist, you can't get rid of the suggested songs and you can only skip to a limit, you can't evan choose to see the playlist to skip to a specific song AND IT ALWAYS SHUFFLES AND IF YOU LISTEN FOR LIKE ONE SECOND AND GO TO A DIFFERENT PLAYLIST YOU HAVE TO WATCH AN AD (I wish there was an upper upper case because THATS HOW MAD I AM!",
+        "verdict": "partial",
+        "reason": "supports the complaint, but free-tier skip/shuffle limits are billing under the contract, not usability"
+      },
+      {
+        "review_id": "0dffcb5c-9261-4d4e-9266-eb7838668af9",
+        "topic": "billing",
+        "intent": "request",
+        "severity": 1,
+        "quote": "Cannot turn off shuffle.",
+        "verdict": "partial",
+        "reason": "supports billing (premium-only shuffle); intent 'request' is debatable since limits are called annoying"
+      },
+      {
+        "review_id": "c3665fcb-940f-4c5a-a529-6ab35392c122",
+        "topic": "playback",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "Songs stop frequently, I'll be listening to a song and when i walk away and come back it's paused.",
+        "verdict": "supports",
+        "reason": "songs pause repeatedly = playback degraded"
+      },
+      {
+        "review_id": "9ddc33ce-dd7c-4fc2-ad35-819a93915d26",
+        "topic": "billing",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "When resso was good app for music, it becomes costly and show add after every music, and then it stops providing services to normal user there are only premium user can listen music, and now it happens in this app Spotify, it has started show add after every music and it will become costly and only available for premium user.",
+        "verdict": "supports",
+        "reason": "premium-only listening and cost = billing"
+      },
+      {
+        "review_id": "42d6271a-7f62-42b9-9e99-abc44ec1220b",
+        "topic": "billing",
+        "intent": "cancellation",
+        "severity": 3,
+        "quote": "Best app i used this app for litral 2 years but the new update after update it is the worst app because of It got frustrated and it forced me to delete this app it's just like ganna every feature is in the premium only I hate this app now please delete the new updates [Spotify ] 😡😡😡😡😡😡 else everyone will delete it",
+        "verdict": "supports",
+        "reason": "premium-only features + deleted app = billing cancellation"
+      },
+      {
+        "review_id": "9b51ab84-db63-405b-a09a-00f2efceb519",
+        "topic": "usability",
+        "intent": "complaint",
+        "severity": 3,
+        "quote": "Interface hell, inconsistent controls on different platforms.",
+        "verdict": "supports",
+        "reason": "interface and inconsistent controls = usability"
+      }
+    ]
+  },
+  "finding": "Quote selection picks the sentence with the most topic keywords; when the specific problem is stated in a later sentence (case 5) or the label is itself debatable (cases 4, 15, 16), the quote can be weaker evidence than the full review. Two partial cases (15, 16) reflect the known usability/billing boundary for free-tier limits."
+}

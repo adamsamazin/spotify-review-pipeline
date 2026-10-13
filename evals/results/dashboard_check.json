@@ -1,0 +1,44 @@
+{
+  "base_url": "https://spotify-review-dashboard-adam-samazins-projects.vercel.app",
+  "checked_at": "2026-10-13T00:27:25+00:00",
+  "all_pass": true,
+  "ranking": {
+    "api_rows": 25,
+    "saved_rows": 25,
+    "differences": [],
+    "pass": true
+  },
+  "claims": {
+    "api_claims": 8,
+    "saved_claims": 8,
+    "mismatched": [],
+    "memo_status": "valid",
+    "memo_text_matches_results_memo": true,
+    "pass": true
+  },
+  "summary": {
+    "api_statuses": {
+      "completed": 660609,
+      "quarantined": 13
+    },
+    "saved_statuses": {
+      "completed": 660609,
+      "quarantined": 13
+    },
+    "api_intents": {
+      "praise": 283718,
+      "request": 27312,
+      "unclear": 56252,
+      "complaint": 267229,
+      "cancellation": 26098
+    },
+    "saved_intents": {
+      "cancellation": 26098,
+      "praise": 283718,
+      "complaint": 267229,
+      "request": 27312,
+      "unclear": 56252
+    },
+    "pass": true
+  }
+}

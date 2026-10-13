@@ -1,3 +1,5 @@
+> **Historical document (Class 7 checkpoint, 2026-10-02).** Numbers below are development results from the 100/500-review runs and are superseded by the final full-corpus run. For final results, evidence and costs see [README.md](README.md).
+
 # Class 7 checkpoint (prepared 2026-10-02)
 
 Status of the three checkpoint tasks, using real runs only. Development results, not the final

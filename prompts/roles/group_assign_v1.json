@@ -1,0 +1,19 @@
+{
+  "role": "group (assignment)",
+  "model": "jev-1.13.0",
+  "version": "group_assign_v1",
+  "state_shape": {
+    "issues": {
+      "<issue_id>": "<definition>"
+    },
+    "reviews": {
+      "r01": "<review text>"
+    }
+  },
+  "question_template": {
+    "type": "choice",
+    "instructions": "Which issue in `issues` best describes the problem in `reviews.rNN`?",
+    "criteria": "{<issue_id>: null, ...} for the review's topic only"
+  },
+  "notes": "Complaints are batched by topic (<=50 per request); single-issue topics and duplicate texts are assigned by code; an unresolved answer falls back to the topic catch-all and is recorded."
+}

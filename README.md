@@ -17,7 +17,9 @@ calls happen when you view it.
 | Accounted for / classified | **660,622 accounted for = 660,609 completed + 13 quarantined** (`empty_review_text`); 0 pending, 0 failed | measured: [results/full/quarantine.jsonl](results/full/quarantine.jsonl) |
 | Exact-text cache reuse | 484,189 distinct texts sent to Jev; **176,420** duplicates reuse a validated result (`cache_source_id`) | measured |
 | Instructor checker | **`status: pass`, 0 issues, coverage candidate 1.0** | measured: `check_submission.py check` on [grading/](grading/) |
-| Golden 50 agreement | topic 78%, intent 88%, severity exact 78% (MAE 0.28), sentiment ±0.5 94% (MAE 0.133), quotes 100%; 13 ambiguous | measured: [evals/results/golden_probe_golden_shared.md](evals/results/golden_probe_golden_shared.md) |
+| Golden 50 agreement (final full-run records) | topic 74%, intent 88%, severity exact 84% (MAE 0.20), sentiment ±0.5 94% (MAE 0.128), quotes 100%; 15 ambiguous (excluding them: topic 83%, intent 94%, severity 91%) | measured: [evals/results/golden_full.md](evals/results/golden_full.md) |
+| Quotes and entities | 0 of 531,454 entities missing from their text; 0 of 484,189 quotes not exact substrings; seeded sample of 20 long-review quotes: 15 support the label, 4 partly, 1 not (assistant-judged) | measured: [evals/results/quote_entity_check.md](evals/results/quote_entity_check.md) |
+| Dashboard matches saved files | live API = [grading/ranking.csv](grading/ranking.csv) (25/25 rows), [grading/claims.csv](grading/claims.csv) (8/8), memo text and all status/intent counts | measured: [evals/results/dashboard_check.json](evals/results/dashboard_check.json) |
 | Independent verifier (1% seeded sample, 4,842) | **26.8%** disagree on some field (topic 13.2%, severity 12.7%, intent 6.4%, sentiment 1.1%); planted wrong topics caught **8/10** | measured: [results/full/verify_disagreements.json](results/full/verify_disagreements.json) |
 | Full run cost / time | **$7.52** (enrich $6.26, group $1.08, verify $0.15, memo $0.035); **21.3 min** end to end, enrichment 9.8 min at 4 workers. All runs to date: $7.90 of the $10 cap | measured: [results/full/run_summary_complete.json](results/full/run_summary_complete.json) |
 | Projection before the run | base $7.29, conservative $8.93 (refreshed from the 500 and 10k runs) | estimate: [cost/report.md](cost/report.md) |
@@ -33,17 +35,17 @@ quarantined, not classified.
 |---|---|
 | **Deliverable quality (4)** | |
 | Accessible code/setup and artifacts | [Setup](#setup), [Commands](#commands), [results/](results/), [grading/](grading/), [cost/](cost/), [evals/](evals/), live dashboard |
-| Clear architecture, shared schema and provenance | [Architecture](#architecture); schema checks [pipeline/schema.py](pipeline/schema.py); `label_config` and `source_sha256` on every record; [results/full/data_manifest.json](results/full/data_manifest.json) ties input checksum to code version |
+| Clear architecture, shared schema and provenance | [Architecture](#architecture); schema checks [pipeline/schema.py](pipeline/schema.py); `label_config` and `source_sha256` on every record; [results/full/run_manifest.json](results/full/run_manifest.json) ties input checksum, code version, prompts, model IDs, settings and hashed outputs together; role prompts in [prompts/roles/](prompts/roles/) (generated from code); [output schema](prompts/output_schema.md) |
 | Memo numbers linked to calculations and evidence | [results/memo.md](results/memo.md) cites claim IDs; [grading/claims.csv](grading/claims.csv) checked by code against [grading/ranking.csv](grading/ranking.csv) (and by the course checker); code inserts every issue-level number ([pipeline/memo.py](pipeline/memo.py)) |
 | Coherent recommendation, alternatives, limitations | [results/memo.md](results/memo.md); dashboard "AI-generated recommendation" panel |
 | **Testing & evaluation (3)** | |
-| 50 human labels, per-field comparison, error analysis | [evals/golden_50_labeled.csv](evals/golden_50_labeled.csv), [evals/eval_golden.py](evals/eval_golden.py), [per-case results](evals/results/golden_probe_golden_shared.md), [Evaluation](#evaluation) |
+| 50 human labels, per-field comparison, error analysis | [evals/golden_50_labeled.csv](evals/golden_50_labeled.csv), [evals/eval_golden.py](evals/eval_golden.py), [per-case results](evals/results/golden_full.md), [quote/entity check](evals/results/quote_entity_check.md), [Evaluation](#evaluation) |
 | Independent verification, planted-error and injection tests | [pipeline/verify.py](pipeline/verify.py), [results/full/verify_disagreements.json](results/full/verify_disagreements.json), [planted copy](results/full/verify_planted_test_copy.jsonl), [evals/results/injection_test.json](evals/results/injection_test.json) |
 | Real cold/warm pilot, offline calculator, retry/spend/recovery controls | [cost/report.md](cost/report.md), `python -m cost.calculator`, [evals/results/test_controls.json](evals/results/test_controls.json) (10/10), provider dashboards reconciled exactly (requests, tokens, spend) in [cost/reconciliation/](cost/reconciliation/) |
 | **Working result (3)** | |
 | Full ingestion, coverage, successful classification | [grading/](grading/) passes `check_submission.py` (coverage 1.0) |
 | Staged program, bounded calls, saved handoffs, resume | [pipeline/run.py](pipeline/run.py), [scripts/full_run_demo.py](scripts/full_run_demo.py), checkpoints + [recording](https://github.com/adamsamazin/spotify-review-pipeline/releases/download/v1.0/full_run_interrupt_resume.mp4); ≤50 reviews per enrichment request |
-| Reproducible ranking and deployed dashboard with grounded AI recommendations | `python -m pipeline.rank_from_export grading` regenerates [grading/ranking.csv](grading/ranking.csv) byte-for-byte from the committed export (no run folder, no model); dashboard URL above ([dashboard/](dashboard/)) |
+| Reproducible ranking and deployed dashboard with grounded AI recommendations | `python -m pipeline.rank_from_export grading` regenerates [grading/ranking.csv](grading/ranking.csv) byte-for-byte from the committed export (no run folder, no model); dashboard URL above ([dashboard/README.md](dashboard/README.md): database setup, backend, deployment); [live-vs-saved check](evals/results/dashboard_check.json) |
 
 ## Architecture
 
@@ -109,11 +111,18 @@ is the noisiest field, and agreement between two Jev prompts is not proof of cor
 
 ## Evaluation
 
-- **Golden 50:** hand-labeled before any final evaluation; labels never enter prompts. The golden set was used once,
-  to choose between two question designs (disclosed): `shared_v1` and `inline_v1` tied on topic and intent; inline
-  was 4 points better on severity at 2.4× the cost. Most remaining disagreements are in topic (11 of 50) and severity
-  (11 of 50) rather than intent; see the per-case table.
-  `needs_review` (top option below 0.60, chosen on development data) flags 18% of the full corpus.
+- **Golden 50:** hand-labeled before any final evaluation; labels never enter prompts. The final scores above come from
+  the **full run's own records** for those 50 reviews ([golden_full.md](evals/results/golden_full.md), with per-topic counts
+  and confusion tables in the [JSON](evals/results/golden_full.json)). Most disagreements are topic (13 of 50) and
+  severity (8), not intent (6). The golden set was used once earlier, to choose between two question designs
+  (disclosed; [probe results](evals/results/golden_probe_golden_shared.md)). Those probe scores differ slightly
+  (topic 78%, severity 78%) because Jev sees the other reviews in each 50-review request, so batch context can shift
+  a label. `needs_review` (top option < 0.60, chosen on development data) flags 18% of the corpus; on the golden set
+  it flagged 5 records, all wrong (precision 1.0), but caught only 5 of 23 records with errors (recall 0.22).
+- **Quotes and entities:** entities come from a fixed feature lexicon matched in code, so none can be invented (0 missing
+  from their text). Quotes are exact substrings. In a seeded sample of 20 long reviews, the selected sentence supported
+  the label in 15, partly in 4, and not in 1. This was judged by the assistant, not a human; the human spot check was
+  skipped. The weak cases are where the specific problem sits in a later sentence.
 - **Verifier:** a separate prompt that sees only the review text. 26.8% any-field disagreement on 4,842 reviews.
   Planted test: 10 copies with a deliberately wrong topic, 8 flagged. In the 2 misses, the verifier itself chose the
   planted topic, which shows its own error rate.
@@ -126,6 +135,37 @@ is the noisiest field, and agreement between two Jev prompts is not proof of cor
   - Two scaling bottlenecks were found in free full-size rehearsals: cache propagation and grouping writes.
   - The first projection overstated grouping cost.
   - Details are in [CHECKPOINT.md](CHECKPOINT.md).
+
+## Data handling notes
+
+- **Missing values:** 159,701 reviews have no `app_version`. Classification uses only `review_text`
+  (`classification_input_fields: ["review_text"]`), so missing versions never block a review. Stars, likes and
+  timestamps are kept as metadata and never decide intent or severity.
+- **Non-English and unclear text:** reviews are classified as written, with no translation. Meaningless or unrelated
+  text is `unclear`. Low-confidence answers set `needs_review`. Hard cases are kept, not dropped.
+- **Parallel workers:** 1 worker for the pilot, 2 for the 10k run, 4 for the full run, staying well under Jev's
+  limits. A worker-count comparison on identical inputs and cache conditions was not run, so any speed-up is not a
+  measured claim. More workers do not lower the cost per classification.
+
+## Trend analysis (additional, not the baseline)
+
+Comparing the same calendar months a year apart avoids the partial first and last months
+([results/full/trend_comparison.json](results/full/trend_comparison.json)):
+
+| | Jun–Oct 2022 | Jun–Oct 2023 |
+|---|---|---|
+| Completed reviews (denominator) | 148,357 | 273,370 |
+| Complaints + cancellations | 42,963 (29.0%) | 162,503 (59.4%) |
+| Billing share of complaints | 10.4% | 23.4% |
+| Usability share of complaints | 38.1% | 17.6% |
+| Playback share of complaints | 26.6% | 6.5% |
+| Generic (`other`) share of complaints | 9.7% | 44.6% |
+
+The complaint share doubled, and the mix shifted toward billing and generic dissatisfaction, alongside large review
+spikes in July and October 2023. The baseline ranking and memo use the whole 18-month window, where usability leads.
+**In the most recent comparable period, billing complaints outnumber usability complaints.** A reader weighting
+recency could reasonably lean toward the billing track the memo pairs with usability. These are shares of
+self-selected reviews, not of users.
 
 ## Ranking rules and scope
 
@@ -180,6 +220,7 @@ uses a read-only role. Local preview: `python -m uvicorn dashboard.dev_server:ap
 ## Limitations
 
 - Self-selected public reviews from a historical window. There is no revenue, plan tier or observed churn, and cancellation language is stated intent only.
+- The recommendation reflects the full window; recent complaints skew more toward billing (see the trend analysis above).
 - Labels are model judgments with measured, imperfect agreement. Severity is the noisiest field, and the verifier shares some of the enricher's blind spots.
 - Topic boundaries leak between related areas. Some premium-locked controls are labeled usability rather than billing, which is why the memo pairs usability with a billing track.
 - Issue membership is limited to the classifier's topic.

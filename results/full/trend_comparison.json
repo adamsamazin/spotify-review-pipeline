@@ -1,0 +1,55 @@
+{
+  "method": "same calendar months a year apart; denominators = completed reviews in the window; first (May 2022) and last (Nov 2023) months excluded as partial",
+  "periods": {
+    "Jun-Oct 2022": {
+      "completed": 148357,
+      "complaint_or_cancellation": 42963,
+      "share": 0.2896,
+      "topic_share_of_complaints": {
+        "usability": 0.3812,
+        "playback": 0.2662,
+        "billing": 0.1043,
+        "other": 0.0965,
+        "catalog": 0.0586,
+        "access": 0.05,
+        "downloads": 0.0391,
+        "support": 0.0041
+      },
+      "topic_counts": {
+        "playback": 11435,
+        "usability": 16376,
+        "other": 4148,
+        "billing": 4480,
+        "catalog": 2518,
+        "downloads": 1679,
+        "access": 2149,
+        "support": 178
+      }
+    },
+    "Jun-Oct 2023": {
+      "completed": 273370,
+      "complaint_or_cancellation": 162503,
+      "share": 0.5944,
+      "topic_share_of_complaints": {
+        "other": 0.446,
+        "billing": 0.2341,
+        "usability": 0.176,
+        "playback": 0.0645,
+        "catalog": 0.0371,
+        "access": 0.0307,
+        "downloads": 0.0098,
+        "support": 0.0018
+      },
+      "topic_counts": {
+        "usability": 28600,
+        "billing": 38039,
+        "playback": 10487,
+        "downloads": 1599,
+        "other": 72482,
+        "catalog": 6022,
+        "access": 4989,
+        "support": 285
+      }
+    }
+  }
+}

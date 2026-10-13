@@ -1,0 +1,108 @@
+{
+  "role": "verify",
+  "model": "jev-1.13.0",
+  "label_config": "jev-1.13.0+verify_v1+schema_v1",
+  "notes": "Separate wording with inline rubric; sees only the review text, never the enricher's answer.",
+  "state_shape": {
+    "reviews": {
+      "r01": "<review text 1>",
+      "r02": "<review text 2>"
+    }
+  },
+  "questions_for_two_reviews": {
+    "r01.topic": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r01`. Which product area is it mainly about? If several problems are mentioned, pick the most severe; if tied, the first mentioned. For a positive review pick the first specific praised feature; general praise is other. Mentioning a paid plan alone is not billing.",
+      "criteria": {
+        "access": "Login, signup, password or account access problems",
+        "usability": "Navigation, controls, layout, queue or playlist management, ad interruptions",
+        "playback": "Playback failure, crashes, lag, connection failures, audio quality, battery or data use",
+        "downloads": "Downloading, saved music, offline listening, disappearing downloads",
+        "catalog": "Missing songs or artists, search, discovery, recommendations, lyrics",
+        "billing": "Price, charges, subscriptions, paywalls, premium entitlement, features or limits locked to premium (e.g. free-tier skip or shuffle limits)",
+        "support": "Contacting customer support and the support response",
+        "other": "General praise or criticism with no specific feature, unrelated or meaningless text"
+      }
+    },
+    "r01.intent": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r01`. What is the reviewer doing? If several apply, choose the first in this order: cancellation, complaint, request, praise, unclear.",
+      "criteria": {
+        "cancellation": "Explicitly leaving, uninstalling, cancelling or threatening to",
+        "complaint": "Negative experience, including mixed praise and criticism or a generic 'bad app'",
+        "request": "Asks for a change without reporting a failure",
+        "praise": "Positive experience only",
+        "unclear": "Meaningless, unrelated, or a bare boycott slogan with no product complaint"
+      }
+    },
+    "r01.severity": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r01`. Using only what the text states, how much harm or loss of function is reported?",
+      "criteria": {
+        "1": "No reported problem: praise, neutral or unclear text, or a pure feature request",
+        "2": "Dislike, generic criticism, minor annoyance or cosmetic issue; no functional loss",
+        "3": "A degraded or restricted function; some use or a workaround remains",
+        "4": "A core task clearly blocked, such as cannot log in or cannot play music",
+        "5": "Explicit serious financial, privacy or data harm; price, a crash or angry words alone are not enough"
+      }
+    },
+    "r01.sentiment": {
+      "type": "score",
+      "instructions": "Overall sentiment of the app review `reviews.r01`",
+      "criteria": [
+        "Very negative",
+        "Somewhat negative",
+        "Neutral or mixed",
+        "Somewhat positive",
+        "Very positive"
+      ]
+    },
+    "r02.topic": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r02`. Which product area is it mainly about? If several problems are mentioned, pick the most severe; if tied, the first mentioned. For a positive review pick the first specific praised feature; general praise is other. Mentioning a paid plan alone is not billing.",
+      "criteria": {
+        "access": "Login, signup, password or account access problems",
+        "usability": "Navigation, controls, layout, queue or playlist management, ad interruptions",
+        "playback": "Playback failure, crashes, lag, connection failures, audio quality, battery or data use",
+        "downloads": "Downloading, saved music, offline listening, disappearing downloads",
+        "catalog": "Missing songs or artists, search, discovery, recommendations, lyrics",
+        "billing": "Price, charges, subscriptions, paywalls, premium entitlement, features or limits locked to premium (e.g. free-tier skip or shuffle limits)",
+        "support": "Contacting customer support and the support response",
+        "other": "General praise or criticism with no specific feature, unrelated or meaningless text"
+      }
+    },
+    "r02.intent": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r02`. What is the reviewer doing? If several apply, choose the first in this order: cancellation, complaint, request, praise, unclear.",
+      "criteria": {
+        "cancellation": "Explicitly leaving, uninstalling, cancelling or threatening to",
+        "complaint": "Negative experience, including mixed praise and criticism or a generic 'bad app'",
+        "request": "Asks for a change without reporting a failure",
+        "praise": "Positive experience only",
+        "unclear": "Meaningless, unrelated, or a bare boycott slogan with no product complaint"
+      }
+    },
+    "r02.severity": {
+      "type": "choice",
+      "instructions": "Read the app review `reviews.r02`. Using only what the text states, how much harm or loss of function is reported?",
+      "criteria": {
+        "1": "No reported problem: praise, neutral or unclear text, or a pure feature request",
+        "2": "Dislike, generic criticism, minor annoyance or cosmetic issue; no functional loss",
+        "3": "A degraded or restricted function; some use or a workaround remains",
+        "4": "A core task clearly blocked, such as cannot log in or cannot play music",
+        "5": "Explicit serious financial, privacy or data harm; price, a crash or angry words alone are not enough"
+      }
+    },
+    "r02.sentiment": {
+      "type": "score",
+      "instructions": "Overall sentiment of the app review `reviews.r02`",
+      "criteria": [
+        "Very negative",
+        "Somewhat negative",
+        "Neutral or mixed",
+        "Somewhat positive",
+        "Very positive"
+      ]
+    }
+  }
+}
