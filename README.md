@@ -43,7 +43,7 @@ quarantined, not classified.
 | **Working result (3)** | |
 | Full ingestion, coverage, successful classification | [grading/](grading/) passes `check_submission.py` (coverage 1.0) |
 | Staged program, bounded calls, saved handoffs, resume | [pipeline/run.py](pipeline/run.py), [scripts/full_run_demo.py](scripts/full_run_demo.py), checkpoints + [recording](https://github.com/adamsamazin/spotify-review-pipeline/releases/download/v1.0/full_run_interrupt_resume.mp4); ≤50 reviews per enrichment request |
-| Reproducible ranking and deployed dashboard with grounded AI recommendations | `python -m pipeline.rank runs/full` regenerates [grading/ranking.csv](grading/ranking.csv) byte-for-byte; dashboard URL above ([dashboard/](dashboard/)) |
+| Reproducible ranking and deployed dashboard with grounded AI recommendations | `python -m pipeline.rank_from_export grading` regenerates [grading/ranking.csv](grading/ranking.csv) byte-for-byte from the committed export (no run folder, no model); dashboard URL above ([dashboard/](dashboard/)) |
 
 ## Architecture
 
@@ -155,12 +155,12 @@ Google Store Reviews*, v2, Kaggle (CC0).
 
 ## Commands
 
-No API key needed:
+No API key needed (tested in a fresh clone with no `.env`; the course dataset must be in `data/` for the calculator ID check and the checker):
 
 ```bash
 .venv\Scripts\python -m cost.calculator                       # offline cost/runtime replay -> cost/report.md
 .venv\Scripts\python -m cost.calculator --rate-multiplier 2   # API spend doubles; measured time unchanged
-.venv\Scripts\python -m pipeline.rank runs/full               # regenerate the ranking from saved outputs
+.venv\Scripts\python -m pipeline.rank_from_export grading    # regenerate the ranking from the committed export
 .venv\Scripts\python data\check_submission.py check --reference local-reference.json --submission grading --out self-check.json
 .venv\Scripts\python -m evals.test_controls                   # control tests with a fake model
 .venv\Scripts\python -m pipeline.run data\cost_100.csv --run _demo --fake   # whole pipeline, fake models
