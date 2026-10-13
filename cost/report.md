@@ -1,6 +1,6 @@
 # 100-review cost & runtime report
 
-Generated 2026-10-12 23:16 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
+Generated 2026-10-13 00:04 UTC by offline replay (`python -m cost.calculator`). No API key or model call is used to produce this report.
 
 ## Measured pilot (real calls on `data/cost_100.csv`)
 

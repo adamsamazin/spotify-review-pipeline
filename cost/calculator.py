@@ -214,7 +214,12 @@ def replay(args):
     unique_texts = cold_s["ingest"]["extras"]["distinct_nonempty_texts"]
 
     # ---- per-unit measurements: pilot, or a larger refresh run
-    pilot_units = unit_measurements([c for c in calls if c["pilot_phase"] == "cold"], ROOT / "runs" / PILOT_RUN, rates)
+    saved_pilot = COST / "pilot_measurements.json"
+    if (ROOT / "runs" / PILOT_RUN / "state.sqlite").exists():
+        pilot_units = unit_measurements([c for c in calls if c["pilot_phase"] == "cold"], ROOT / "runs" / PILOT_RUN, rates)
+        saved_pilot.write_text(json.dumps(pilot_units, indent=2, default=str), encoding="utf-8")
+    else:  # graders replay from the committed measurements; no run folder or API key needed
+        pilot_units = json.loads(saved_pilot.read_text(encoding="utf-8"))
     refresh = []
     for r in args.refresh or []:
         rc = read_jsonl(Path(r) / "calls.jsonl")

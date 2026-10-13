@@ -1,0 +1,36 @@
+{
+  "run": "pilot_cost_100",
+  "records_completed": 100,
+  "direct_labelled": 100,
+  "negative_share": 0.5,
+  "jev_assign_share": 0.78,
+  "enrich": {
+    "tokens_per_review": 304.87,
+    "sec_per_request": 0.26549999999999996,
+    "attempts": 2,
+    "model": "jev-1.13.0"
+  },
+  "verify": {
+    "tokens_per_review": 740.25,
+    "sec_per_request": 0.167,
+    "model": "jev-1.13.0"
+  },
+  "group_assign": {
+    "tokens_per_review": 190.56410256410257,
+    "sec_per_request": 0.1012857142857143,
+    "model": "jev-1.13.0"
+  },
+  "group_discovery": {
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "seconds": 0,
+    "model": null
+  },
+  "memo": {
+    "input_tokens": 4291,
+    "output_tokens": 3213,
+    "seconds": 22.661,
+    "attempts": 1,
+    "model": "claude-sonnet-5-5"
+  }
+}
